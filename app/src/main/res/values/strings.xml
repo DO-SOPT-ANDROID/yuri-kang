@@ -1,10 +1,14 @@
 <resources>
     <string name="app_name">DoSoptTemplate</string>
     <string name="btn_login">로그인 하기</string>
-    <string name="password_hint">비밀번호를 입력해주세요</string>
-    <string name="tv_password">비밀번호</string>
-    <string name="id_hint">아이디를 입력해주세요</string>
+    <string name="et_password_hint">비밀번호를 입력해주세요</string>
+    <string name="tv_password">Password</string>
+    <string name="et_id_hint">아이디를 입력해주세요</string>
     <string name="tv_id">ID</string>
     <string name="tv_main">Welcome To Sopt</string>
     <string name="btn_login_signup">회원가입 하러 가기</string>
+    <string name="tv_signup_title">SIGN UP</string>
+    <string name="btn_signup_signup">회원가입 하기</string>
+    <string name="tv_signup_nickname">Nickname</string>
+    <string name="et_nickname_hint">닉네임을 입력해주세요</string>
 </resources>
