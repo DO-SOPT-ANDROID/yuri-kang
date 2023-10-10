@@ -6,5 +6,5 @@
     <string name="id_hint">아이디를 입력해주세요</string>
     <string name="tv_id">ID</string>
     <string name="tv_main">Welcome To Sopt</string>
-    <string name="btn_login_signup">회원가입 하기</string>
+    <string name="btn_login_signup">회원가입 하러 가기</string>
 </resources>
