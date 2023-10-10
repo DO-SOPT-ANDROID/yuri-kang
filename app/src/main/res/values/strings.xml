@@ -11,4 +11,6 @@
     <string name="btn_signup_signup">회원가입 하기</string>
     <string name="tv_signup_nickname">Nickname</string>
     <string name="et_nickname_hint">닉네임을 입력해주세요</string>
+    <string name="tv_signup_age">Age</string>
+    <string name="et_age_hint">나이를 입력해주세요</string>
 </resources>
