@@ -13,4 +13,5 @@
     <string name="et_nickname_hint">닉네임을 입력해주세요</string>
     <string name="tv_signup_age">Age</string>
     <string name="et_age_hint">나이를 입력해주세요</string>
+    <string name="tv_main_title">마이 페이지</string>
 </resources>
