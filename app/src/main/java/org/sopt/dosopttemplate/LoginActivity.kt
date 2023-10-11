@@ -25,17 +25,15 @@ class LoginActivity : AppCompatActivity() {
         val getPw = intent.getStringExtra("PW")
         val getNickname = intent.getStringExtra("Nickname")
         val getAge = intent.getStringExtra("Age")
-        // Log.d("받은 값 확인", "$getId $getPw $getNickname $getAge")
 
         // 로그인 하기
         binding.btnLoginLogin.setOnClickListener {
             if (binding.etSignupId.text.toString() == getId && binding.etSignupPw.text.toString() == getPw) {
-                val toast = Toast.makeText(applicationContext, "로그인에 성공했습니다.", Toast.LENGTH_SHORT)
+                val toast = Toast.makeText(applicationContext, getString(R.string.login_success), Toast.LENGTH_SHORT)
                 toast.show()
 
                 val intent = Intent(this, MainActivity::class.java)
                 intent.putExtra("ID", getId)
-                intent.putExtra("PW", getPw)
                 intent.putExtra("Nickname", getNickname)
                 intent.putExtra("Age", getAge)
                 startActivity(intent)
@@ -43,7 +41,7 @@ class LoginActivity : AppCompatActivity() {
             } else {
                 Snackbar.make(
                     binding.root,
-                    "아이디와 비밀번호를 다시 확인해주세요.",
+                    getString(R.string.login_fail),
                     Snackbar.LENGTH_SHORT,
                 ).show()
             }
