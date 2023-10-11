@@ -17,6 +17,5 @@ class MainActivity : AppCompatActivity() {
         val getNickname = intent.getStringExtra("Nickname")
         val getAge = intent.getStringExtra("Age")
         Log.d("받은 값 확인", "$getId $getPw $getNickname $getAge")
-
     }
 }
