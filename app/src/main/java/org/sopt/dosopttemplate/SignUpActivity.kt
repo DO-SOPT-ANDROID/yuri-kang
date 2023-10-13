@@ -2,6 +2,8 @@ package org.sopt.dosopttemplate
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
@@ -9,6 +11,8 @@ import org.sopt.dosopttemplate.databinding.ActivitySignupBinding
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignupBinding
+    private var imm: InputMethodManager? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivitySignupBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
@@ -49,6 +53,8 @@ class SignUpActivity : AppCompatActivity() {
                 }
             }
         }
+        // 키보드 InputMethodManager 세팅
+        imm = getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as InputMethodManager?
     }
 
     private fun setSnackbar(text: String) {
@@ -58,4 +64,16 @@ class SignUpActivity : AppCompatActivity() {
             Snackbar.LENGTH_SHORT,
         ).show()
     }
+
+    fun hideKeyboard(v: View) {
+        imm?.hideSoftInputFromWindow(v.windowToken, 0)
+    }
+
+//    방법2. 화면 터치 시 키보드 내리기
+//    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+//        val imm: InputMethodManager =
+//            getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+//        imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+//        return super.dispatchTouchEvent(ev)
+//    }
 }
