@@ -66,6 +66,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_signup_pw" />
 
+    <CheckBox
+        android:id="@+id/cb_login_autologin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/cb_autologin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginHorizontal="30dp"
+        app:layout_constraintTop_toBottomOf="@id/et_signup_pw" />
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_signup_signup"
         android:layout_width="0dp"
