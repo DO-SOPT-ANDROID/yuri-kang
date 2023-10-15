@@ -8,6 +8,7 @@ import com.google.android.material.snackbar.Snackbar
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.databinding.ActivityMainBinding
 import org.sopt.dosopttemplate.di.UserSharedPreferences
+import org.sopt.dosopttemplate.util.BackPressedUtil
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -35,21 +36,8 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
 
-        backPressed()
-    }
-
-    private fun backPressed() {
-        callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                if (System.currentTimeMillis() - delayTime >= 2000) {
-                    delayTime = System.currentTimeMillis()
-                    setSnackbar(getString(R.string.backPressed))
-                } else {
-                    finish()
-                }
-            }
-        }
-        onBackPressedDispatcher.addCallback(this, callback)
+        val backPressedUtil = BackPressedUtil(this)
+        backPressedUtil.BackButton()
     }
 
     private fun setSnackbar(text: String) {

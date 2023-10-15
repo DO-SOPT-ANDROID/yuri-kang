@@ -11,6 +11,7 @@ import com.google.android.material.snackbar.Snackbar
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.databinding.ActivityLoginBinding
 import org.sopt.dosopttemplate.di.UserSharedPreferences
+import org.sopt.dosopttemplate.util.BackPressedUtil
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -72,25 +73,12 @@ class LoginActivity : AppCompatActivity() {
         // 키보드 InputMethodManager 세팅
         imm = getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as InputMethodManager?
 
-        backPressed()
+        val backPressedUtil = BackPressedUtil(this)
+        backPressedUtil.BackButton()
     }
 
     fun hideKeyboard(v: View) {
         imm?.hideSoftInputFromWindow(v.windowToken, 0)
-    }
-
-    private fun backPressed() {
-        callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                if (System.currentTimeMillis() - delayTime >= 2000) {
-                    delayTime = System.currentTimeMillis()
-                    setSnackbar(getString(R.string.backPressed))
-                } else {
-                    finish()
-                }
-            }
-        }
-        onBackPressedDispatcher.addCallback(this, callback)
     }
 
     private fun setSnackbar(text: String) {
