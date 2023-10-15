@@ -1,5 +1,6 @@
 package org.sopt.dosopttemplate.presentation
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import org.sopt.dosopttemplate.databinding.ActivityMainBinding
@@ -19,5 +20,13 @@ class MainActivity : AppCompatActivity() {
         binding.tvMainId.text = getId
         binding.tvMainNickname.text = getNickname
         binding.tvMainAge.text = getAge
+
+        // 로그아웃
+        binding.btnMainLogout.setOnClickListener {
+            UserSharedPreferences.clearUser(this@MainActivity)
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 }

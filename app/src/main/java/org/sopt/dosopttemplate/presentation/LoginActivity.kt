@@ -25,15 +25,9 @@ class LoginActivity : AppCompatActivity() {
         val getAge = intent.getStringExtra("Age")
 
         // 자동 로그인이 된 경우
-        if (UserSharedPreferences.getUserID(this).isBlank() ||
-            UserSharedPreferences.getUserPw(this).isBlank()
+        if (UserSharedPreferences.getUserID(this).isNotBlank() ||
+            UserSharedPreferences.getUserPw(this).isNotBlank()
         ) {
-            Snackbar.make(
-                binding.root,
-                "회원가입을 진행해주세요.",
-                Snackbar.LENGTH_SHORT,
-            ).show()
-        } else {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
@@ -64,6 +58,10 @@ class LoginActivity : AppCompatActivity() {
                     UserSharedPreferences.setUserNickname(this@LoginActivity, getNickname!!)
                     UserSharedPreferences.setUserAge(this@LoginActivity, getAge!!)
                 }
+
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
             } else {
                 Snackbar.make(
                     binding.root,
@@ -71,10 +69,6 @@ class LoginActivity : AppCompatActivity() {
                     Snackbar.LENGTH_SHORT,
                 ).show()
             }
-
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
         }
         // 키보드 InputMethodManager 세팅
         imm = getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as InputMethodManager?
