@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import org.sopt.dosopttemplate.R
@@ -14,6 +15,9 @@ import org.sopt.dosopttemplate.di.UserSharedPreferences
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private var imm: InputMethodManager? = null
+    private lateinit var callback: OnBackPressedCallback
+    var delayTime: Long = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
@@ -43,12 +47,11 @@ class LoginActivity : AppCompatActivity() {
         // 로그인 하기
         binding.btnLoginLogin.setOnClickListener {
             if (binding.etSignupId.text.toString() == getId && binding.etSignupPw.text.toString() == getPw) {
-                val toast = Toast.makeText(
+                Toast.makeText(
                     applicationContext,
                     getString(R.string.login_success),
                     Toast.LENGTH_SHORT,
-                )
-                toast.show()
+                ).show()
 
                 // 자동 로그인
                 if (binding.cbLoginAutologin.isChecked) {
@@ -63,18 +66,38 @@ class LoginActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             } else {
-                Snackbar.make(
-                    binding.root,
-                    getString(R.string.login_fail),
-                    Snackbar.LENGTH_SHORT,
-                ).show()
+                setSnackbar(getString(R.string.login_fail))
             }
         }
         // 키보드 InputMethodManager 세팅
         imm = getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+
+        backPressed()
     }
 
     fun hideKeyboard(v: View) {
         imm?.hideSoftInputFromWindow(v.windowToken, 0)
+    }
+
+    private fun backPressed() {
+        callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (System.currentTimeMillis() - delayTime >= 2000) {
+                    delayTime = System.currentTimeMillis()
+                    setSnackbar(getString(R.string.backPressed))
+                } else {
+                    finish()
+                }
+            }
+        }
+        onBackPressedDispatcher.addCallback(this, callback)
+    }
+
+    private fun setSnackbar(text: String) {
+        Snackbar.make(
+            binding.root,
+            text,
+            Snackbar.LENGTH_SHORT,
+        ).show()
     }
 }
