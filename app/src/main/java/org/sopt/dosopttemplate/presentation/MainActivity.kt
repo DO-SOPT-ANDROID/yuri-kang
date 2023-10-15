@@ -39,12 +39,4 @@ class MainActivity : AppCompatActivity() {
         val backPressedUtil = BackPressedUtil(this)
         backPressedUtil.BackButton()
     }
-
-    private fun setSnackbar(text: String) {
-        Snackbar.make(
-            binding.root,
-            text,
-            Snackbar.LENGTH_SHORT,
-        ).show()
-    }
 }
