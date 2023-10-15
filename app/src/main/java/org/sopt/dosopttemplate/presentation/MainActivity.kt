@@ -2,10 +2,7 @@ package org.sopt.dosopttemplate.presentation
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.snackbar.Snackbar
-import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.databinding.ActivityMainBinding
 import org.sopt.dosopttemplate.di.UserSharedPreferences
 import org.sopt.dosopttemplate.util.BackPressedUtil
