@@ -12,8 +12,6 @@ import org.sopt.dosopttemplate.util.BackPressedUtil
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var callback: OnBackPressedCallback
-    var delayTime: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityMainBinding.inflate(layoutInflater)

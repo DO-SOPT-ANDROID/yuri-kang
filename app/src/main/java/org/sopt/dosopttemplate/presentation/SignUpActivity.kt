@@ -15,8 +15,6 @@ import org.sopt.dosopttemplate.util.BackPressedUtil
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignupBinding
     private var imm: InputMethodManager? = null
-    private lateinit var callback: OnBackPressedCallback
-    var delayTime: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivitySignupBinding.inflate(layoutInflater)
