@@ -1,4 +1,4 @@
-package org.sopt.dosopttemplate
+package org.sopt.dosopttemplate.presentation
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +7,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
+import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.databinding.ActivitySignupBinding
 
 class SignUpActivity : AppCompatActivity() {
@@ -40,7 +41,11 @@ class SignUpActivity : AppCompatActivity() {
                     setSnackbar(getString(R.string.signup_age))
                 } else {
                     // 화면 전환
-                    val toast = Toast.makeText(applicationContext, getString(R.string.signup_success), Toast.LENGTH_SHORT)
+                    val toast = Toast.makeText(
+                        applicationContext,
+                        getString(R.string.signup_success),
+                        Toast.LENGTH_SHORT,
+                    )
                     toast.show()
 
                     val intent = Intent(this, LoginActivity::class.java)
@@ -68,12 +73,4 @@ class SignUpActivity : AppCompatActivity() {
     fun hideKeyboard(v: View) {
         imm?.hideSoftInputFromWindow(v.windowToken, 0)
     }
-
-//    방법2. 화면 터치 시 키보드 내리기
-//    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
-//        val imm: InputMethodManager =
-//            getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-//        imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
-//        return super.dispatchTouchEvent(ev)
-//    }
 }

@@ -1,8 +1,9 @@
-package org.sopt.dosopttemplate
+package org.sopt.dosopttemplate.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import org.sopt.dosopttemplate.databinding.ActivityMainBinding
+import org.sopt.dosopttemplate.di.UserSharedPreferences
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -11,9 +12,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        val getId = intent.getStringExtra("ID")
-        val getNickname = intent.getStringExtra("Nickname")
-        val getAge = intent.getStringExtra("Age")
+        val getId = UserSharedPreferences.getUserID(this@MainActivity)
+        val getNickname = UserSharedPreferences.getUserNickname(this@MainActivity)
+        val getAge = UserSharedPreferences.getUserAge(this@MainActivity)
 
         binding.tvMainId.text = getId
         binding.tvMainNickname.text = getNickname

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:onClick="hideKeyboard"
-    tools:context=".LoginActivity">
+    tools:context=".presentation.LoginActivity">
 
     <TextView
         android:id="@+id/tv_login_welcome"
