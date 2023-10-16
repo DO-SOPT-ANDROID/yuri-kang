@@ -4,12 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.databinding.ActivitySignupBinding
 import org.sopt.dosopttemplate.util.BackPressedUtil
+import org.sopt.dosopttemplate.util.showShortToast
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignupBinding
@@ -42,12 +42,7 @@ class SignUpActivity : AppCompatActivity() {
                     setSnackbar(getString(R.string.signup_age))
                 } else {
                     // 화면 전환
-                    val toast = Toast.makeText(
-                        applicationContext,
-                        getString(R.string.signup_success),
-                        Toast.LENGTH_SHORT,
-                    )
-                    toast.show()
+                    showShortToast(getString(R.string.signup_success))
 
                     val intent = Intent(this, LoginActivity::class.java)
                     intent.putExtra("ID", userId)

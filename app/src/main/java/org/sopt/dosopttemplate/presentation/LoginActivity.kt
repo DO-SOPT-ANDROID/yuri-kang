@@ -4,13 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.databinding.ActivityLoginBinding
 import org.sopt.dosopttemplate.di.UserSharedPreferences
 import org.sopt.dosopttemplate.util.BackPressedUtil
+import org.sopt.dosopttemplate.util.showShortToast
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -45,11 +45,7 @@ class LoginActivity : AppCompatActivity() {
         // 로그인 하기
         binding.btnLoginLogin.setOnClickListener {
             if (binding.etSignupId.text.toString() == getId && binding.etSignupPw.text.toString() == getPw) {
-                Toast.makeText(
-                    applicationContext,
-                    getString(R.string.login_success),
-                    Toast.LENGTH_SHORT,
-                ).show()
+                showShortToast(getString(R.string.login_success))
 
                 // 자동 로그인
                 if (binding.cbLoginAutologin.isChecked) {
