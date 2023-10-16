@@ -1,3 +1,27 @@
 <resources>
     <string name="app_name">DoSoptTemplate</string>
+    <string name="btn_login">로그인 하기</string>
+    <string name="et_password_hint">비밀번호를 입력해주세요</string>
+    <string name="tv_password">Password</string>
+    <string name="et_id_hint">아이디를 입력해주세요</string>
+    <string name="tv_id">ID</string>
+    <string name="tv_main">Welcome To Sopt</string>
+    <string name="btn_login_signup">회원가입 하러 가기</string>
+    <string name="tv_signup_title">SIGN UP</string>
+    <string name="btn_signup_signup">회원가입 하기</string>
+    <string name="tv_signup_nickname">Nickname</string>
+    <string name="et_nickname_hint">닉네임을 입력해주세요</string>
+    <string name="tv_signup_age">Age</string>
+    <string name="et_age_hint">나이를 입력해주세요</string>
+    <string name="tv_main_title">마이 페이지</string>
+    <string name="login_success">로그인에 성공했습니다.</string>
+    <string name="login_fail">아이디와 비밀번호를 다시 확인해주세요.</string>
+    <string name="signup_success">회원가입에 성공했습니다.</string>
+    <string name="signup_age">나이를 다시 입력해주세요.</string>
+    <string name="signup_nickname">닉네임을 입력해주세요. 공백은 불가능합니다.</string>
+    <string name="signup_pw">PW는 8글자 이상 12글자 이하로 설정 가능합니다.</string>
+    <string name="signup_id">ID는 6글자 이상 10글자 이하로 설 정 가능합니다.</string>
+    <string name="signup_fail">가입을 위해 필요한 조건을 모두 입력해주세요.</string>
+    <string name="cb_autologin">자동 로그인</string>
+    <string name="btn_logout">로그아웃</string>
 </resources>
