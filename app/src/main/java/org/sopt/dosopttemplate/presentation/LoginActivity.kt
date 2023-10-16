@@ -5,11 +5,11 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.snackbar.Snackbar
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.databinding.ActivityLoginBinding
 import org.sopt.dosopttemplate.di.UserSharedPreferences
 import org.sopt.dosopttemplate.util.BackPressedUtil
+import org.sopt.dosopttemplate.util.showShortSnackBar
 import org.sopt.dosopttemplate.util.showShortToast
 
 class LoginActivity : AppCompatActivity() {
@@ -60,7 +60,7 @@ class LoginActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             } else {
-                setSnackbar(getString(R.string.login_fail))
+                showShortSnackBar(binding.root, getString(R.string.login_fail))
             }
         }
         // 키보드 InputMethodManager 세팅
@@ -72,13 +72,5 @@ class LoginActivity : AppCompatActivity() {
 
     fun hideKeyboard(v: View) {
         imm?.hideSoftInputFromWindow(v.windowToken, 0)
-    }
-
-    private fun setSnackbar(text: String) {
-        Snackbar.make(
-            binding.root,
-            text,
-            Snackbar.LENGTH_SHORT,
-        ).show()
     }
 }

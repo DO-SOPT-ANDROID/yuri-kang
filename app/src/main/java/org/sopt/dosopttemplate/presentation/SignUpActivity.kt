@@ -5,10 +5,10 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.snackbar.Snackbar
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.databinding.ActivitySignupBinding
 import org.sopt.dosopttemplate.util.BackPressedUtil
+import org.sopt.dosopttemplate.util.showShortSnackBar
 import org.sopt.dosopttemplate.util.showShortToast
 
 class SignUpActivity : AppCompatActivity() {
@@ -28,18 +28,18 @@ class SignUpActivity : AppCompatActivity() {
 
             // 필수 조건 미입력 시
             if (userId.isEmpty() || userPw.isEmpty() || userNickname.isEmpty() || userAge.isEmpty()) {
-                setSnackbar(getString(R.string.signup_fail))
+                showShortSnackBar(binding.root, getString(R.string.signup_fail))
             } else {
                 // 필수 조건 모두 입력 시
                 // 조건
                 if (userId.length > 10 || userId.length < 6) {
-                    setSnackbar(getString(R.string.signup_id))
+                    showShortSnackBar(binding.root, getString(R.string.signup_id))
                 } else if (userPw.length > 12 || userPw.length < 8) {
-                    setSnackbar(getString(R.string.signup_pw))
+                    showShortSnackBar(binding.root, getString(R.string.signup_pw))
                 } else if (userNickname.isBlank()) {
-                    setSnackbar(getString(R.string.signup_nickname))
+                    showShortSnackBar(binding.root, getString(R.string.signup_nickname))
                 } else if (userAge.length >= 3 || userAge == "0") {
-                    setSnackbar(getString(R.string.signup_age))
+                    showShortSnackBar(binding.root, getString(R.string.signup_age))
                 } else {
                     // 화면 전환
                     showShortToast(getString(R.string.signup_success))
@@ -59,14 +59,6 @@ class SignUpActivity : AppCompatActivity() {
 
         val backPressedUtil = BackPressedUtil<ActivitySignupBinding>(this)
         backPressedUtil.BackButton()
-    }
-
-    private fun setSnackbar(text: String) {
-        Snackbar.make(
-            binding.root,
-            text,
-            Snackbar.LENGTH_SHORT,
-        ).show()
     }
 
     fun hideKeyboard(v: View) {
