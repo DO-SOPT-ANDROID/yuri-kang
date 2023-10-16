@@ -2,18 +2,16 @@ package org.sopt.dosopttemplate.presentation
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.databinding.ActivitySignupBinding
 import org.sopt.dosopttemplate.util.BackPressedUtil
+import org.sopt.dosopttemplate.util.hideKeyboard
 import org.sopt.dosopttemplate.util.showShortSnackBar
 import org.sopt.dosopttemplate.util.showShortToast
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignupBinding
-    private var imm: InputMethodManager? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivitySignupBinding.inflate(layoutInflater)
@@ -54,14 +52,10 @@ class SignUpActivity : AppCompatActivity() {
                 }
             }
         }
-        // 키보드 InputMethodManager 세팅
-        imm = getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+        // 키보드 내리기
+        hideKeyboard(binding.root)
 
         val backPressedUtil = BackPressedUtil<ActivitySignupBinding>(this)
         backPressedUtil.BackButton()
-    }
-
-    fun hideKeyboard(v: View) {
-        imm?.hideSoftInputFromWindow(v.windowToken, 0)
     }
 }
