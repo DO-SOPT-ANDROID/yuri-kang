@@ -1,14 +1,18 @@
-package org.sopt.dosopttemplate
+package org.sopt.dosopttemplate.presentation
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.snackbar.Snackbar
+import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.databinding.ActivitySignupBinding
+import org.sopt.dosopttemplate.util.BackPressedUtil
+import org.sopt.dosopttemplate.util.hideKeyboard
+import org.sopt.dosopttemplate.util.showShortSnackBar
+import org.sopt.dosopttemplate.util.showShortToast
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignupBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivitySignupBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
@@ -22,22 +26,21 @@ class SignUpActivity : AppCompatActivity() {
 
             // 필수 조건 미입력 시
             if (userId.isEmpty() || userPw.isEmpty() || userNickname.isEmpty() || userAge.isEmpty()) {
-                setSnackbar(getString(R.string.signup_fail))
+                showShortSnackBar(binding.root, getString(R.string.signup_fail))
             } else {
                 // 필수 조건 모두 입력 시
                 // 조건
                 if (userId.length > 10 || userId.length < 6) {
-                    setSnackbar(getString(R.string.signup_id))
+                    showShortSnackBar(binding.root, getString(R.string.signup_id))
                 } else if (userPw.length > 12 || userPw.length < 8) {
-                    setSnackbar(getString(R.string.signup_pw))
+                    showShortSnackBar(binding.root, getString(R.string.signup_pw))
                 } else if (userNickname.isBlank()) {
-                    setSnackbar(getString(R.string.signup_nickname))
+                    showShortSnackBar(binding.root, getString(R.string.signup_nickname))
                 } else if (userAge.length >= 3 || userAge == "0") {
-                    setSnackbar(getString(R.string.signup_age))
+                    showShortSnackBar(binding.root, getString(R.string.signup_age))
                 } else {
                     // 화면 전환
-                    val toast = Toast.makeText(applicationContext, getString(R.string.signup_success), Toast.LENGTH_SHORT)
-                    toast.show()
+                    showShortToast(getString(R.string.signup_success))
 
                     val intent = Intent(this, LoginActivity::class.java)
                     intent.putExtra("ID", userId)
@@ -49,13 +52,10 @@ class SignUpActivity : AppCompatActivity() {
                 }
             }
         }
-    }
+        // 키보드 내리기
+        hideKeyboard(binding.root)
 
-    private fun setSnackbar(text: String) {
-        Snackbar.make(
-            binding.root,
-            text,
-            Snackbar.LENGTH_SHORT,
-        ).show()
+        val backPressedUtil = BackPressedUtil<ActivitySignupBinding>(this)
+        backPressedUtil.BackButton()
     }
 }
