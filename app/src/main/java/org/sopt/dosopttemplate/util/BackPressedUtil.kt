@@ -2,9 +2,10 @@ package org.sopt.dosopttemplate.util
 
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.viewbinding.ViewBinding
 import com.google.android.material.snackbar.Snackbar
 
-class BackPressedUtil(private val activity: AppCompatActivity) {
+class BackPressedUtil<T : ViewBinding>(private val activity: AppCompatActivity) {
     private lateinit var callback: OnBackPressedCallback
     private var delayTime: Long = 0
 

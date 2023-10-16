@@ -70,7 +70,7 @@ class LoginActivity : AppCompatActivity() {
         // 키보드 InputMethodManager 세팅
         imm = getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as InputMethodManager?
 
-        val backPressedUtil = BackPressedUtil(this)
+        val backPressedUtil = BackPressedUtil<ActivityLoginBinding>(this)
         backPressedUtil.BackButton()
     }
 

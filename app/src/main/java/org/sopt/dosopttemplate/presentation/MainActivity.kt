@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
 
-        val backPressedUtil = BackPressedUtil(this)
+        val backPressedUtil = BackPressedUtil<ActivityMainBinding>(this)
         backPressedUtil.BackButton()
     }
 }
