@@ -22,4 +22,6 @@
     <string name="signup_pw">PW는 8글자 이상 12글자 이하로 설정 가능합니다.</string>
     <string name="signup_id">ID는 6글자 이상 10글자 이하로 설 정 가능합니다.</string>
     <string name="signup_fail">가입을 위해 필요한 조건을 모두 입력해주세요.</string>
+    <string name="cb_autologin">자동 로그인</string>
+    <string name="btn_logout">로그아웃</string>
 </resources>
