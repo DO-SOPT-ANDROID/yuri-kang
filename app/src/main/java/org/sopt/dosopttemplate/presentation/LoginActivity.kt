@@ -37,7 +37,6 @@ class LoginActivity : AppCompatActivity() {
         binding.btnSignupSignup.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
-            finish()
         }
 
         // 로그인 하기
@@ -48,10 +47,12 @@ class LoginActivity : AppCompatActivity() {
                 // 자동 로그인
                 if (binding.cbLoginAutologin.isChecked) {
                     // 유저 정보 저장
-                    UserSharedPreferences.setUserID(this@LoginActivity, getId)
-                    UserSharedPreferences.setUserPw(this@LoginActivity, getPw)
-                    UserSharedPreferences.setUserNickname(this@LoginActivity, getNickname!!)
-                    UserSharedPreferences.setUserAge(this@LoginActivity, getAge!!)
+                    UserSharedPreferences.apply {
+                        setUserID(this@LoginActivity, getId)
+                        setUserPw(this@LoginActivity, getPw)
+                        setUserNickname(this@LoginActivity, getNickname!!)
+                        setUserAge(this@LoginActivity, getAge!!)
+                    }
                 }
 
                 val intent = Intent(this, MainActivity::class.java)

@@ -19,9 +19,11 @@ class MainActivity : AppCompatActivity() {
         val getNickname = UserSharedPreferences.getUserNickname(this@MainActivity)
         val getAge = UserSharedPreferences.getUserAge(this@MainActivity)
 
-        binding.tvMainId.text = getId
-        binding.tvMainNickname.text = getNickname
-        binding.tvMainAge.text = getAge
+        binding.run {
+            tvMainId.text = getId
+            tvMainNickname.text = getNickname
+            tvMainAge.text = getAge
+        }
 
         // 로그아웃
         binding.btnMainLogout.setOnClickListener {
