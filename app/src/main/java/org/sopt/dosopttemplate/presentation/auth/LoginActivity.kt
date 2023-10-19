@@ -1,4 +1,4 @@
-package org.sopt.dosopttemplate.presentation
+package org.sopt.dosopttemplate.presentation.auth
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.databinding.ActivityLoginBinding
 import org.sopt.dosopttemplate.di.UserSharedPreferences
+import org.sopt.dosopttemplate.presentation.BnvActivity
+import org.sopt.dosopttemplate.presentation.MypageActivity
 import org.sopt.dosopttemplate.util.BackPressedUtil
 import org.sopt.dosopttemplate.util.hideKeyboard
 import org.sopt.dosopttemplate.util.showShortSnackBar
@@ -28,7 +30,7 @@ class LoginActivity : AppCompatActivity() {
         if (UserSharedPreferences.getUserID(this).isNotBlank() ||
             UserSharedPreferences.getUserPw(this).isNotBlank()
         ) {
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, BnvActivity::class.java)
             startActivity(intent)
             finish()
         }
@@ -55,7 +57,7 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
 
-                val intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, BnvActivity::class.java)
                 startActivity(intent)
                 finish()
             } else {
