@@ -1,12 +1,15 @@
 package org.sopt.dosopttemplate.presentation
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import org.sopt.dosopttemplate.databinding.FragmentMypageBinding
 import org.sopt.dosopttemplate.di.UserSharedPreferences
+import org.sopt.dosopttemplate.presentation.auth.LoginActivity
 
 class MypageFragment : Fragment() {
 
@@ -41,7 +44,15 @@ class MypageFragment : Fragment() {
         binding.btnMainLogout.setOnClickListener {
             UserSharedPreferences.clearUser(requireContext())
 
+            // 프래그먼트를 제거
+            val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            fragmentTransaction.remove(this) // 현재 프래그먼트를 제거
+            fragmentTransaction.commit()
 
+            // 로그인 액티비티로 이동
+            val intent = Intent(requireContext(), LoginActivity::class.java)
+            startActivity(intent)
         }
     }
 
