@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.databinding.ActivityBnvBinding
+import org.sopt.dosopttemplate.util.BackPressedUtil
 
 class BnvActivity : AppCompatActivity() {
     private lateinit var binding: ActivityBnvBinding
@@ -48,6 +49,9 @@ class BnvActivity : AppCompatActivity() {
             }
         }
         binding.bnvHome.selectedItemId = R.id.menu_home
+
+        val backPressedUtil = BackPressedUtil<ActivityBnvBinding>(this)
+        backPressedUtil.BackButton()
     }
 
     private fun replaceFragment(fragment: Fragment) {

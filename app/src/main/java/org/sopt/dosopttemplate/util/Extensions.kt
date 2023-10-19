@@ -22,7 +22,7 @@ fun showShortSnackBar(view: View, text: String) {
     ).show()
 }
 
-fun hideKeyboard(view: View) {
-    val imm: InputMethodManager? = null
-    imm?.hideSoftInputFromWindow(view.windowToken, 0)
-}
+//fun hideKeyboard(view: View) {
+//    val imm: InputMethodManager? = null
+//    imm?.hideSoftInputFromWindow(view.windowToken, 0)
+//}

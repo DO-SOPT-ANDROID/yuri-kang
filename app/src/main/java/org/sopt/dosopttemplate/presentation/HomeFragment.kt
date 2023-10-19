@@ -16,7 +16,7 @@ class HomeFragment : Fragment() {
     private val binding: FragmentHomeBinding
         get() = requireNotNull(_binding) { "바인딩 error" }
 
-    private val mockFriendList = listOf<Friends>(
+    private val mockFriendList = listOf(
         Friends(
             profileImage = R.drawable.ic_launcher_foreground,
             name = "상호야...",
