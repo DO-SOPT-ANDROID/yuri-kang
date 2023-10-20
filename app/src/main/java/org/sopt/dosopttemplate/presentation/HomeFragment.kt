@@ -5,8 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import org.sopt.dosopttemplate.R
-import org.sopt.dosopttemplate.data.FriendsSealed
+import org.sopt.dosopttemplate.data.dummyFriendsData
 import org.sopt.dosopttemplate.databinding.FragmentHomeBinding
 import org.sopt.dosopttemplate.presentation.adapter.FriendsSealedAdapter
 
@@ -15,37 +14,6 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding: FragmentHomeBinding
         get() = requireNotNull(_binding) { "바인딩 error" }
-
-    private val mockFriendList = ArrayList<FriendsSealed>().apply {
-        add(
-            FriendsSealed.FriendsMe(
-                profileImage = R.drawable.img_main_profile,
-                name = "강유리",
-            ),
-        )
-        add(
-            FriendsSealed.FriendsNomal(
-                profileImage = R.drawable.img_default_kakao_profile,
-                name = "친구1",
-                description = "떼잉",
-            ),
-        )
-        add(
-            FriendsSealed.FriendsBirthday(
-                profileImage = R.drawable.img_default_kakao_profile,
-                name = "친구2...",
-                description = "생일임",
-            ),
-        )
-        add(
-            FriendsSealed.FriendsMusic(
-                profileImage = R.drawable.img_default_kakao_profile,
-                name = "친구3...",
-                description = "무식이즈 마이 라이프",
-                music = "뮤지크 - 가아수",
-            ),
-        )
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,7 +30,7 @@ class HomeFragment : Fragment() {
 
         var friendsSealedAdapter = FriendsSealedAdapter(requireContext())
         binding.rvFriends.adapter = friendsSealedAdapter
-        friendsSealedAdapter.addFriendsData(mockFriendList)
+        friendsSealedAdapter.addFriendsData(ArrayList(dummyFriendsData.dummyFriendList))
     }
 
     override fun onDestroyView() {
