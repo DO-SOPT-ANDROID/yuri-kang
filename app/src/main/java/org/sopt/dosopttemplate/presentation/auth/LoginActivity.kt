@@ -58,7 +58,11 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
 
+                // 자동 로그인이 아닌 경우 Bnv로 유저 정보 전달
                 val intent = Intent(this, BnvActivity::class.java)
+                intent.putExtra("ID", getId)
+                intent.putExtra("Nickname", getNickname)
+                intent.putExtra("Age", getAge)
                 startActivity(intent)
                 finish()
             } else {

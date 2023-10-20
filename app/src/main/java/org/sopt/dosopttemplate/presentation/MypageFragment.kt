@@ -30,14 +30,29 @@ class MypageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val getId = UserSharedPreferences.getUserID(requireContext())
-        val getNickname = UserSharedPreferences.getUserNickname(requireContext())
-        val getAge = UserSharedPreferences.getUserAge(requireContext())
+        val spId = UserSharedPreferences.getUserID(requireContext())
+        val spNickname = UserSharedPreferences.getUserNickname(requireContext())
+        val spAge = UserSharedPreferences.getUserAge(requireContext())
 
-        binding.run {
-            tvMainId.text = getId
-            tvMainNickname.text = getNickname
-            tvMainAge.text = getAge
+        val bundle = arguments
+        val getId = bundle?.getString("userId")
+        val getNickname = bundle?.getString("userNickname")
+        val getAge = bundle?.getString("userAge")
+
+        // 자동 로그인이 된 경우
+        if (UserSharedPreferences.getUserID(requireContext()).isNotBlank()
+        ) {
+            binding.run {
+                tvMainId.text = spId
+                tvMainNickname.text = spNickname
+                tvMainAge.text = spAge
+            }
+        } else {
+            binding.run {
+                tvMainId.text = getId
+                tvMainNickname.text = getNickname
+                tvMainAge.text = getAge
+            }
         }
 
         // 로그아웃
@@ -46,9 +61,10 @@ class MypageFragment : Fragment() {
 
             // 프래그먼트를 제거
             val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
-            val fragmentTransaction = fragmentManager.beginTransaction()
-            fragmentTransaction.remove(this) // 현재 프래그먼트를 제거
-            fragmentTransaction.commit()
+            fragmentManager
+                .beginTransaction()
+                .remove(this)
+                .commit()
 
             // 로그인 액티비티로 이동
             val intent = Intent(requireContext(), LoginActivity::class.java)

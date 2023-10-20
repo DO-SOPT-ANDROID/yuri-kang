@@ -41,7 +41,22 @@ class BnvActivity : AppCompatActivity() {
                 }
 
                 R.id.menu_mypage -> {
-                    replaceFragment(MypageFragment())
+                    val fragment = MypageFragment()
+
+                    val getId = intent.getStringExtra("ID")
+                    val getNickname = intent.getStringExtra("Nickname")
+                    val getAge = intent.getStringExtra("Age")
+
+                    // 자동 로그인이 아닌 경우 프래그먼트로 유저 정보 전달
+                    val bundle = Bundle().apply {
+                        putString("userId", getId)
+                        putString("userNickname", getNickname)
+                        putString("userAge", getAge)
+                    }
+
+                    fragment.arguments = bundle
+
+                    replaceFragment(fragment)
                     true
                 }
 
