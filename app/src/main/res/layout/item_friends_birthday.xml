@@ -9,7 +9,7 @@
         android:id="@+id/iv_friends_birthday_profile"
         android:layout_width="60dp"
         android:layout_height="0dp"
-        android:layout_marginVertical="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginStart="20dp"
         android:background="@drawable/bg_img_round"
         android:scaleType="centerCrop"
@@ -46,7 +46,7 @@
         android:id="@+id/tv_friends_birthday_birthday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="25dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/bg_birthday_stroke_red_2dp"
         android:gravity="center"
@@ -72,5 +72,5 @@
         app:layout_constraintBottom_toTopOf="@+id/tv_friends_birthday_content"
         app:layout_constraintDimensionRatio="1"
         app:layout_constraintStart_toEndOf="@+id/tv_friends_birthday_name"
-        app:layout_constraintTop_toTopOf="parent" />
+         />
 </androidx.constraintlayout.widget.ConstraintLayout>
