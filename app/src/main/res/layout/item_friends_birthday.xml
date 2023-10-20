@@ -59,4 +59,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:textStyle="bold"/>
+
+    <ImageView
+        android:id="@+id/iv_friends_birthday_cake"
+        android:layout_width="25dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginBottom="1dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_cake"
+        app:layout_constraintBottom_toTopOf="@+id/tv_friends_birthday_content"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintStart_toEndOf="@+id/tv_friends_birthday_name"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
