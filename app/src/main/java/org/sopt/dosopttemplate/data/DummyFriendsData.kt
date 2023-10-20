@@ -2,7 +2,7 @@ package org.sopt.dosopttemplate.data
 
 import org.sopt.dosopttemplate.R
 
-object dummyFriendsData {
+object DummyFriendsData {
     val dummyFriendList = listOf(
         FriendsSealed.FriendsMe(
             profileImage = R.drawable.img_main_profile,

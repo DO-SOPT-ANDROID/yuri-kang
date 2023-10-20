@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import org.sopt.dosopttemplate.data.dummyFriendsData
+import org.sopt.dosopttemplate.data.DummyFriendsData
 import org.sopt.dosopttemplate.databinding.FragmentHomeBinding
 import org.sopt.dosopttemplate.presentation.adapter.FriendsSealedAdapter
 
@@ -30,7 +30,7 @@ class HomeFragment : Fragment() {
 
         var friendsSealedAdapter = FriendsSealedAdapter(requireContext())
         binding.rvFriends.adapter = friendsSealedAdapter
-        friendsSealedAdapter.addFriendsData(ArrayList(dummyFriendsData.dummyFriendList))
+        friendsSealedAdapter.addFriendsData(ArrayList(DummyFriendsData.dummyFriendList))
     }
 
     override fun onDestroyView() {
