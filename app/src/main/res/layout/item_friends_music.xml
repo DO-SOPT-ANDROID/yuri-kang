@@ -32,14 +32,16 @@
 
     <TextView
         android:id="@+id/tv_friends_music_content"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="22dp"
         android:layout_marginTop="2dp"
+        android:layout_marginEnd="15dp"
         android:ellipsize="end"
         android:maxLines="1"
         android:textColor="@color/text_gray"
         android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/iv_friends_music_profile"
         app:layout_constraintTop_toBottomOf="@id/tv_friends_music_name"
         tools:text="한줄소개" />
