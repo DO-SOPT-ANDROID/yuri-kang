@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:textSize="15sp"
+        android:textSize="17sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/iv_friends_me_profile"
         app:layout_constraintStart_toEndOf="@id/iv_friends_me_profile"
@@ -32,7 +32,7 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_friends_me_modify"
-        android:layout_width="25dp"
+        android:layout_width="20dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:background="@drawable/btn_me_modify"
@@ -50,8 +50,8 @@
         android:layout_marginEnd="20dp"
         android:background="@drawable/bg_me_plus_stroke_gray_2dp"
         android:gravity="center"
-        android:paddingHorizontal="15dp"
-        android:paddingVertical="8dp"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="6dp"
         android:text="@string/btn_plus_text"
         android:textColor="@color/text_gray"
         android:textSize="13sp"

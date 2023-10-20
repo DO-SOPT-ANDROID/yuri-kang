@@ -25,21 +25,21 @@ class HomeFragment : Fragment() {
         )
         add(
             FriendsSealed.FriendsNomal(
-                profileImage = R.drawable.ic_launcher_foreground,
+                profileImage = R.drawable.img_default_kakao_profile,
                 name = "친구1",
                 description = "떼잉",
             ),
         )
         add(
             FriendsSealed.FriendsBirthday(
-                profileImage = R.drawable.img_cake,
+                profileImage = R.drawable.img_default_kakao_profile,
                 name = "친구2...",
                 description = "생일임",
             ),
         )
         add(
             FriendsSealed.FriendsMusic(
-                profileImage = R.drawable.ic_launcher_foreground,
+                profileImage = R.drawable.img_default_kakao_profile,
                 name = "친구3...",
                 description = "무식이즈 마이 라이프",
                 music = "뮤지크 - 가아수",
