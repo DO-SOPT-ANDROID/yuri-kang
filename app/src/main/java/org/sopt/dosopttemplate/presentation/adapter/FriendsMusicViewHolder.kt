@@ -10,8 +10,8 @@ class FriendsMusicViewHolder(private val binding: ItemFriendsMusicBinding) :
     fun onBindView(friendsMusicData: FriendsSealed.FriendsMusic) {
         binding.run {
             ivFriendsMusicProfile.setImageResource(friendsMusicData.profileImage)
-            tvFriendsMeName.text = friendsMusicData.name
-            tvFriendsMeContent.text = friendsMusicData.description
+            tvFriendsMusicName.text = friendsMusicData.name
+            tvFriendsMusicContent.text = friendsMusicData.description
         }
     }
 }

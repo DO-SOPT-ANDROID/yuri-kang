@@ -27,4 +27,6 @@
     <string name="bnv_do_android">DO ANDROID</string>
     <string name="bnv_home">홈</string>
     <string name="bnv_mypage">마이페이지</string>
+    <string name="tv_present">선물하기</string>
+    <string name="btn_plus_text">상태메시지</string>
 </resources>

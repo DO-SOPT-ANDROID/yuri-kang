@@ -11,7 +11,6 @@ class FriendsMeViewHolder(private val binding: ItemFriendsMeBinding) :
         binding.run {
             ivFriendsMeProfile.setImageResource(friendsMeData.profileImage)
             tvFriendsMeName.text = friendsMeData.name
-            tvFriendsMeContent.text = friendsMeData.plusDescription
         }
     }
 }
