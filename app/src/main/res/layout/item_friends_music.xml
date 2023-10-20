@@ -9,9 +9,9 @@
         android:id="@+id/iv_friends_music_profile"
         android:layout_width="60dp"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
         android:layout_marginStart="20dp"
-        android:background="@drawable/bg_img_round"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_img_round_white"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1"
@@ -42,21 +42,48 @@
         app:layout_constraintTop_toBottomOf="@id/tv_friends_music_name"
         tools:text="한줄소개" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_friends_music_music"
+
+    <LinearLayout
+        android:id="@+id/ll_friends_music_music"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/bg_music_stroke_green_2dp"
         android:gravity="center"
+        android:orientation="horizontal"
         android:paddingHorizontal="12dp"
         android:paddingVertical="6dp"
         android:textColor="@color/text_gray"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="노래 - 가수" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_friends_music_music"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left|center"
+            android:textColor="@color/text_gray"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="노래 - 가수" />
+
+        <ImageView
+            android:id="@+id/ic_friends_music_play"
+            android:layout_width="10dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:src="@drawable/ic_melon_play_green"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

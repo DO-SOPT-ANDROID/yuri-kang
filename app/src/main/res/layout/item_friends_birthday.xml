@@ -9,9 +9,9 @@
         android:id="@+id/iv_friends_birthday_profile"
         android:layout_width="60dp"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
         android:layout_marginStart="20dp"
-        android:background="@drawable/bg_img_round"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_img_round_white"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1"
@@ -42,35 +42,60 @@
         app:layout_constraintTop_toBottomOf="@id/tv_friends_birthday_name"
         tools:text="한줄소개" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_friends_birthday_birthday"
+
+    <ImageView
+        android:id="@+id/iv_friends_birthday_cake"
+        android:layout_width="25dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginBottom="1dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_cake"
+        app:layout_constraintBottom_toTopOf="@+id/tv_friends_birthday_content"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintStart_toEndOf="@+id/tv_friends_birthday_name" />
+
+
+    <LinearLayout
+        android:id="@+id/ll_friends_birthday_birthday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/bg_birthday_stroke_red_2dp"
         android:gravity="center"
+        android:orientation="horizontal"
         android:paddingHorizontal="12dp"
-        android:paddingVertical="6dp"
-        android:text="@string/tv_present"
-        android:textColor="@color/text_gray"
-        android:textSize="13sp"
+        android:paddingVertical="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textStyle="bold"/>
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageView
-        android:id="@+id/iv_friends_birthday_cake"
-        android:layout_width="25dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="27dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginBottom="1dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/img_cake"
-        app:layout_constraintBottom_toTopOf="@+id/tv_friends_birthday_content"
-        app:layout_constraintDimensionRatio="1"
-        app:layout_constraintStart_toEndOf="@+id/tv_friends_birthday_name"
-         />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_friends_birthday_birthday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left|center"
+            android:text="@string/tv_present"
+            android:textColor="@color/text_gray"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/ic_friends_birthday_birthday"
+            android:layout_width="18dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_birthday_cake_red_24"
+            android:layout_marginStart="3dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

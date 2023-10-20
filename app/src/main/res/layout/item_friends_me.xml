@@ -11,7 +11,7 @@
         android:layout_height="0dp"
         android:layout_marginVertical="25dp"
         android:layout_marginStart="20dp"
-        android:background="@drawable/bg_img_round"
+        android:background="@drawable/bg_img_round_white"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1"
@@ -35,28 +35,51 @@
         android:layout_width="20dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:background="@drawable/btn_me_modify"
+        android:background="@drawable/btn_me_modify_d9d9d9"
         app:layout_constraintBottom_toBottomOf="@id/tv_friends_me_name"
         app:layout_constraintDimensionRatio="1"
         app:layout_constraintStart_toEndOf="@id/tv_friends_me_name"
         app:layout_constraintTop_toTopOf="@id/tv_friends_me_name" />
 
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/btn_friends_me_plus"
+    <LinearLayout
+        android:id="@+id/ll_friends_me_plus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="25dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/bg_me_plus_stroke_gray_2dp"
         android:gravity="center"
+        android:orientation="horizontal"
         android:paddingHorizontal="12dp"
         android:paddingVertical="6dp"
-        android:text="@string/btn_plus_text"
-        android:textColor="@color/text_gray"
-        android:textSize="13sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_friends_me_plus_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left|center"
+            android:textColor="@color/text_gray"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/btn_plus_text"
+            />
+
+        <ImageView
+            android:id="@+id/ic_friends_me_plus"
+            android:layout_width="10dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:src="@drawable/ic_plus_808080"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
