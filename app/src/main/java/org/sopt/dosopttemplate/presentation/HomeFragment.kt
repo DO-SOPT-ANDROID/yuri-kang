@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import org.sopt.dosopttemplate.R
-import org.sopt.dosopttemplate.data.Friends
+import org.sopt.dosopttemplate.data.FriendsSealed
 import org.sopt.dosopttemplate.databinding.FragmentHomeBinding
-import org.sopt.dosopttemplate.presentation.adapter.FriendsAdapter
+import org.sopt.dosopttemplate.presentation.adapter.FriendsSealedAdapter
 
 class HomeFragment : Fragment() {
 
@@ -16,23 +16,36 @@ class HomeFragment : Fragment() {
     private val binding: FragmentHomeBinding
         get() = requireNotNull(_binding) { "바인딩 error" }
 
-    private val mockFriendList = listOf(
-        Friends(
-            profileImage = R.drawable.ic_launcher_foreground,
-            name = "상호야...",
-            content = "잘하고 있어. 금지",
-        ),
-        Friends(
-            profileImage = R.drawable.ic_launcher_foreground,
-            name = "아오 상호시치",
-            content = "앞으로 7주간 금주",
-        ),
-        Friends(
-            profileImage = R.drawable.ic_launcher_foreground,
-            name = "상호야...",
-            content = "잘하고 있어. 금지",
-        ),
-    )
+    private val mockFriendList = ArrayList<FriendsSealed>().apply {
+        add(
+            FriendsSealed.FriendsMe(
+                profileImage = R.drawable.img_main_profile,
+                name = "강유리",
+            ),
+        )
+        add(
+            FriendsSealed.FriendsNomal(
+                profileImage = R.drawable.ic_launcher_foreground,
+                name = "친구1",
+                description = "떼잉",
+            ),
+        )
+        add(
+            FriendsSealed.FriendsBirthday(
+                profileImage = R.drawable.img_cake,
+                name = "친구2...",
+                description = "생일임",
+            ),
+        )
+        add(
+            FriendsSealed.FriendsMusic(
+                profileImage = R.drawable.ic_launcher_foreground,
+                name = "친구3...",
+                description = "무식이즈 마이 라이프",
+                music = "뮤지크 - 가아수",
+            ),
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,11 +59,10 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // 대부분의 로직이 여기서 이루어짐
 
-        val friendAdapter = FriendsAdapter(requireContext())
-        binding.rvFriends.adapter = friendAdapter
-        friendAdapter.setFriendList(mockFriendList)
+        var friendsSealedAdapter = FriendsSealedAdapter(requireContext())
+        binding.rvFriends.adapter = friendsSealedAdapter
+        friendsSealedAdapter.addFriendsData(mockFriendList)
     }
 
     override fun onDestroyView() {

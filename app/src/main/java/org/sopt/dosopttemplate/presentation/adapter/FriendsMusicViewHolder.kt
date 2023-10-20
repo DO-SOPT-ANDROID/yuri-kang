@@ -12,6 +12,7 @@ class FriendsMusicViewHolder(private val binding: ItemFriendsMusicBinding) :
             ivFriendsMusicProfile.setImageResource(friendsMusicData.profileImage)
             tvFriendsMusicName.text = friendsMusicData.name
             tvFriendsMusicContent.text = friendsMusicData.description
+            tvFriendsMusicMusic.text = friendsMusicData.music
         }
     }
 }

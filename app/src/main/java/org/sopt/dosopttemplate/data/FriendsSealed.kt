@@ -3,9 +3,7 @@ package org.sopt.dosopttemplate.data
 sealed class FriendsSealed {
     data class FriendsMe(
         val name: String,
-        val plusDescription: String,
         val profileImage: Int,
-        val modifyProfile: Int,
     ) : FriendsSealed()
 
     data class FriendsNomal(
@@ -18,6 +16,7 @@ sealed class FriendsSealed {
         val name: String,
         val description: String,
         val profileImage: Int,
+        val music: String
     ) : FriendsSealed()
 
     data class FriendsBirthday(

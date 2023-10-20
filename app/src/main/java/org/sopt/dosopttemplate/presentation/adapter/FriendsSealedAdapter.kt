@@ -3,17 +3,19 @@ package org.sopt.dosopttemplate.presentation.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.data.FriendsSealed
+import org.sopt.dosopttemplate.databinding.ItemFriendsBirthdayBinding
+import org.sopt.dosopttemplate.databinding.ItemFriendsMeBinding
+import org.sopt.dosopttemplate.databinding.ItemFriendsMusicBinding
+import org.sopt.dosopttemplate.databinding.ItemFriendsNomalBinding
 
 class FriendsSealedAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var friendList: ArrayList<FriendsSealed> = ArrayList()
 
-    fun submitData(list: ArrayList<FriendsSealed>) {
+    fun addFriendsData(list: ArrayList<FriendsSealed>) {
         friendList.clear()
         friendList.addAll(list)
     }
@@ -34,31 +36,19 @@ class FriendsSealedAdapter(context: Context) : RecyclerView.Adapter<RecyclerView
         // 타입별 뷰 홀더 레이아웃 지정
         return when (viewType) {
             R.layout.item_friends_me -> FriendsMeViewHolder(
-                getViewDataBinding(
-                    parent,
-                    R.layout.item_friends_me,
-                ),
+                ItemFriendsMeBinding.bind(view),
             )
 
             R.layout.item_friends_music -> FriendsMusicViewHolder(
-                getViewDataBinding(
-                    parent,
-                    R.layout.item_friends_music,
-                ),
+                ItemFriendsMusicBinding.bind(view),
             )
 
             R.layout.item_friends_birthday -> FriendsBirthdayViewHolder(
-                getViewDataBinding(
-                    parent,
-                    R.layout.item_friends_birthday,
-                ),
+                ItemFriendsBirthdayBinding.bind(view),
             )
 
             else -> FriendsNomalViewHolder(
-                getViewDataBinding(
-                    parent,
-                    R.layout.item_friends_nomal,
-                ),
+                ItemFriendsNomalBinding.bind(view),
             ) // nomal의 경우
         }
     }
@@ -72,14 +62,5 @@ class FriendsSealedAdapter(context: Context) : RecyclerView.Adapter<RecyclerView
             is FriendsBirthdayViewHolder -> holder.onBindView(item as FriendsSealed.FriendsBirthday)
             is FriendsNomalViewHolder -> holder.onBindView(item as FriendsSealed.FriendsNomal)
         }
-    }
-
-    private fun <T : ViewDataBinding> getViewDataBinding(parent: ViewGroup, layoutRes: Int): T {
-        return DataBindingUtil.inflate(
-            LayoutInflater.from(parent.context),
-            layoutRes,
-            parent,
-            false,
-        )
     }
 }
