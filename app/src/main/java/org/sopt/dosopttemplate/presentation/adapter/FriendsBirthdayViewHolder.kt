@@ -10,6 +10,7 @@ class FriendsBirthdayViewHolder(private val binding: ItemFriendsBirthdayBinding)
     fun onBindView(friendsBirthdayData: FriendsSealed.FriendsBirthday) {
         binding.run {
             ivFriendsBirthdayProfile.setImageResource(friendsBirthdayData.profileImage)
+            ivFriendsBirthdayProfile.clipToOutline = true
             tvFriendsBirthdayName.text = friendsBirthdayData.name
             tvFriendsBirthdayContent.text = friendsBirthdayData.description
         }

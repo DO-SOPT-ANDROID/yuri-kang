@@ -10,6 +10,7 @@ class FriendsMusicViewHolder(private val binding: ItemFriendsMusicBinding) :
     fun onBindView(friendsMusicData: FriendsSealed.FriendsMusic) {
         binding.run {
             ivFriendsMusicProfile.setImageResource(friendsMusicData.profileImage)
+            ivFriendsMusicProfile.clipToOutline = true
             tvFriendsMusicName.text = friendsMusicData.name
             tvFriendsMusicContent.text = friendsMusicData.description
             tvFriendsMusicMusic.text = friendsMusicData.music

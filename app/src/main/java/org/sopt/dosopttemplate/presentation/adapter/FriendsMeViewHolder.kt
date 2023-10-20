@@ -10,6 +10,7 @@ class FriendsMeViewHolder(private val binding: ItemFriendsMeBinding) :
     fun onBindView(friendsMeData: FriendsSealed.FriendsMe) {
         binding.run {
             ivFriendsMeProfile.setImageResource(friendsMeData.profileImage)
+            ivFriendsMeProfile.clipToOutline = true
             tvFriendsMeName.text = friendsMeData.name
         }
     }

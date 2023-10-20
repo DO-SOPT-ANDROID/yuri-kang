@@ -10,6 +10,7 @@ class FriendsNomalViewHolder(private val binding: ItemFriendsNomalBinding) :
     fun onBindView(friendsNomalData: FriendsSealed.FriendsNomal) {
         binding.run {
             ivFriendsNomalProfile.setImageResource(friendsNomalData.profileImage)
+            ivFriendsNomalProfile.clipToOutline = true
             tvFriendsNomalName.text = friendsNomalData.name
             tvFriendsNomalContent.text = friendsNomalData.description
         }
