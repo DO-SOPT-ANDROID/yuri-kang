@@ -36,6 +36,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="22dp"
         android:layout_marginTop="2dp"
+        android:ellipsize="end"
+        android:maxLines="1"
         android:textColor="@color/text_gray"
         android:textSize="12sp"
         app:layout_constraintStart_toEndOf="@id/iv_friends_nomal_profile"
