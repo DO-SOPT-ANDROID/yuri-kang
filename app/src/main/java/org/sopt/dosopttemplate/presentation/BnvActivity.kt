@@ -69,7 +69,7 @@ class BnvActivity : AppCompatActivity() {
 
         if (currentFragment == null) {
             supportFragmentManager.beginTransaction()
-                .add(containerViewId, Fragment())
+                .add(containerViewId, fragment)
                 .commit()
         }
     }
