@@ -3,6 +3,7 @@ package org.sopt.dosopttemplate.presentation
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.databinding.ActivityBnvBinding
 import org.sopt.dosopttemplate.util.BackPressedUtil
@@ -18,6 +19,8 @@ class BnvActivity : AppCompatActivity() {
         initialFragment(R.id.fcv_home, HomeFragment())
 
         clickBnv()
+
+        updown_Listener(RecyclerView(this))
     }
 
     private fun clickBnv() {
@@ -54,6 +57,12 @@ class BnvActivity : AppCompatActivity() {
 
         val backPressedUtil = BackPressedUtil<ActivityBnvBinding>(this)
         backPressedUtil.BackButton()
+    }
+
+    fun updown_Listener(view: RecyclerView?) {
+        binding.bnvHome.setOnClickListener {
+            view?.smoothScrollToPosition(0)
+        }
     }
 
     private fun replaceFragment(fragment: Fragment) {

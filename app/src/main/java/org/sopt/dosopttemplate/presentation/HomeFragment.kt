@@ -35,7 +35,7 @@ class HomeFragment : Fragment() {
 
         val friendsSealedAdapter = FriendsSealedAdapter(requireContext())
         binding.rvFriends.adapter = friendsSealedAdapter
-        friendsSealedAdapter.addFriendsData(ArrayList(DummyFriendsData.dummyFriendList))
+        friendsSealedAdapter.setFriendsData(ArrayList(DummyFriendsData.dummyFriendList))
     }
 
     override fun onDestroyView() {
