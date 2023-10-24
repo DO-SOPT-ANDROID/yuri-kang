@@ -13,7 +13,7 @@ import org.sopt.dosopttemplate.presentation.auth.LoginActivity
 
 class MypageFragment : Fragment() {
     companion object {
-        fun newInstance(userId: String, userNickname: String, userAge: String): MypageFragment {
+        fun newInstance(userId: String?, userNickname: String?, userAge: String?): MypageFragment {
             val fragment = MypageFragment()
             val args = Bundle()
             args.putString("userId", userId)

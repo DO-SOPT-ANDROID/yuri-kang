@@ -39,9 +39,9 @@ class BnvActivity : AppCompatActivity() {
                 }
 
                 R.id.menu_mypage -> {
-                    val getId = intent.getStringExtra("ID")!!
-                    val getNickname = intent.getStringExtra("Nickname")!!
-                    val getAge = intent.getStringExtra("Age")!!
+                    val getId = intent.getStringExtra("ID")
+                    val getNickname = intent.getStringExtra("Nickname")
+                    val getAge = intent.getStringExtra("Age")
 
                     // 자동 로그인이 아닌 경우 프래그먼트로 유저 정보 전달
                     val fragment = MypageFragment.newInstance(getId, getNickname, getAge)
