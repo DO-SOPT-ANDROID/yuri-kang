@@ -8,6 +8,11 @@ import androidx.fragment.app.Fragment
 import org.sopt.dosopttemplate.databinding.FragmentDoAndroidBinding
 
 class DoAndroidFragment : Fragment() {
+    companion object {
+        fun newInstance(): DoAndroidFragment {
+            return DoAndroidFragment()
+        }
+    }
 
     private var _binding: FragmentDoAndroidBinding? = null
     private val binding: FragmentDoAndroidBinding

@@ -31,30 +31,24 @@ class BnvActivity : AppCompatActivity() {
         binding.bnvHome.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.menu_home -> {
-                    replaceFragment(HomeFragment())
+                    val fragment = HomeFragment.newInstance()
+                    replaceFragment(fragment)
                     true
                 }
 
                 R.id.menu_do_android -> {
-                    replaceFragment(DoAndroidFragment())
+                    val fragment = DoAndroidFragment.newInstance()
+                    replaceFragment(fragment)
                     true
                 }
 
                 R.id.menu_mypage -> {
-                    val fragment = MypageFragment()
-
-                    val getId = intent.getStringExtra("ID")
-                    val getNickname = intent.getStringExtra("Nickname")
-                    val getAge = intent.getStringExtra("Age")
+                    val getId = intent.getStringExtra("ID")!!
+                    val getNickname = intent.getStringExtra("Nickname")!!
+                    val getAge = intent.getStringExtra("Age")!!
 
                     // 자동 로그인이 아닌 경우 프래그먼트로 유저 정보 전달
-                    val bundle = Bundle().apply {
-                        putString("userId", getId)
-                        putString("userNickname", getNickname)
-                        putString("userAge", getAge)
-                    }
-
-                    fragment.arguments = bundle
+                    val fragment = MypageFragment.newInstance(getId, getNickname, getAge)
 
                     replaceFragment(fragment)
                     true
