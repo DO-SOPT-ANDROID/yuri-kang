@@ -15,7 +15,7 @@ class FriendsSealedAdapter(context: Context) : RecyclerView.Adapter<RecyclerView
 
     private var friendList: ArrayList<FriendsSealed> = ArrayList()
 
-    fun addFriendsData(list: ArrayList<FriendsSealed>) {
+    fun setFriendsData(list: ArrayList<FriendsSealed>) {
         friendList.clear()
         friendList.addAll(list)
     }
