@@ -15,14 +15,7 @@ class BnvActivity : AppCompatActivity() {
         binding = ActivityBnvBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // 처음에 보여주어야 하는 프래그먼트를 변수로
-        val currentFragment = supportFragmentManager.findFragmentById(R.id.fcv_home)
-        // 만약 프래그먼트가 끼워지지 않았다면 프래그먼트메이저를 사용하여 끼워보기
-        if (currentFragment == null) {
-            supportFragmentManager.beginTransaction()
-                .add(R.id.fcv_home, HomeFragment())
-                .commit()
-        } // Fragment의 재생성과 newInstance() 알아보기
+        initialFragment(R.id.fcv_home, HomeFragment())
 
         clickBnv()
     }
@@ -68,5 +61,16 @@ class BnvActivity : AppCompatActivity() {
             .beginTransaction()
             .replace(R.id.fcv_home, fragment)
             .commit()
+    }
+
+    // 프래그먼트 초기화 함수
+    private fun initialFragment(containerViewId: Int, fragment: Fragment) {
+        val currentFragment = supportFragmentManager.findFragmentById(containerViewId)
+
+        if (currentFragment == null) {
+            supportFragmentManager.beginTransaction()
+                .add(containerViewId, Fragment())
+                .commit()
+        }
     }
 }
