@@ -1,18 +1,21 @@
-package org.sopt.dosopttemplate.presentation
+package org.sopt.dosopttemplate.presentation.auth
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.databinding.ActivityLoginBinding
 import org.sopt.dosopttemplate.di.UserSharedPreferences
+import org.sopt.dosopttemplate.presentation.BnvActivity
 import org.sopt.dosopttemplate.util.BackPressedUtil
-import org.sopt.dosopttemplate.util.hideKeyboard
 import org.sopt.dosopttemplate.util.showShortSnackBar
 import org.sopt.dosopttemplate.util.showShortToast
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
+    private var imm: InputMethodManager? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -28,7 +31,7 @@ class LoginActivity : AppCompatActivity() {
         if (UserSharedPreferences.getUserID(this).isNotBlank() ||
             UserSharedPreferences.getUserPw(this).isNotBlank()
         ) {
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, BnvActivity::class.java)
             startActivity(intent)
             finish()
         }
@@ -55,7 +58,11 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
 
-                val intent = Intent(this, MainActivity::class.java)
+                // 자동 로그인이 아닌 경우 Bnv로 유저 정보 전달
+                val intent = Intent(this, BnvActivity::class.java)
+                intent.putExtra("ID", getId)
+                intent.putExtra("Nickname", getNickname)
+                intent.putExtra("Age", getAge)
                 startActivity(intent)
                 finish()
             } else {
@@ -63,9 +70,13 @@ class LoginActivity : AppCompatActivity() {
             }
         }
         // 키보드 내리기
-        hideKeyboard(binding.root)
-
+        imm = getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as InputMethodManager?
         val backPressedUtil = BackPressedUtil<ActivityLoginBinding>(this)
+
         backPressedUtil.BackButton()
+    }
+
+    fun hideKeyboard(v: View) {
+        imm?.hideSoftInputFromWindow(v.windowToken, 0)
     }
 }

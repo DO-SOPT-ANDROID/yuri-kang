@@ -24,4 +24,9 @@
     <string name="signup_fail">가입을 위해 필요한 조건을 모두 입력해주세요.</string>
     <string name="cb_autologin">자동 로그인</string>
     <string name="btn_logout">로그아웃</string>
+    <string name="bnv_do_android">DO ANDROID</string>
+    <string name="bnv_home">홈</string>
+    <string name="bnv_mypage">마이페이지</string>
+    <string name="tv_present">선물하기</string>
+    <string name="btn_plus_text">상태메시지</string>
 </resources>
