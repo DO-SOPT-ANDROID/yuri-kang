@@ -5,11 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import org.sopt.dosopttemplate.data.DummyFriendsData
+import org.sopt.dosopttemplate.data.DummyFriendData
 import org.sopt.dosopttemplate.databinding.FragmentHomeBinding
 import org.sopt.dosopttemplate.presentation.adapter.FriendsSealedAdapter
 
 class HomeFragment : Fragment() {
+    companion object {
+        fun newInstance(): HomeFragment {
+            return HomeFragment()
+        }
+    }
 
     private var _binding: FragmentHomeBinding? = null
     private val binding: FragmentHomeBinding
@@ -28,9 +33,9 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var friendsSealedAdapter = FriendsSealedAdapter(requireContext())
+        val friendsSealedAdapter = FriendsSealedAdapter(requireContext())
         binding.rvFriends.adapter = friendsSealedAdapter
-        friendsSealedAdapter.addFriendsData(ArrayList(DummyFriendsData.dummyFriendList))
+        friendsSealedAdapter.setFriendsData(ArrayList(DummyFriendData.dummyFriendList))
     }
 
     override fun onDestroyView() {

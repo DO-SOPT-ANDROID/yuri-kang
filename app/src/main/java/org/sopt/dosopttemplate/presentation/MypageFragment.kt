@@ -12,6 +12,17 @@ import org.sopt.dosopttemplate.di.UserSharedPreferences
 import org.sopt.dosopttemplate.presentation.auth.LoginActivity
 
 class MypageFragment : Fragment() {
+    companion object {
+        fun newInstance(userId: String?, userNickname: String?, userAge: String?): MypageFragment {
+            val fragment = MypageFragment()
+            val args = Bundle()
+            args.putString("userId", userId)
+            args.putString("userNickname", userNickname)
+            args.putString("userAge", userAge)
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     private var _binding: FragmentMypageBinding? = null
     private val binding: FragmentMypageBinding
