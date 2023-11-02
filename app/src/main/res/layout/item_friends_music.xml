@@ -47,7 +47,7 @@
         tools:text="한줄소개" />
 
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ll_friends_music_music"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -68,12 +68,13 @@
             android:id="@+id/tv_friends_music_music"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
             android:gravity="left|center"
             android:textColor="@color/text_gray"
             android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/ic_friends_music_play"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="노래 - 가수" />
 
@@ -88,6 +89,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

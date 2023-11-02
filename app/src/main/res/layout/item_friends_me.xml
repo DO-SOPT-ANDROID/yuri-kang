@@ -41,7 +41,7 @@
         app:layout_constraintStart_toEndOf="@id/tv_friends_me_name"
         app:layout_constraintTop_toTopOf="@id/tv_friends_me_name" />
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ll_friends_me_plus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -60,15 +60,15 @@
             android:id="@+id/tv_friends_me_plus_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="3dp"
             android:gravity="left|center"
+            android:text="@string/btn_plus_text"
             android:textColor="@color/text_gray"
             android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text="@string/btn_plus_text"
-            />
+            app:layout_constraintEnd_toStartOf="@+id/ic_friends_me_plus"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/ic_friends_me_plus"
@@ -81,5 +81,5 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
