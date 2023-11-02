@@ -3,7 +3,7 @@ package org.sopt.dosopttemplate.presentation.auth
 import android.content.Intent
 import android.os.Bundle
 import android.view.MotionEvent
-import android.view.inputmethod.InputMethodManager
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.databinding.ActivityLoginBinding
@@ -16,7 +16,6 @@ import org.sopt.dosopttemplate.util.showShortToast
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
-    private var imm: InputMethodManager? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -70,15 +69,12 @@ class LoginActivity : AppCompatActivity() {
                 showShortSnackBar(binding.root, getString(R.string.login_fail))
             }
         }
-        // 키보드 내리기
-        imm = getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as InputMethodManager?
         val backPressedUtil = BackPressedUtil<ActivityLoginBinding>(this)
-
         backPressedUtil.BackButton()
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
-        hideKeyboard(binding.root)
+        hideKeyboard(currentFocus ?: View(this))
         return super.dispatchTouchEvent(ev)
     }
 }
