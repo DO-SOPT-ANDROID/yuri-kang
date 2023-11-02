@@ -40,6 +40,7 @@ class HomeFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        binding.rvFriends.adapter = null
         _binding = null
     }
 }
