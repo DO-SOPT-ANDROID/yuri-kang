@@ -2,12 +2,13 @@ package org.sopt.dosopttemplate.presentation.auth
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
+import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.databinding.ActivitySignupBinding
 import org.sopt.dosopttemplate.util.BackPressedUtil
+import org.sopt.dosopttemplate.util.hideKeyboard
 import org.sopt.dosopttemplate.util.showShortSnackBar
 import org.sopt.dosopttemplate.util.showShortToast
 
@@ -61,7 +62,8 @@ class SignUpActivity : AppCompatActivity() {
         backPressedUtil.BackButton()
     }
 
-    fun hideKeyboard(v: View) {
-        imm?.hideSoftInputFromWindow(v.windowToken, 0)
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        hideKeyboard(binding.root)
+        return super.dispatchTouchEvent(ev)
     }
 }

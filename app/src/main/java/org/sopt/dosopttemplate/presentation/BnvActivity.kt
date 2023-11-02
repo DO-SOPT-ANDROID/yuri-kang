@@ -20,7 +20,7 @@ class BnvActivity : AppCompatActivity() {
 
         clickBnv()
 
-        updown_Listener(RecyclerView(this))
+        scrollListener(RecyclerView(this))
     }
 
     private fun clickBnv() {
@@ -59,7 +59,7 @@ class BnvActivity : AppCompatActivity() {
         backPressedUtil.BackButton()
     }
 
-    fun updown_Listener(view: RecyclerView?) {
+    fun scrollListener(view: RecyclerView?) {
         binding.bnvHome.setOnClickListener {
             view?.smoothScrollToPosition(0)
         }
