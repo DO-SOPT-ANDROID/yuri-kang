@@ -1,6 +1,8 @@
 package org.sopt.dosopttemplate.presentation.auth
 
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
@@ -32,8 +34,9 @@ class LoginActivity : AppCompatActivity() {
             UserSharedPreferences.getUserPw(this).isNotBlank()
         ) {
             val intent = Intent(this, BnvActivity::class.java)
+                .addFlags(FLAG_ACTIVITY_CLEAR_TASK or FLAG_ACTIVITY_NEW_TASK)
+            // 새로운 Activity를 수행하고 현재 Activity를 스텍에서 제거
             startActivity(intent)
-            finish()
         }
 
         // 회원가입 하러 가기

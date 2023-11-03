@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.databinding.ActivitySignupBinding
-import org.sopt.dosopttemplate.util.BackPressedUtil
 import org.sopt.dosopttemplate.util.showShortSnackBar
 import org.sopt.dosopttemplate.util.showShortToast
 
@@ -46,12 +45,10 @@ class SignUpActivity : AppCompatActivity() {
                     intent.putExtra("PW", userPw)
                     intent.putExtra("Nickname", userNickname)
                     intent.putExtra("Age", userAge)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                     startActivity(intent)
-                    finish()
                 }
             }
         }
-        val backPressedUtil = BackPressedUtil<ActivitySignupBinding>(this)
-        backPressedUtil.BackButton()
     }
 }
