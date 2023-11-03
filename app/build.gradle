@@ -48,4 +48,6 @@ dependencies {
     implementation 'io.coil-kt:coil:2.4.0'
     //cardView
     implementation 'androidx.cardview:cardview:1.0.0'
+    // viewModel
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2'
 }

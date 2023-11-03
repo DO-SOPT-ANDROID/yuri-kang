@@ -1,4 +1,4 @@
-package org.sopt.dosopttemplate.presentation
+package org.sopt.dosopttemplate.presentation.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -6,6 +6,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.databinding.ActivityBnvBinding
+import org.sopt.dosopttemplate.presentation.main.android.DoAndroidFragment
+import org.sopt.dosopttemplate.presentation.main.home.HomeFragment
+import org.sopt.dosopttemplate.presentation.main.mypage.MypageFragment
 import org.sopt.dosopttemplate.util.BackPressedUtil
 
 class BnvActivity : AppCompatActivity() {
