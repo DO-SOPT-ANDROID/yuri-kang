@@ -2,7 +2,6 @@ package org.sopt.dosopttemplate.presentation.auth
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.data.User
@@ -48,7 +47,6 @@ class SignUpActivity : AppCompatActivity() {
                     intent.putExtra("signUpUser", signUpUser)
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                     startActivity(intent)
-                    Log.d("signUpUser 회원가입할때의 정보", signUpUser.toString())
                 }
             }
         }

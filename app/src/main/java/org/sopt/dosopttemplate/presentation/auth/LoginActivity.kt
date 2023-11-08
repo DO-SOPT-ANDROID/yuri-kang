@@ -4,7 +4,6 @@ import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.os.Bundle
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -28,7 +27,6 @@ class LoginActivity : AppCompatActivity() {
 
         // 자동 로그인으로 저장된 유저 정보
         val spUser = UserSharedPreferences.getUser(this)
-        Log.d("spUser 자동로그인 됐던 경우", spUser.toString())
 
         // 자동 로그인이 된 경우
         if (spUser.userId.isNotBlank()) {
@@ -48,8 +46,6 @@ class LoginActivity : AppCompatActivity() {
         binding.btnLoginLogin.setOnClickListener {
             // 자동 로그인이 적용되지 않고, 회원가입에서 넘어온 경우
             val signUpUser = intent.getParcelableExtra<User>("signUpUser")
-
-            Log.d("spUser 회원가입에서 넘어온 경우", signUpUser.toString())
 
             val inputId = binding.etSignupId.text.toString()
             val inputPw = binding.etSignupPw.text.toString()
