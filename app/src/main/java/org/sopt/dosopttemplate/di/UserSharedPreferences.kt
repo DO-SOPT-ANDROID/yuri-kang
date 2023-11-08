@@ -12,7 +12,10 @@ object UserSharedPreferences {
         val prefs: SharedPreferences =
             context.getSharedPreferences(MY_ACCOUNT, Context.MODE_PRIVATE)
         val editor: SharedPreferences.Editor = prefs.edit()
-        editor.putString(USER_KEY, "${user.userId},${user.userNickname},${user.userAge}")
+        editor.putString(
+            USER_KEY,
+            "${user.userId},${user.userNickname},${user.userAge},${user.userPw}",
+        )
         editor.apply()
     }
 
@@ -21,10 +24,10 @@ object UserSharedPreferences {
             context.getSharedPreferences(MY_ACCOUNT, Context.MODE_PRIVATE)
         val userData = prefs.getString(USER_KEY, "") ?: ""
         val userDataParts = userData.split(",")
-        return if (userDataParts.size == 3) {
-            User(userDataParts[0], userDataParts[1], userDataParts[2])
+        return if (userDataParts.size == 4) { // Check for four values
+            User(userDataParts[0], userDataParts[1], userDataParts[2], userDataParts[3])
         } else {
-            User("", "", "")
+            User("", "", "", "")
         }
     }
 
@@ -32,7 +35,7 @@ object UserSharedPreferences {
         val prefs: SharedPreferences =
             context.getSharedPreferences(MY_ACCOUNT, Context.MODE_PRIVATE)
         val editor: SharedPreferences.Editor = prefs.edit()
-        editor.remove(USER_KEY)
+        editor.clear()
         editor.apply()
     }
 }

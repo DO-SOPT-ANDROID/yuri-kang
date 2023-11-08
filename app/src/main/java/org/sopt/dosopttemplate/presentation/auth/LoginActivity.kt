@@ -4,10 +4,12 @@ import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.os.Bundle
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import org.sopt.dosopttemplate.R
+import org.sopt.dosopttemplate.data.User
 import org.sopt.dosopttemplate.databinding.ActivityLoginBinding
 import org.sopt.dosopttemplate.di.UserSharedPreferences
 import org.sopt.dosopttemplate.presentation.main.BnvActivity
@@ -24,15 +26,12 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        val getId = intent.getStringExtra("ID")
-        val getPw = intent.getStringExtra("PW")
-        val getNickname = intent.getStringExtra("Nickname")
-        val getAge = intent.getStringExtra("Age")
+        // 자동 로그인으로 저장된 유저 정보
+        val spUser = UserSharedPreferences.getUser(this)
+        Log.d("spUser 자동로그인 됐던 경우", spUser.toString())
 
         // 자동 로그인이 된 경우
-        if (UserSharedPreferences.getUserID(this).isNotBlank() ||
-            UserSharedPreferences.getUserPw(this).isNotBlank()
-        ) {
+        if (spUser.userId.isNotBlank()) {
             val intent = Intent(this, BnvActivity::class.java)
                 .addFlags(FLAG_ACTIVITY_CLEAR_TASK or FLAG_ACTIVITY_NEW_TASK)
             // 새로운 Activity를 수행하고 현재 Activity를 스텍에서 제거
@@ -47,31 +46,31 @@ class LoginActivity : AppCompatActivity() {
 
         // 로그인 하기
         binding.btnLoginLogin.setOnClickListener {
-            if (binding.etSignupId.text.toString() == getId && binding.etSignupPw.text.toString() == getPw) {
+            // 자동 로그인이 적용되지 않고, 회원가입에서 넘어온 경우
+            val signUpUser = intent.getParcelableExtra<User>("signUpUser")
+
+            Log.d("spUser 회원가입에서 넘어온 경우", signUpUser.toString())
+
+            val inputId = binding.etSignupId.text.toString()
+            val inputPw = binding.etSignupPw.text.toString()
+
+            if (signUpUser != null && signUpUser.userId == inputId && signUpUser.userPw == inputPw) {
                 showShortToast(getString(R.string.login_success))
 
                 // 자동 로그인
                 if (binding.cbLoginAutologin.isChecked) {
-                    // 유저 정보 저장
-                    UserSharedPreferences.apply {
-                        setUserID(this@LoginActivity, getId)
-                        setUserPw(this@LoginActivity, getPw)
-                        setUserNickname(this@LoginActivity, getNickname!!)
-                        setUserAge(this@LoginActivity, getAge!!)
-                    }
+                    UserSharedPreferences.setUser(this, signUpUser)
                 }
 
-                // 자동 로그인이 아닌 경우 Bnv로 유저 정보 전달
                 val intent = Intent(this, BnvActivity::class.java)
-                intent.putExtra("ID", getId)
-                intent.putExtra("Nickname", getNickname)
-                intent.putExtra("Age", getAge)
+                intent.putExtra("signUpUser", signUpUser)
                 startActivity(intent)
                 finish()
             } else {
                 showShortSnackBar(binding.root, getString(R.string.login_fail))
             }
         }
+
         val backPressedUtil = BackPressedUtil<ActivityLoginBinding>(this)
         backPressedUtil.BackButton()
     }

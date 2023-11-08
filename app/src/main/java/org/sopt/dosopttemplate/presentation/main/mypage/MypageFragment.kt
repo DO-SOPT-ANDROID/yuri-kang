@@ -14,6 +14,7 @@ import org.sopt.dosopttemplate.di.UserSharedPreferences
 import org.sopt.dosopttemplate.presentation.auth.LoginActivity
 
 class MypageFragment : Fragment() {
+
     companion object {
         fun newInstance(user: User?): MypageFragment {
             val fragment = MypageFragment()
@@ -44,7 +45,7 @@ class MypageFragment : Fragment() {
         // 유저 데이터 초기화
         val spUser = UserSharedPreferences.getUser(requireContext())
         val bundle = arguments
-        val getUser = bundle?.getParcelable("user", User::class.java)
+        val signUpUser = bundle?.getParcelable<User>("signUpUser")
 
         // 자동 로그인이 된 경우
         if (spUser.userId.isNotBlank()) {
@@ -55,7 +56,7 @@ class MypageFragment : Fragment() {
             }
         } else {
             // 자동 로그인으로 저장된 유저 정보가 없는 경우
-            getUser?.let {
+            signUpUser?.let {
                 binding.run {
                     tvMainId.text = it.userId
                     tvMainNickname.text = it.userNickname

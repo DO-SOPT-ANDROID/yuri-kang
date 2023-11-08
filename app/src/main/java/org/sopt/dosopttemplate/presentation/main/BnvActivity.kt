@@ -1,11 +1,14 @@
 package org.sopt.dosopttemplate.presentation.main
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import org.sopt.dosopttemplate.R
+import org.sopt.dosopttemplate.data.User
 import org.sopt.dosopttemplate.databinding.ActivityBnvBinding
+import org.sopt.dosopttemplate.di.UserSharedPreferences
 import org.sopt.dosopttemplate.presentation.main.android.DoAndroidFragment
 import org.sopt.dosopttemplate.presentation.main.home.HomeFragment
 import org.sopt.dosopttemplate.presentation.main.mypage.MypageFragment
@@ -42,12 +45,10 @@ class BnvActivity : AppCompatActivity() {
                 }
 
                 R.id.menu_mypage -> {
-                    val getId = intent.getStringExtra("ID")
-                    val getNickname = intent.getStringExtra("Nickname")
-                    val getAge = intent.getStringExtra("Age")
+                    val signUpUser = intent.getParcelableExtra<User>("signUpUser")
 
                     // 자동 로그인이 아닌 경우 프래그먼트로 유저 정보 전달
-                    val fragment = MypageFragment.newInstance(getId, getNickname, getAge)
+                    val fragment = MypageFragment.newInstance(signUpUser)
 
                     replaceFragment(fragment)
                     true
@@ -60,6 +61,9 @@ class BnvActivity : AppCompatActivity() {
 
         val backPressedUtil = BackPressedUtil<ActivityBnvBinding>(this)
         backPressedUtil.BackButton()
+
+        val spUser = UserSharedPreferences.getUser(this)
+        Log.d("spUser바텀", spUser.toString())
     }
 
     fun scrollListener(view: RecyclerView?) {
