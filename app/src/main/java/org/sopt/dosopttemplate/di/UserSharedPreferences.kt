@@ -24,7 +24,7 @@ object UserSharedPreferences {
             context.getSharedPreferences(MY_ACCOUNT, Context.MODE_PRIVATE)
         val userData = prefs.getString(USER_KEY, "") ?: ""
         val userDataParts = userData.split(",")
-        return if (userDataParts.size == 4) { // Check for four values
+        return if (userDataParts.size == 4) {
             User(userDataParts[0], userDataParts[1], userDataParts[2], userDataParts[3])
         } else {
             User("", "", "", "")
