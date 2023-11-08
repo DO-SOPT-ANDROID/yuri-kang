@@ -8,18 +8,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import org.sopt.dosopttemplate.data.User
 import org.sopt.dosopttemplate.databinding.FragmentMypageBinding
 import org.sopt.dosopttemplate.di.UserSharedPreferences
 import org.sopt.dosopttemplate.presentation.auth.LoginActivity
 
 class MypageFragment : Fragment() {
     companion object {
-        fun newInstance(userId: String?, userNickname: String?, userAge: String?): MypageFragment {
+        fun newInstance(user: User?): MypageFragment {
             val fragment = MypageFragment()
             val args = Bundle()
-            args.putString("userId", userId)
-            args.putString("userNickname", userNickname)
-            args.putString("userAge", userAge)
+            args.putParcelable("user", user)
             fragment.arguments = args
             return fragment
         }
@@ -42,28 +41,26 @@ class MypageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val spId = UserSharedPreferences.getUserID(requireContext())
-        val spNickname = UserSharedPreferences.getUserNickname(requireContext())
-        val spAge = UserSharedPreferences.getUserAge(requireContext())
-
+        // 유저 데이터 초기화
+        val spUser = UserSharedPreferences.getUser(requireContext())
         val bundle = arguments
-        val getId = bundle?.getString("userId")
-        val getNickname = bundle?.getString("userNickname")
-        val getAge = bundle?.getString("userAge")
+        val getUser = bundle?.getParcelable("user", User::class.java)
 
         // 자동 로그인이 된 경우
-        if (UserSharedPreferences.getUserID(requireContext()).isNotBlank()
-        ) {
+        if (spUser.userId.isNotBlank()) {
             binding.run {
-                tvMainId.text = spId
-                tvMainNickname.text = spNickname
-                tvMainAge.text = spAge
+                tvMainId.text = spUser.userId
+                tvMainNickname.text = spUser.userNickname
+                tvMainAge.text = spUser.userAge
             }
         } else {
-            binding.run {
-                tvMainId.text = getId
-                tvMainNickname.text = getNickname
-                tvMainAge.text = getAge
+            // 자동 로그인으로 저장된 유저 정보가 없는 경우
+            getUser?.let {
+                binding.run {
+                    tvMainId.text = it.userId
+                    tvMainNickname.text = it.userNickname
+                    tvMainAge.text = it.userAge
+                }
             }
         }
 
