@@ -23,7 +23,7 @@
             app:navigationIcon="@drawable/ic_android_purple_24"
             app:title="@string/do_sopt"
             app:titleTextAppearance="@style/topAppBarTitleTextAppearance"
-            android:background="#e9ecef"
+            android:background="@color/bg_light_gray"
             />
 
     </com.google.android.material.appbar.AppBarLayout>
