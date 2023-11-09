@@ -11,6 +11,7 @@ import org.sopt.dosopttemplate.presentation.main.android.DoAndroidFragment
 import org.sopt.dosopttemplate.presentation.main.home.HomeFragment
 import org.sopt.dosopttemplate.presentation.main.mypage.MypageFragment
 import org.sopt.dosopttemplate.util.BackPressedUtil
+import org.sopt.dosopttemplate.util.showShortSnackBar
 
 class BnvActivity : AppCompatActivity() {
     private lateinit var binding: ActivityBnvBinding
@@ -23,6 +24,7 @@ class BnvActivity : AppCompatActivity() {
         initialFragment(R.id.fcv_home, HomeFragment())
 
         clickBnv()
+        clickTopAppBar()
 
         scrollListener(RecyclerView(this))
     }
@@ -59,6 +61,29 @@ class BnvActivity : AppCompatActivity() {
 
         val backPressedUtil = BackPressedUtil<ActivityBnvBinding>(this)
         backPressedUtil.BackButton()
+    }
+
+    private fun clickTopAppBar() {
+        binding.topAppBar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.tab_menu_modify -> {
+                    showShortSnackBar(binding.root, getString(R.string.top_app_bar_toast_modify))
+                    true
+                }
+
+                R.id.tab_menu_favorite -> {
+                    showShortSnackBar(binding.root, getString(R.string.top_app_bar_toast_favorite))
+                    true
+                }
+
+                R.id.tab_menu_share -> {
+                    showShortSnackBar(binding.root, getString(R.string.top_app_bar_toast_share))
+                    true
+                }
+
+                else -> false
+            }
+        }
     }
 
     fun scrollListener(view: RecyclerView?) {
