@@ -1,24 +1,25 @@
-package org.sopt.dosopttemplate.presentation
+package org.sopt.dosopttemplate.presentation.main.mypage
 
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
+import org.sopt.dosopttemplate.data.User
 import org.sopt.dosopttemplate.databinding.FragmentMypageBinding
 import org.sopt.dosopttemplate.di.UserSharedPreferences
 import org.sopt.dosopttemplate.presentation.auth.LoginActivity
 
 class MypageFragment : Fragment() {
+
     companion object {
-        fun newInstance(userId: String?, userNickname: String?, userAge: String?): MypageFragment {
+        fun newInstance(user: User?): MypageFragment {
             val fragment = MypageFragment()
             val args = Bundle()
-            args.putString("userId", userId)
-            args.putString("userNickname", userNickname)
-            args.putString("userAge", userAge)
+            args.putParcelable("user", user)
             fragment.arguments = args
             return fragment
         }
@@ -41,28 +42,26 @@ class MypageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val spId = UserSharedPreferences.getUserID(requireContext())
-        val spNickname = UserSharedPreferences.getUserNickname(requireContext())
-        val spAge = UserSharedPreferences.getUserAge(requireContext())
-
+        // 유저 데이터 초기화
+        val spUser = UserSharedPreferences.getUser(requireContext())
         val bundle = arguments
-        val getId = bundle?.getString("userId")
-        val getNickname = bundle?.getString("userNickname")
-        val getAge = bundle?.getString("userAge")
+        val signUpUser = bundle?.getParcelable<User>("signUpUser")
 
         // 자동 로그인이 된 경우
-        if (UserSharedPreferences.getUserID(requireContext()).isNotBlank()
-        ) {
+        if (spUser.userId.isNotBlank()) {
             binding.run {
-                tvMainId.text = spId
-                tvMainNickname.text = spNickname
-                tvMainAge.text = spAge
+                tvMainId.text = spUser.userId
+                tvMainNickname.text = spUser.userNickname
+                tvMainAge.text = spUser.userAge
             }
         } else {
-            binding.run {
-                tvMainId.text = getId
-                tvMainNickname.text = getNickname
-                tvMainAge.text = getAge
+            // 자동 로그인으로 저장된 유저 정보가 없는 경우
+            signUpUser?.let {
+                binding.run {
+                    tvMainId.text = it.userId
+                    tvMainNickname.text = it.userNickname
+                    tvMainAge.text = it.userAge
+                }
             }
         }
 
@@ -70,15 +69,9 @@ class MypageFragment : Fragment() {
         binding.btnMainLogout.setOnClickListener {
             UserSharedPreferences.clearUser(requireContext())
 
-            // 프래그먼트를 제거
-            val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
-            fragmentManager
-                .beginTransaction()
-                .remove(this)
-                .commit()
-
             // 로그인 액티비티로 이동
             val intent = Intent(requireContext(), LoginActivity::class.java)
+                .addFlags(FLAG_ACTIVITY_CLEAR_TASK or FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
         }
     }

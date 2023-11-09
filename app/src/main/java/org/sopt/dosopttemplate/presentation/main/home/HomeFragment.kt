@@ -1,4 +1,4 @@
-package org.sopt.dosopttemplate.presentation
+package org.sopt.dosopttemplate.presentation.main.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -40,6 +40,7 @@ class HomeFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        binding.rvFriends.adapter = null
         _binding = null
     }
 }

@@ -61,7 +61,7 @@
         app:layout_constraintStart_toEndOf="@+id/tv_friends_birthday_name" />
 
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ll_friends_birthday_birthday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -69,7 +69,6 @@
         android:layout_marginEnd="20dp"
         android:background="@drawable/bg_birthday_stroke_red_2dp"
         android:gravity="center"
-        android:orientation="horizontal"
         android:paddingHorizontal="12dp"
         android:paddingVertical="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -80,13 +79,14 @@
             android:id="@+id/tv_friends_birthday_birthday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="3dp"
             android:gravity="left|center"
             android:text="@string/tv_present"
             android:textColor="@color/text_gray"
             android:textSize="13sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/ic_friends_birthday_birthday"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
@@ -100,6 +100,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

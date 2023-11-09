@@ -1,7 +1,9 @@
 package org.sopt.dosopttemplate.util
 
+import android.app.Activity
 import android.content.Context
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 
@@ -21,7 +23,7 @@ fun showShortSnackBar(view: View, text: String) {
     ).show()
 }
 
-// fun hideKeyboard(view: View) {
-//    val imm: InputMethodManager? = null
-//    imm?.hideSoftInputFromWindow(view.windowToken, 0)
-// }
+fun Context.hideKeyboard(view: View) {
+    val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+    inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+}
