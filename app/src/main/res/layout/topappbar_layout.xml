@@ -18,7 +18,7 @@
             android:minHeight="?attr/actionBarSize"
             app:title="@string/do_sopt"
             app:menu="@menu/menu_top_app_bar"
-            app:navigationIcon="@drawable/ic_android_70" />
+            app:navigationIcon="@drawable/ic_android_purple_24" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

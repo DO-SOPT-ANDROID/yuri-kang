@@ -20,8 +20,10 @@
             android:layout_height="wrap_content"
             android:minHeight="?attr/actionBarSize"
             app:menu="@menu/menu_top_app_bar"
-            app:navigationIcon="@drawable/ic_android_70"
+            app:navigationIcon="@drawable/ic_android_purple_24"
             app:title="@string/do_sopt"
+            app:titleTextAppearance="@style/topAppBarTitleTextAppearance"
+            android:background="#e9ecef"
             />
 
     </com.google.android.material.appbar.AppBarLayout>
