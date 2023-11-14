@@ -29,4 +29,13 @@
     <string name="bnv_mypage">마이페이지</string>
     <string name="tv_present">선물하기</string>
     <string name="btn_plus_text">상태메시지</string>
+    <string name="do_sopt">Do Sopt</string>
+    <string name="top_app_bar_menu_plus">plus</string>
+    <string name="top_app_bar_menu_favorite">좋아요</string>
+    <string name="top_app_bar_menu_share">공유</string>
+    <string name="top_app_bar_toast_modify">수정하기를 눌렀습니다.</string>
+    <string name="top_app_bar_toast_share">공유하기를 눌렀습니다.</string>
+    <string name="top_app_bar_toast_favorite">좋아하기를 눌렀습니다.</string>
+
+
 </resources>
