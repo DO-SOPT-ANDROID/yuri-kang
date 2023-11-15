@@ -7,10 +7,10 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface MypageService {
+interface UserService {
     // 회원 정보 조회
     @GET("api/v1/members/{memberId}")
-    fun memberGet(
+    fun userInfoGet(
         @Path("memberId") memberId: Int,
     ): Call<ResponseMemberGetDto>
 
