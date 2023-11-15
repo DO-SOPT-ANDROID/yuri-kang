@@ -54,13 +54,13 @@ class LoginActivity : AppCompatActivity() {
             val inputId = binding.etSignupId.text.toString()
             val inputPw = binding.etSignupPw.text.toString()
 
-            loginViewModel.loginUser(inputId, inputPw, signUpUser)
+            loginViewModel.loginUser(inputId, inputPw, this)
 
             loginViewModel.loginResult.observe(
                 this,
             ) { loginSuccessful ->
                 if (loginSuccessful) {
-                    showShortToast(getString(R.string.login_success))
+                    showShortToast("getString(R.string.login_success)")
 
                     if (binding.cbLoginAutologin.isChecked) {
                         signUpUser?.let {
