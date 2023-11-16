@@ -10,6 +10,7 @@ import org.sopt.dosopttemplate.databinding.ActivityBnvBinding
 import org.sopt.dosopttemplate.presentation.main.android.DoAndroidFragment
 import org.sopt.dosopttemplate.presentation.main.home.HomeFragment
 import org.sopt.dosopttemplate.presentation.main.mypage.MypageFragment
+import org.sopt.dosopttemplate.presentation.main.peoplelist.PeopleListFragment
 import org.sopt.dosopttemplate.util.BackPressedUtil
 import org.sopt.dosopttemplate.util.showShortSnackBarAction
 
@@ -40,6 +41,12 @@ class BnvActivity : AppCompatActivity() {
 
                 R.id.menu_do_android -> {
                     val fragment = DoAndroidFragment.newInstance()
+                    replaceFragment(fragment)
+                    true
+                }
+
+                R.id.menu_people -> {
+                    val fragment = PeopleListFragment.newInstance()
                     replaceFragment(fragment)
                     true
                 }

@@ -36,6 +36,8 @@
     <string name="top_app_bar_toast_modify">수정하기를 눌렀습니다.</string>
     <string name="top_app_bar_toast_share">공유하기를 눌렀습니다.</string>
     <string name="top_app_bar_toast_favorite">좋아하기를 눌렀습니다.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>
