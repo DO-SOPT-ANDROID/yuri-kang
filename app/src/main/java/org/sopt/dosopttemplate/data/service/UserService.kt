@@ -18,5 +18,5 @@ interface UserService {
     @GET("api/v1/members/check")
     fun checkUsernameExistence(
         @Query("username") username: String,
-    ): ResponseCheckUsernameDto
+    ): Call<ResponseCheckUsernameDto>
 }
