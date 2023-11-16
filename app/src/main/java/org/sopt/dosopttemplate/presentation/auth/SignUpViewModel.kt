@@ -31,17 +31,17 @@ class SignUpViewModel : ViewModel() {
                 signUpUser.userNickname,
             ),
         )
-            .enqueue(object : retrofit2.Callback<Void> {
+            .enqueue(object : retrofit2.Callback<Unit> {
                 override fun onResponse(
-                    call: Call<Void>,
-                    response: Response<Void>,
+                    call: Call<Unit>,
+                    response: Response<Unit>,
                 ) {
                     if (response.isSuccessful) {
                         _signUpResult.value = true
                     }
                 }
 
-                override fun onFailure(call: Call<Void>, t: Throwable) {
+                override fun onFailure(call: Call<Unit>, t: Throwable) {
                     Toast.makeText(
                         context,
                         "ㅜ ㅜ 서버 에러 발생 ㅜ ㅜ",

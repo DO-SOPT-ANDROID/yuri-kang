@@ -12,7 +12,7 @@ interface AuthService {
     @POST("api/v1/members")
     fun signUp(
         @Body request: RequestSignupDto,
-    ): Call<Void>
+    ): Call<Unit>
 
     // 로그인
     @POST("api/v1/members/sign-in")
