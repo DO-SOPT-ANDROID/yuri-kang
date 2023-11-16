@@ -48,9 +48,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:textSize="17sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/tv_people_name"
-        app:layout_constraintStart_toEndOf="@id/tv_people_name"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_people_profile"
         app:layout_constraintTop_toTopOf="@id/tv_people_name"
         tools:text="이메일" />
 </androidx.constraintlayout.widget.ConstraintLayout>

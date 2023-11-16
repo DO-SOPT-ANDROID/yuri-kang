@@ -9,11 +9,13 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.sopt.dosopttemplate.BuildConfig
 import org.sopt.dosopttemplate.data.service.AuthService
+import org.sopt.dosopttemplate.data.service.PeopleService
 import org.sopt.dosopttemplate.data.service.UserService
 import retrofit2.Retrofit
 
 object ApiFactory {
     private const val BASE_URL = BuildConfig.AUTH_BASE_URL
+    private const val OPEN_BASE_URL = BuildConfig.OPEN_BASE_URL
 
     private fun getLogOkHttpClient(): Interceptor {
         val loggingInterceptor = HttpLoggingInterceptor { message ->
@@ -35,10 +37,20 @@ object ApiFactory {
             .build()
     }
 
+    val openRetrofit: Retrofit by lazy {
+        Retrofit.Builder()
+            .baseUrl(OPEN_BASE_URL)
+            .client(okHttpClient)
+            .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
+            .build()
+    }
+
     inline fun <reified T> create(): T = retrofit.create(T::class.java)
+    inline fun <reified T> openCreate(): T = openRetrofit.create(T::class.java)
 }
 
 object ServicePool {
     val authService = ApiFactory.create<AuthService>()
     val userService = ApiFactory.create<UserService>()
+    val apiService = ApiFactory.openCreate<PeopleService>()
 }

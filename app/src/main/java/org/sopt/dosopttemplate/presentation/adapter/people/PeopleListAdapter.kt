@@ -6,15 +6,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import org.sopt.dosopttemplate.R
-import org.sopt.dosopttemplate.data.PeopleList
+import org.sopt.dosopttemplate.data.remote.response.ResponsePeopleListDto
 import org.sopt.dosopttemplate.databinding.ItemPeopleBinding
 
 class PeopleListAdapter : RecyclerView.Adapter<PeopleListAdapter.PeopleListViewHolder>() {
 
-    private var peopleList: ArrayList<PeopleList> = ArrayList()
+    private var peopleList: ArrayList<ResponsePeopleListDto> = ArrayList()
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setUsers(people: ArrayList<PeopleList>) {
+    fun setUsers(people: ArrayList<ResponsePeopleListDto>) {
         peopleList = people
         notifyDataSetChanged()
     }
@@ -26,8 +26,8 @@ class PeopleListAdapter : RecyclerView.Adapter<PeopleListAdapter.PeopleListViewH
     }
 
     override fun onBindViewHolder(holder: PeopleListViewHolder, position: Int) {
-        val user = peopleList[position]
-        holder.onBindView(user)
+        val responsePeopleList = peopleList[position]
+        holder.onBindView(responsePeopleList)
     }
 
     override fun getItemCount() = peopleList.size
@@ -35,16 +35,18 @@ class PeopleListAdapter : RecyclerView.Adapter<PeopleListAdapter.PeopleListViewH
     class PeopleListViewHolder(private val binding: ItemPeopleBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun onBindView(PeopleData: PeopleList) {
+        fun onBindView(peopleData: ResponsePeopleListDto) {
             binding.run {
-                ivPeopleProfile.load(PeopleData.avatar) {
-                    placeholder(R.drawable.img_default_kakao_profile)
-                    error(R.drawable.img_default_kakao_profile)
+                for (person in peopleData.data) {
+                    ivPeopleProfile.load(person.avatar) {
+                        placeholder(R.drawable.img_default_kakao_profile)
+                        error(R.drawable.img_default_kakao_profile)
+                    }
+                    ivPeopleProfile.clipToOutline = true
+                    tvPeopleId.text = person.id.toString()
+                    tvPeopleName.text = "${person.firstName} ${person.lastName}"
+                    tvPeopleEmail.text = person.email
                 }
-                ivPeopleProfile.clipToOutline = true
-                tvPeopleId.text = PeopleData.id.toString()
-                tvPeopleName.text = PeopleData.firstName + PeopleData.lastName
-                tvPeopleEmail.text = PeopleData.email
             }
         }
     }
