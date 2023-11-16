@@ -68,30 +68,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_main_id_title" />
 
-    <TextView
-        android:id="@+id/tv_main_age_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="40dp"
-        android:text="@string/tv_signup_age"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_main_id" />
+<!--    <TextView-->
+<!--        android:id="@+id/tv_main_age_title"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="40dp"-->
+<!--        android:layout_marginTop="40dp"-->
+<!--        android:text="@string/tv_signup_age"-->
+<!--        android:textSize="20sp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/tv_main_id" />-->
 
-    <TextView
-        android:id="@+id/tv_main_age"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="42dp"
-        android:layout_marginTop="10dp"
-        android:text="나이가 비었슈"
-        android:textColor="#808080"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_main_age_title" />
+<!--    <TextView-->
+<!--        android:id="@+id/tv_main_age"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginHorizontal="42dp"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:text="나이가 비었슈"-->
+<!--        android:textColor="#808080"-->
+<!--        android:textSize="18sp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/tv_main_age_title" />-->
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_main_logout"
