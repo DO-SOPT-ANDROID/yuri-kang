@@ -25,7 +25,7 @@ class SignUpActivity : AppCompatActivity() {
             val signUpUserId = binding.etSignupId.text.toString()
             val signUpUserPw = binding.etSignupPw.text.toString()
             val signUpUserNickname = binding.etSignupNickname.text.toString()
-            val signUpUserAge = binding.etSignupAge.text.toString()
+            // val signUpUserAge = binding.etSignupAge.text.toString()
 
             val signUpUser = User(signUpUserId, signUpUserPw, signUpUserNickname)
 
