@@ -28,7 +28,8 @@ class LoginViewModel : ViewModel() {
                     response: Response<ResponseLoginDto>,
                 ) {
                     if (response.isSuccessful) {
-                        val data: ResponseLoginDto = response.body()!!
+                        val data: ResponseLoginDto =
+                            response.body() ?: ResponseLoginDto(-1, "null", "null")
                         val userId = data.id
 
                         Toast.makeText(
