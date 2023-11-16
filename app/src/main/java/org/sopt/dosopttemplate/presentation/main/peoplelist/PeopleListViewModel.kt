@@ -23,6 +23,12 @@ class PeopleListViewModel : ViewModel() {
                 ) {
                     if (response.isSuccessful) {
                         _peopleData.value = listOf(response.body() ?: return)
+
+                        Toast.makeText(
+                            context,
+                            "친구를 찾아봅시다",
+                            Toast.LENGTH_SHORT,
+                        ).show()
                     }
                 }
 

@@ -6,16 +6,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import org.sopt.dosopttemplate.R
+import org.sopt.dosopttemplate.data.remote.response.PersonDto
 import org.sopt.dosopttemplate.data.remote.response.ResponsePeopleListDto
 import org.sopt.dosopttemplate.databinding.ItemPeopleBinding
 
 class PeopleListAdapter : RecyclerView.Adapter<PeopleListAdapter.PeopleListViewHolder>() {
 
-    private var peopleList: ArrayList<ResponsePeopleListDto> = ArrayList()
+    private var peopleList: List<PersonDto> = emptyList()
 
     @SuppressLint("NotifyDataSetChanged")
     fun setUsers(people: ArrayList<ResponsePeopleListDto>) {
-        peopleList = people
+        peopleList = people.flatMap { it.data }
         notifyDataSetChanged()
     }
 
@@ -26,8 +27,8 @@ class PeopleListAdapter : RecyclerView.Adapter<PeopleListAdapter.PeopleListViewH
     }
 
     override fun onBindViewHolder(holder: PeopleListViewHolder, position: Int) {
-        val responsePeopleList = peopleList[position]
-        holder.onBindView(responsePeopleList)
+        val person = peopleList[position]
+        holder.onBindView(person)
     }
 
     override fun getItemCount() = peopleList.size
@@ -35,18 +36,16 @@ class PeopleListAdapter : RecyclerView.Adapter<PeopleListAdapter.PeopleListViewH
     class PeopleListViewHolder(private val binding: ItemPeopleBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun onBindView(peopleData: ResponsePeopleListDto) {
+        fun onBindView(person: PersonDto) {
             binding.run {
-                for (person in peopleData.data) {
-                    ivPeopleProfile.load(person.avatar) {
-                        placeholder(R.drawable.img_default_kakao_profile)
-                        error(R.drawable.img_default_kakao_profile)
-                    }
-                    ivPeopleProfile.clipToOutline = true
-                    tvPeopleId.text = person.id.toString()
-                    tvPeopleName.text = "${person.firstName} ${person.lastName}"
-                    tvPeopleEmail.text = person.email
+                ivPeopleProfile.load(person.avatar) {
+                    placeholder(R.drawable.img_default_kakao_profile)
+                    error(R.drawable.img_default_kakao_profile)
                 }
+                ivPeopleProfile.clipToOutline = true
+                tvPeopleId.text = person.id.toString()
+                tvPeopleName.text = "${person.firstName} ${person.lastName}"
+                tvPeopleEmail.text = person.email
             }
         }
     }

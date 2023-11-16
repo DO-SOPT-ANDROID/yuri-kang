@@ -46,10 +46,17 @@ class PeopleListFragment : Fragment() {
         peopleListViewModel.peopleData.observe(
             viewLifecycleOwner,
             Observer { peopleList ->
+                // Log.d("PeopleList 리스트 .. 왜 1개만 보일까융", "list size: ${peopleList.size}")
                 peopleListAdapter.setUsers(ArrayList(peopleList))
             },
         )
 
         peopleListViewModel.fetchPeopleData(requireContext())
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding.rvPeople.adapter = null
+        _binding = null
     }
 }
