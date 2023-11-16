@@ -56,7 +56,7 @@ class MypageFragment : Fragment() {
                 binding.run {
                     tvMainId.text = user.userId
                     tvMainNickname.text = user.userNickname
-                    tvMainAge.text = user.userAge
+                    // tvMainAge.text = user.userAge
                 }
             } else {
                 // 자동 로그인으로 저장된 유저 정보가 없는 경우
@@ -64,7 +64,7 @@ class MypageFragment : Fragment() {
                     binding.run {
                         tvMainId.text = it.userId
                         tvMainNickname.text = it.userNickname
-                        tvMainAge.text = it.userAge
+                        // tvMainAge.text = it.userAge
                     }
                 }
             }

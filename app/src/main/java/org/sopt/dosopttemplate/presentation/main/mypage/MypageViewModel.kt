@@ -18,6 +18,6 @@ class MypageViewModel : ViewModel() {
 
     fun clearUserData(context: Context) {
         UserSharedPreferences.clearUser(context)
-        _userData.value = User("", "", "", "")
+        _userData.value = User("", "", "")
     }
 }

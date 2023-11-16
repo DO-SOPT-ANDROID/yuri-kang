@@ -27,9 +27,9 @@ class SignUpActivity : AppCompatActivity() {
             val signUpUserNickname = binding.etSignupNickname.text.toString()
             val signUpUserAge = binding.etSignupAge.text.toString()
 
-            val signUpUser = User(signUpUserId, signUpUserNickname, signUpUserAge, signUpUserPw)
+            val signUpUser = User(signUpUserId, signUpUserPw, signUpUserNickname)
 
-            signUpViewModel.signUpUser(signUpUser)
+            signUpViewModel.signUpUser(signUpUser, this)
 
             signUpViewModel.signUpResult.observe(this) { signUpSuccessful ->
                 if (signUpSuccessful) {
