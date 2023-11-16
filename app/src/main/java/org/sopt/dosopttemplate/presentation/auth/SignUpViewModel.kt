@@ -38,12 +38,6 @@ class SignUpViewModel : ViewModel() {
                 ) {
                     if (response.isSuccessful) {
                         _signUpResult.value = true
-
-                        Toast.makeText(
-                            context,
-                            "회원가입 성공",
-                            Toast.LENGTH_SHORT,
-                        ).show()
                     }
                 }
 
