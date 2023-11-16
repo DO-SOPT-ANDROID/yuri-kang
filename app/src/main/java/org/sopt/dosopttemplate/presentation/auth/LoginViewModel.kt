@@ -36,13 +36,14 @@ class LoginViewModel : ViewModel() {
                             "로그인이 성공하였고 유저의 ID는 $userId 입니둥",
                             Toast.LENGTH_SHORT,
                         ).show()
+                        _loginResult.value = true
                     }
                 }
 
                 override fun onFailure(call: Call<ResponseLoginDto>, t: Throwable) {
                     Toast.makeText(
                         context,
-                        "서버 에러 발생 ㅜ ㅜ",
+                        "ㅜ ㅜ 서버 에러 발생 ㅜ ㅜ",
                         Toast.LENGTH_SHORT,
                     ).show()
 

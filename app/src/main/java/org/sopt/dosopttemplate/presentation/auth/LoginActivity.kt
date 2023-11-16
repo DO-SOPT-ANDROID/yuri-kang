@@ -8,15 +8,12 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.data.User
 import org.sopt.dosopttemplate.databinding.ActivityLoginBinding
 import org.sopt.dosopttemplate.di.UserSharedPreferences
 import org.sopt.dosopttemplate.presentation.main.BnvActivity
 import org.sopt.dosopttemplate.util.BackPressedUtil
 import org.sopt.dosopttemplate.util.hideKeyboard
-import org.sopt.dosopttemplate.util.showShortSnackBar
-import org.sopt.dosopttemplate.util.showShortToast
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -60,7 +57,7 @@ class LoginActivity : AppCompatActivity() {
                 this,
             ) { loginSuccessful ->
                 if (loginSuccessful) {
-                    showShortToast("getString(R.string.login_success)")
+                    // showShortToast("getString(R.string.login_success)")
 
                     if (binding.cbLoginAutologin.isChecked) {
                         signUpUser?.let {
@@ -73,7 +70,7 @@ class LoginActivity : AppCompatActivity() {
                     startActivity(intent)
                     finish()
                 } else {
-                    showShortSnackBar(binding.root, getString(R.string.login_fail))
+                    // showShortSnackBar(binding.root, getString(R.string.login_fail))
                 }
             }
         }

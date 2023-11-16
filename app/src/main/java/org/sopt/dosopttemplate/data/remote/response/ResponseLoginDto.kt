@@ -9,6 +9,6 @@ data class ResponseLoginDto(
     val id: Int,
     @SerialName("username")
     val username: String,
-    @SerialName("password")
-    val password: String,
+    @SerialName("nickname")
+    val nickname: String,
 )
