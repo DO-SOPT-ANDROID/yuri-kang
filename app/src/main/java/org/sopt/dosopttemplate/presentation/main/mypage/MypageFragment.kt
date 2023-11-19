@@ -8,14 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import org.sopt.dosopttemplate.data.User
 import org.sopt.dosopttemplate.databinding.FragmentMypageBinding
 import org.sopt.dosopttemplate.presentation.auth.LoginActivity
 
 class MypageFragment : Fragment() {
 
-    private lateinit var viewModel: MypageViewModel
+    private val mypageViewModel by viewModels<MypageViewModel>()
 
     companion object {
         fun newInstance(user: User?): MypageFragment {
@@ -44,9 +44,7 @@ class MypageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(this).get(MypageViewModel::class.java)
-
-        viewModel.userData.observe(viewLifecycleOwner) { user ->
+        mypageViewModel.userData.observe(viewLifecycleOwner) { user ->
             // 유저 데이터 초기화
             val bundle = arguments
             val signUpUser = bundle?.getParcelable<User>("signUpUser")
@@ -70,11 +68,11 @@ class MypageFragment : Fragment() {
             }
         }
 
-        viewModel.loadUserData(requireContext())
+        mypageViewModel.loadUserData(requireContext())
 
         // 로그아웃
         binding.btnMainLogout.setOnClickListener {
-            viewModel.clearUserData(requireContext())
+            mypageViewModel.clearUserData(requireContext())
 
             // 로그인 액티비티로 이동
             val intent = Intent(requireContext(), LoginActivity::class.java)

@@ -6,8 +6,8 @@ import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import org.sopt.dosopttemplate.data.User
 import org.sopt.dosopttemplate.databinding.ActivityLoginBinding
 import org.sopt.dosopttemplate.di.UserSharedPreferences
@@ -17,14 +17,11 @@ import org.sopt.dosopttemplate.util.hideKeyboard
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
-    private lateinit var loginViewModel: LoginViewModel
-
+    private val loginViewModel by viewModels<LoginViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
-        loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
 
         // 자동 로그인으로 저장된 유저 정보
         val spUser = UserSharedPreferences.getUser(this)

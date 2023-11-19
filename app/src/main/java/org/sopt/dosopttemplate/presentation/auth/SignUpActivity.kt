@@ -2,8 +2,8 @@ package org.sopt.dosopttemplate.presentation.auth
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.data.User
 import org.sopt.dosopttemplate.databinding.ActivitySignupBinding
@@ -12,14 +12,12 @@ import org.sopt.dosopttemplate.util.showShortToast
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignupBinding
-    private lateinit var signUpViewModel: SignUpViewModel
+    private val signUpViewModel by viewModels<SignUpViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivitySignupBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
-        signUpViewModel = ViewModelProvider(this).get(SignUpViewModel::class.java)
 
         binding.btnSignupSignup.setOnClickListener {
             val signUpUserId = binding.etSignupId.text.toString()

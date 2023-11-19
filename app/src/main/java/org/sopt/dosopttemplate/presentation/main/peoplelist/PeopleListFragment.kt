@@ -5,15 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.sopt.dosopttemplate.databinding.FragmentPeopleListBinding
 import org.sopt.dosopttemplate.presentation.adapter.people.PeopleListAdapter
 
 class PeopleListFragment : Fragment() {
-
-    private lateinit var peopleListViewModel: PeopleListViewModel
+    private val peopleListViewModel by viewModels<PeopleListViewModel>()
     private lateinit var peopleListAdapter: PeopleListAdapter
 
     companion object {
@@ -38,7 +37,6 @@ class PeopleListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         peopleListAdapter = PeopleListAdapter()
-        peopleListViewModel = ViewModelProvider(this).get(PeopleListViewModel::class.java)
 
         binding.rvPeople.layoutManager = LinearLayoutManager(requireContext())
         binding.rvPeople.adapter = peopleListAdapter
