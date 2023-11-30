@@ -8,12 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import org.sopt.dosopttemplate.data.User
 import org.sopt.dosopttemplate.databinding.FragmentMypageBinding
-import org.sopt.dosopttemplate.di.UserSharedPreferences
 import org.sopt.dosopttemplate.presentation.auth.LoginActivity
 
 class MypageFragment : Fragment() {
+
+    private val mypageViewModel by viewModels<MypageViewModel>()
 
     companion object {
         fun newInstance(user: User?): MypageFragment {
@@ -42,32 +44,35 @@ class MypageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // 유저 데이터 초기화
-        val spUser = UserSharedPreferences.getUser(requireContext())
-        val bundle = arguments
-        val signUpUser = bundle?.getParcelable<User>("signUpUser")
+        mypageViewModel.userData.observe(viewLifecycleOwner) { user ->
+            // 유저 데이터 초기화
+            val bundle = arguments
+            val signUpUser = bundle?.getParcelable<User>("signUpUser")
 
-        // 자동 로그인이 된 경우
-        if (spUser.userId.isNotBlank()) {
-            binding.run {
-                tvMainId.text = spUser.userId
-                tvMainNickname.text = spUser.userNickname
-                tvMainAge.text = spUser.userAge
-            }
-        } else {
-            // 자동 로그인으로 저장된 유저 정보가 없는 경우
-            signUpUser?.let {
+            // 자동 로그인이 된 경우
+            if (user.userId.isNotBlank()) {
                 binding.run {
-                    tvMainId.text = it.userId
-                    tvMainNickname.text = it.userNickname
-                    tvMainAge.text = it.userAge
+                    tvMainId.text = user.userId
+                    tvMainNickname.text = user.userNickname
+                    // tvMainAge.text = user.userAge
+                }
+            } else {
+                // 자동 로그인으로 저장된 유저 정보가 없는 경우
+                signUpUser?.let {
+                    binding.run {
+                        tvMainId.text = it.userId
+                        tvMainNickname.text = it.userNickname
+                        // tvMainAge.text = it.userAge
+                    }
                 }
             }
         }
 
+        mypageViewModel.loadUserData(requireContext())
+
         // 로그아웃
         binding.btnMainLogout.setOnClickListener {
-            UserSharedPreferences.clearUser(requireContext())
+            mypageViewModel.clearUserData(requireContext())
 
             // 로그인 액티비티로 이동
             val intent = Intent(requireContext(), LoginActivity::class.java)

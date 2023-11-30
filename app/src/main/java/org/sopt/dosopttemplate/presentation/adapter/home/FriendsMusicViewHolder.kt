@@ -1,4 +1,4 @@
-package org.sopt.dosopttemplate.presentation.adapter
+package org.sopt.dosopttemplate.presentation.adapter.home
 
 import androidx.recyclerview.widget.RecyclerView
 import coil.load

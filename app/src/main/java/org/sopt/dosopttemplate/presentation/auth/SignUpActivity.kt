@@ -2,6 +2,7 @@ package org.sopt.dosopttemplate.presentation.auth
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.data.User
@@ -11,6 +12,7 @@ import org.sopt.dosopttemplate.util.showShortToast
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignupBinding
+    private val signUpViewModel by viewModels<SignUpViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivitySignupBinding.inflate(layoutInflater)
@@ -21,25 +23,14 @@ class SignUpActivity : AppCompatActivity() {
             val signUpUserId = binding.etSignupId.text.toString()
             val signUpUserPw = binding.etSignupPw.text.toString()
             val signUpUserNickname = binding.etSignupNickname.text.toString()
-            val signUpUserAge = binding.etSignupAge.text.toString()
+            // val signUpUserAge = binding.etSignupAge.text.toString()
 
-            val signUpUser = User(signUpUserId, signUpUserNickname, signUpUserAge, signUpUserPw)
+            val signUpUser = User(signUpUserId, signUpUserPw, signUpUserNickname)
 
-            // 필수 조건 미입력 시
-            if (signUpUser.userId.isEmpty() || signUpUser.userPw.isEmpty() || signUpUser.userNickname.isEmpty() || signUpUser.userAge.isEmpty()) {
-                showShortSnackBar(binding.root, getString(R.string.signup_fail))
-            } else {
-                // 필수 조건 모두 입력 시
-                // 조건
-                if (signUpUser.userId.length > 10 || signUpUser.userId.length < 6) {
-                    showShortSnackBar(binding.root, getString(R.string.signup_id))
-                } else if (signUpUser.userPw.length > 12 || signUpUser.userPw.length < 8) {
-                    showShortSnackBar(binding.root, getString(R.string.signup_pw))
-                } else if (signUpUser.userNickname.isBlank()) {
-                    showShortSnackBar(binding.root, getString(R.string.signup_nickname))
-                } else if (signUpUser.userAge.length >= 3 || signUpUser.userAge == "0") {
-                    showShortSnackBar(binding.root, getString(R.string.signup_age))
-                } else {
+            signUpViewModel.signUpUser(signUpUser, this)
+
+            signUpViewModel.signUpResult.observe(this) { signUpSuccessful ->
+                if (signUpSuccessful) {
                     // 화면 전환
                     showShortToast(getString(R.string.signup_success))
 
@@ -47,6 +38,8 @@ class SignUpActivity : AppCompatActivity() {
                     intent.putExtra("signUpUser", signUpUser)
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                     startActivity(intent)
+                } else {
+                    showShortSnackBar(binding.root, getString(R.string.signup_fail))
                 }
             }
         }

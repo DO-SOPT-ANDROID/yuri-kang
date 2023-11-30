@@ -2,15 +2,20 @@
 ### 🌱안드로이드 정리 링크🌱
 [안드로이드 정리 링크](https://peaceful-minnow-33c.notion.site/2023-2-Do-Sopt-837d554c7db445d3ad547d960b15085e?pvs=4)
 
+---
 ### 🌹안드로이드 세미나, 과제 정리 링크🌹
-[1주차 과제 정리 노션 링크](https://peaceful-minnow-33c.notion.site/1-644e6a019a1a46d4b575ab6eb2629e2c?pvs=4)
-[2주차 과제 정리 노션 링크](https://peaceful-minnow-33c.notion.site/2-9d6f1d9f666c4400b976de6ce74ddddf?pvs=4)
-[3주차 과제 정리 노션 링크](https://peaceful-minnow-33c.notion.site/3-d26d9c5df31a4a939dd07c2d1e826da2?pvs=4)
+- [1주차 과제 정리 노션 링크](https://peaceful-minnow-33c.notion.site/1-644e6a019a1a46d4b575ab6eb2629e2c?pvs=4)
+- [2주차 과제 정리 노션 링크](https://peaceful-minnow-33c.notion.site/2-9d6f1d9f666c4400b976de6ce74ddddf?pvs=4)
+- [3주차 과제 정리 노션 링크](https://peaceful-minnow-33c.notion.site/3-d26d9c5df31a4a939dd07c2d1e826da2?pvs=4)
+- [4주차 과제 정리 노션 링크](https://peaceful-minnow-33c.notion.site/4-c4d7667ba8384bd8a7b3f95e65137f90?pvs=4)
 
 ### develop
 1차 세미나 : Android UI 구현 기초
 2차 세미나 : Android UI 구현 심화 : 디자인 패턴
 3차 세미나 : Material Design System과 안드로이드 UI/UX
+4차 세미나 : Retrofit2를 활용한 서버 통신과 협업을 위한 대비
+
+---
 
 ### ☁️Commit 규칙☁️
 - **[FEAT]**: 새로운 기능 구현

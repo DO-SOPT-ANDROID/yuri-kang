@@ -92,29 +92,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_signup_nickname" />
 
-    <TextView
-        android:id="@+id/tv_signup_age"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="30dp"
-        android:layout_marginTop="12dp"
-        android:text="@string/tv_signup_age"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_signup_nickname" />
 
-    <EditText
-        android:id="@+id/et_signup_age"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="30dp"
-        android:layout_marginTop="5dp"
-        android:hint="@string/et_age_hint"
-        android:inputType="number"
-        android:singleLine="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_signup_age" />
+<!--    <TextView-->
+<!--        android:id="@+id/tv_signup_age"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginHorizontal="30dp"-->
+<!--        android:layout_marginTop="12dp"-->
+<!--        android:text="@string/tv_signup_age"-->
+<!--        android:textSize="20sp"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/et_signup_nickname" />-->
+
+<!--    <EditText-->
+<!--        android:id="@+id/et_signup_age"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginHorizontal="30dp"-->
+<!--        android:layout_marginTop="5dp"-->
+<!--        android:hint="@string/et_age_hint"-->
+<!--        android:inputType="number"-->
+<!--        android:singleLine="true"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/tv_signup_age" />-->
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_signup_signup"

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import org.sopt.dosopttemplate.data.DummyFriendData
 import org.sopt.dosopttemplate.databinding.FragmentHomeBinding
-import org.sopt.dosopttemplate.presentation.adapter.FriendsSealedAdapter
+import org.sopt.dosopttemplate.presentation.adapter.home.FriendsSealedAdapter
 
 class HomeFragment : Fragment() {
     companion object {
@@ -34,13 +34,13 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val friendsSealedAdapter = FriendsSealedAdapter(requireContext())
-        binding.rvFriends.adapter = friendsSealedAdapter
+        binding.rvPeople.adapter = friendsSealedAdapter
         friendsSealedAdapter.setFriendsData(ArrayList(DummyFriendData.dummyFriendList))
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        binding.rvFriends.adapter = null
+        binding.rvPeople.adapter = null
         _binding = null
     }
 }
