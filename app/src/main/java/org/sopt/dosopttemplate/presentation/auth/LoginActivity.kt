@@ -23,6 +23,10 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        // DataBinding을 사용하기 위함
+        binding.lifecycleOwner = this
+        binding.viewModel = loginViewModel
+
         // 자동 로그인으로 저장된 유저 정보
         val spUser = UserSharedPreferences.getUser(this)
 
@@ -35,10 +39,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         // 회원가입 하러 가기
-        binding.btnSignupSignup.setOnClickListener {
-            val intent = Intent(this, SignUpActivity::class.java)
-            startActivity(intent)
-        }
+        setSignupClickListener()
 
         // 로그인 하기
         binding.btnLoginLogin.setOnClickListener {
@@ -74,6 +75,13 @@ class LoginActivity : AppCompatActivity() {
 
         val backPressedUtil = BackPressedUtil<ActivityLoginBinding>(this)
         backPressedUtil.BackButton()
+    }
+
+    private fun setSignupClickListener() {
+        binding.btnSignupSignup.setOnClickListener {
+            val intent = Intent(this, SignUpActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {

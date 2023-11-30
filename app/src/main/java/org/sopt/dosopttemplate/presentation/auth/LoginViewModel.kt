@@ -14,8 +14,10 @@ import retrofit2.Call
 import retrofit2.Response
 
 class LoginViewModel : ViewModel() {
-    private val _loginResult = MutableLiveData<Boolean>()
-    val loginResult: LiveData<Boolean> get() = _loginResult
+    private val _loginResult = MutableLiveData<Boolean>() // 외부에 공개하지 않는, 비즈니스 로직에서는 private 변수를 사용한다.
+    val loginResult: LiveData<Boolean> get() = _loginResult // 내부에서 쓰는 변수에 할당, 내부 상태를 변경 가능, get 메서드가 라이브데이터 타입 반환
+
+    val isLoginButtonClicked = MutableLiveData<Boolean>()
 
     fun loginUser(inputId: String, inputPw: String, context: Context) {
 //        _loginResult.value =
@@ -53,6 +55,9 @@ class LoginViewModel : ViewModel() {
             })
     }
 
+    fun onClickLoginBtn() {
+        isLoginButtonClicked.value = true
+    }
     fun saveUserForAutoLogin(context: Context, signUpUser: User) {
         UserSharedPreferences.setUser(context, signUpUser)
     }
