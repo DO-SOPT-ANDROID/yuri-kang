@@ -25,6 +25,11 @@ class SignUpActivity : AppCompatActivity() {
             val signUpUserNickname = binding.tieEtSignupNickname.text.toString()
             // val signUpUserAge = binding.etSignupAge.text.toString()
 
+//            binding.telSignupId.error = "영문과 숫자를 포함해주세요."
+//            binding.telSignupPw.error = "영문과 숫자, 특수문자를 포함해주세요."
+//            binding.telSignupNickname.error = "닉네임을 입력해주세요."
+
+
             val signUpUser = User(signUpUserId, signUpUserPw, signUpUserNickname)
 
             signUpViewModel.signUpUserApi(signUpUser, this)
