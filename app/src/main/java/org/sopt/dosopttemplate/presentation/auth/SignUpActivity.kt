@@ -35,13 +35,15 @@ class SignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        binding.btnSignupSignup.isEnabled = false
+        signUpListeners()
+        clickSignUpBtn()
+    }
 
+    private fun signUpListeners() {
+        binding.btnSignupSignup.isEnabled = false
         binding.telSignupId.editText?.addTextChangedListener(idListener)
         binding.telSignupPw.editText?.addTextChangedListener(pwListener)
         binding.telSignupNickname.editText?.addTextChangedListener(nicknameListener)
-
-        clickSignUpBtn()
     }
 
     private val idListener = object : TextWatcher {
