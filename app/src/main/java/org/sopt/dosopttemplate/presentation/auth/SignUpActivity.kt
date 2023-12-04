@@ -11,11 +11,18 @@ import org.sopt.dosopttemplate.data.User
 import org.sopt.dosopttemplate.databinding.ActivitySignupBinding
 import org.sopt.dosopttemplate.util.showShortSnackBar
 import org.sopt.dosopttemplate.util.showShortToast
-import java.util.regex.Pattern
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignupBinding
     private val signUpViewModel by viewModels<SignUpViewModel>()
+
+    private var idFlag = false
+    private var pwFlag = false
+    private var nicknameFlag = false
+
+    private var signUpUserId: String = ""
+    private var signUpUserPw: String = ""
+    private var signUpUserNickname: String = ""
 
     companion object {
         private const val ID_PATTERN = "^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z[0-9]]{6,10}$"
@@ -25,15 +32,105 @@ class SignUpActivity : AppCompatActivity() {
 
     private val idListener = object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            // do nothing
         }
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            // do nothing
         }
 
         override fun afterTextChanged(s: Editable?) {
+            if (s != null) {
+                when {
+                    s.isEmpty() -> {
+                        binding.telSignupId.error = "아이디를 입력해주세요."
+                        idFlag = false
+                    }
+
+                    !(s.toString().matches(ID_PATTERN.toRegex())) -> {
+                        binding.telSignupId.error = "아이디 양식이 일치하지 않습니다."
+                        idFlag = false
+                    }
+
+                    else -> {
+                        binding.telSignupId.error = null
+                        idFlag = true
+                    }
+                }
+
+                binding.telSignupId.editText?.setOnFocusChangeListener { _, hasFocus ->
+                    if (!hasFocus) {
+                        signUpUserId = s.toString()
+                    }
+                }
+                buttonEnabled()
+            }
         }
+    }
+    private val pwListener = object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+        }
+
+        override fun afterTextChanged(s: Editable?) {
+            if (s != null) {
+                when {
+                    s.isEmpty() -> {
+                        binding.telSignupPw.error = "비밀번호를 입력해주세요."
+                        pwFlag = false
+                    }
+
+                    !(s.toString().matches(PW_PATTERN.toRegex())) -> {
+                        binding.telSignupPw.error = "비밀번호 양식이 일치하지 않습니다."
+                        pwFlag = false
+                    }
+
+                    else -> {
+                        binding.telSignupPw.error = null
+                        pwFlag = true
+                    }
+                }
+                binding.telSignupPw.editText?.setOnFocusChangeListener { _, hasFocus ->
+                    if (!hasFocus) {
+                        signUpUserPw = s.toString()
+                    }
+                }
+                buttonEnabled()
+            }
+        }
+    }
+    private val nicknameListener = object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+        }
+
+        override fun afterTextChanged(s: Editable?) {
+            if (s != null) {
+                when {
+                    s.isEmpty() -> {
+                        binding.telSignupPw.error = "닉네임을 입력해주세요."
+                        nicknameFlag = false
+                    }
+
+                    else -> {
+                        binding.telSignupPw.error = null
+                        nicknameFlag = true
+                    }
+                }
+                binding.telSignupPw.editText?.setOnFocusChangeListener { _, hasFocus ->
+                    if (!hasFocus) {
+                        signUpUserNickname = s.toString()
+                    }
+                }
+                buttonEnabled()
+            }
+        }
+    }
+
+    private fun buttonEnabled() {
+        binding.btnSignupSignup.isEnabled = idFlag && pwFlag && nicknameFlag
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,11 +138,16 @@ class SignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        val signUpUserId = binding.tieEtSignupId.text.toString()
-        val signUpUserPw = binding.tieEtSignupPw.text.toString()
-        val signUpUserNickname = binding.tieEtSignupNickname.text.toString()
+        binding.telSignupId.editText?.addTextChangedListener(idListener)
+        binding.telSignupPw.editText?.addTextChangedListener(pwListener)
+        binding.telSignupNickname.editText?.addTextChangedListener(nicknameListener)
+
         val signUpUser = User(signUpUserId, signUpUserPw, signUpUserNickname)
 
+        clickSignUpBtn(signUpUser)
+    }
+
+    private fun clickSignUpBtn(signUpUser: User) {
         binding.btnSignupSignup.setOnClickListener {
             signUpViewModel.signUpUserApi(signUpUser, this)
 
