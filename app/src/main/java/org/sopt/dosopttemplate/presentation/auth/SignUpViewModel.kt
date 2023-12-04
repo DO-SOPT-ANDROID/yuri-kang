@@ -15,38 +15,6 @@ class SignUpViewModel : ViewModel() {
     private val _signUpResult = MutableLiveData<Boolean>()
     val signUpResult: LiveData<Boolean> get() = _signUpResult
 
-    private val _isValidId = MutableLiveData<Boolean>()
-    val isValidId: LiveData<Boolean> get() = _isValidId
-
-    private val _isValidPw = MutableLiveData<Boolean>()
-    val isValidPw: LiveData<Boolean> get() = _isValidPw
-
-    private val _isValidNickname = MutableLiveData<Boolean>()
-    val isValidNickname: LiveData<Boolean> get() = _isValidNickname
-
-    companion object {
-        private const val ID_PATTERN = "^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z[0-9]]{6,10}$"
-        private const val PW_PATTERN =
-            "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&.])[A-Za-z[0-9]$@$!%*#?&.]{6,12}$"
-    }
-
-
-    fun checkValid(signUpUser: User) {
-        if (signUpUser.userId.isEmpty() || signUpUser.userId.isBlank()) {
-            _isValidId.value = true
-        } else {
-            val idPattern = signUpUser.userId.matches(Regex(ID_PATTERN))
-            _isValidId.value = idPattern
-        }
-
-        val pwPattern = signUpUser.userPw.matches(Regex(PW_PATTERN))
-        _isValidPw.value = pwPattern
-
-        val nicknamePattern = signUpUser.userNickname.isNotBlank() &&
-            signUpUser.userNickname.isNotEmpty()
-        _isValidNickname.value = nicknamePattern
-    }
-
     fun signUpUserApi(signUpUser: User, context: Context) {
         ServicePool.authService.signUp(
             RequestSignupDto(

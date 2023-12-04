@@ -30,6 +30,20 @@ class SignUpActivity : AppCompatActivity() {
             "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&.])[A-Za-z[0-9]$@$!%*#?&.]{6,12}$"
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        binding = ActivitySignupBinding.inflate(layoutInflater)
+        super.onCreate(savedInstanceState)
+        setContentView(binding.root)
+
+        binding.btnSignupSignup.isEnabled = false
+
+        binding.telSignupId.editText?.addTextChangedListener(idListener)
+        binding.telSignupPw.editText?.addTextChangedListener(pwListener)
+        binding.telSignupNickname.editText?.addTextChangedListener(nicknameListener)
+
+        clickSignUpBtn()
+    }
+
     private val idListener = object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
         }
@@ -118,20 +132,6 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun buttonEnabled() {
         binding.btnSignupSignup.isEnabled = idFlag && pwFlag && nicknameFlag
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        binding = ActivitySignupBinding.inflate(layoutInflater)
-        super.onCreate(savedInstanceState)
-        setContentView(binding.root)
-
-        binding.btnSignupSignup.isEnabled = false
-
-        binding.telSignupId.editText?.addTextChangedListener(idListener)
-        binding.telSignupPw.editText?.addTextChangedListener(pwListener)
-        binding.telSignupNickname.editText?.addTextChangedListener(nicknameListener)
-
-        clickSignUpBtn()
     }
 
     private fun clickSignUpBtn() {
