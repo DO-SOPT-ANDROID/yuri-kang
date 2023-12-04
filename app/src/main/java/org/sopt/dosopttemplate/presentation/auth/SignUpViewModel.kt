@@ -23,7 +23,7 @@ class SignUpViewModel : ViewModel() {
 //        _signUpResult.value = isSignUpSuccessful
 //    }
 
-    fun signUpUser(signUpUser: User, context: Context) {
+    fun signUpUserApi(signUpUser: User, context: Context) {
         ServicePool.authService.signUp(
             RequestSignupDto(
                 signUpUser.userId,

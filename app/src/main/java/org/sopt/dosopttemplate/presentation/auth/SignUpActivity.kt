@@ -27,7 +27,7 @@ class SignUpActivity : AppCompatActivity() {
 
             val signUpUser = User(signUpUserId, signUpUserPw, signUpUserNickname)
 
-            signUpViewModel.signUpUser(signUpUser, this)
+            signUpViewModel.signUpUserApi(signUpUser, this)
 
             signUpViewModel.signUpResult.observe(this) { signUpSuccessful ->
                 if (signUpSuccessful) {
