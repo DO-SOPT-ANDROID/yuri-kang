@@ -23,6 +23,12 @@ class SignUpViewModel : ViewModel() {
 //        _signUpResult.value = isSignUpSuccessful
 //    }
 
+    companion object {
+        private const val ID_PATTERN = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,10}$"
+        private const val PW_PATTERN =
+            "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[!@#\$%^&*()-=_+{};':\"\\\\|,.<>?/~`]){6,12}$"
+    }
+
     fun signUpUserApi(signUpUser: User, context: Context) {
         ServicePool.authService.signUp(
             RequestSignupDto(
