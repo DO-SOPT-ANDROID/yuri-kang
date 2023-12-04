@@ -102,7 +102,7 @@ class SignUpActivity : AppCompatActivity() {
             if (s != null) {
                 when {
                     s.isEmpty() -> {
-                        binding.telSignupPw.error = "닉네임을 입력해주세요."
+                        binding.telSignupNickname.error = "닉네임을 입력해주세요."
                         nicknameFlag = false
                     }
 
@@ -126,6 +126,8 @@ class SignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        binding.btnSignupSignup.isEnabled = false
+
         binding.telSignupId.editText?.addTextChangedListener(idListener)
         binding.telSignupPw.editText?.addTextChangedListener(pwListener)
         binding.telSignupNickname.editText?.addTextChangedListener(nicknameListener)
@@ -137,26 +139,6 @@ class SignUpActivity : AppCompatActivity() {
             signUpViewModel.signUpResult.observe(this) { signUpSuccessful ->
                 if (signUpSuccessful) {
                     showShortToast(getString(R.string.signup_success))
-                    val intent = Intent(this, LoginActivity::class.java)
-                    intent.putExtra("signUpUser", signUpUser)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                    startActivity(intent)
-                } else {
-                    showShortSnackBar(binding.root, getString(R.string.signup_fail))
-                }
-            }
-        }
-    }
-
-    private fun clickSignUpBtn(signUpUser: User) {
-        binding.btnSignupSignup.setOnClickListener {
-            signUpViewModel.signUpUserApi(signUpUser, this)
-
-            signUpViewModel.signUpResult.observe(this) { signUpSuccessful ->
-                if (signUpSuccessful) {
-                    // 화면 전환
-                    showShortToast(getString(R.string.signup_success))
-
                     val intent = Intent(this, LoginActivity::class.java)
                     intent.putExtra("signUpUser", signUpUser)
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
