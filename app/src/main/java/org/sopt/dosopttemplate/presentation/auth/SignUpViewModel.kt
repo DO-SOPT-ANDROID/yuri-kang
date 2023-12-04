@@ -15,14 +15,6 @@ class SignUpViewModel : ViewModel() {
     private val _signUpResult = MutableLiveData<Boolean>()
     val signUpResult: LiveData<Boolean> get() = _signUpResult
 
-//    fun signUpUser(signUpUser: User) {
-//        val isSignUpSuccessful = signUpUser.userId.length in 6..10 &&
-//            signUpUser.userPw.length in 9..11 && signUpUser.userNickname.isNotBlank() &&
-//            signUpUser.userAge.length in 1..2 || signUpUser.userAge != "0"
-//
-//        _signUpResult.value = isSignUpSuccessful
-//    }
-
     private val _isValidId = MutableLiveData<Boolean>()
     val isValidId: LiveData<Boolean> get() = _isValidId
 
@@ -33,14 +25,18 @@ class SignUpViewModel : ViewModel() {
     val isValidNickname: LiveData<Boolean> get() = _isValidNickname
 
     companion object {
-        private const val ID_PATTERN = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,10}$"
+        private const val ID_PATTERN = "^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z[0-9]]{6,10}$"
         private const val PW_PATTERN =
-            "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[!@#\$%^&*()-=_+{};':\"\\\\|,.<>?/~`]){6,12}$"
+            "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&.])[A-Za-z[0-9]$@$!%*#?&.]{6,12}$"
     }
 
-    fun checkValid(signUpUser: User, context: Context) {
-        val idPattern = signUpUser.userId.matches(Regex(ID_PATTERN))
-        _isValidId.value = idPattern
+    fun checkValid(signUpUser: User) {
+        if (signUpUser.userId.isEmpty() || signUpUser.userId.isBlank()) {
+            _isValidId.value = true
+        } else {
+            val idPattern = signUpUser.userId.matches(Regex(ID_PATTERN))
+            _isValidId.value = idPattern
+        }
 
         val pwPattern = signUpUser.userPw.matches(Regex(PW_PATTERN))
         _isValidPw.value = pwPattern

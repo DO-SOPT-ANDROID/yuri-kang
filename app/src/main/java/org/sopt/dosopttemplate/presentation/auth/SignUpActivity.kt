@@ -2,6 +2,8 @@ package org.sopt.dosopttemplate.presentation.auth
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import org.sopt.dosopttemplate.R
@@ -9,29 +11,42 @@ import org.sopt.dosopttemplate.data.User
 import org.sopt.dosopttemplate.databinding.ActivitySignupBinding
 import org.sopt.dosopttemplate.util.showShortSnackBar
 import org.sopt.dosopttemplate.util.showShortToast
+import java.util.regex.Pattern
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignupBinding
     private val signUpViewModel by viewModels<SignUpViewModel>()
+
+    companion object {
+        private const val ID_PATTERN = "^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z[0-9]]{6,10}$"
+        private const val PW_PATTERN =
+            "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&.])[A-Za-z[0-9]$@$!%*#?&.]{6,12}$"
+    }
+
+    private val idListener = object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            // do nothing
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            // do nothing
+        }
+
+        override fun afterTextChanged(s: Editable?) {
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivitySignupBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        val signUpUserId = binding.tieEtSignupId.text.toString()
+        val signUpUserPw = binding.tieEtSignupPw.text.toString()
+        val signUpUserNickname = binding.tieEtSignupNickname.text.toString()
+        val signUpUser = User(signUpUserId, signUpUserPw, signUpUserNickname)
+
         binding.btnSignupSignup.setOnClickListener {
-            val signUpUserId = binding.tieEtSignupId.text.toString()
-            val signUpUserPw = binding.tieEtSignupPw.text.toString()
-            val signUpUserNickname = binding.tieEtSignupNickname.text.toString()
-            // val signUpUserAge = binding.etSignupAge.text.toString()
-
-//            binding.telSignupId.error = "영문과 숫자를 포함해주세요."
-//            binding.telSignupPw.error = "영문과 숫자, 특수문자를 포함해주세요."
-//            binding.telSignupNickname.error = "닉네임을 입력해주세요."
-
-
-            val signUpUser = User(signUpUserId, signUpUserPw, signUpUserNickname)
-
             signUpViewModel.signUpUserApi(signUpUser, this)
 
             signUpViewModel.signUpResult.observe(this) { signUpSuccessful ->
