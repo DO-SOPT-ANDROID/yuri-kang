@@ -52,13 +52,8 @@ class SignUpActivity : AppCompatActivity() {
 
                     else -> {
                         binding.telSignupId.error = null
-                        idFlag = true
-                    }
-                }
-
-                binding.telSignupId.editText?.setOnFocusChangeListener { _, hasFocus ->
-                    if (!hasFocus) {
                         signUpUserId = s.toString()
+                        idFlag = true
                     }
                 }
                 buttonEnabled()
@@ -87,12 +82,8 @@ class SignUpActivity : AppCompatActivity() {
 
                     else -> {
                         binding.telSignupPw.error = null
-                        pwFlag = true
-                    }
-                }
-                binding.telSignupPw.editText?.setOnFocusChangeListener { _, hasFocus ->
-                    if (!hasFocus) {
                         signUpUserPw = s.toString()
+                        pwFlag = true
                     }
                 }
                 buttonEnabled()
@@ -116,12 +107,8 @@ class SignUpActivity : AppCompatActivity() {
 
                     else -> {
                         binding.telSignupPw.error = null
-                        nicknameFlag = true
-                    }
-                }
-                binding.telSignupPw.editText?.setOnFocusChangeListener { _, hasFocus ->
-                    if (!hasFocus) {
                         signUpUserNickname = s.toString()
+                        nicknameFlag = true
                     }
                 }
                 buttonEnabled()

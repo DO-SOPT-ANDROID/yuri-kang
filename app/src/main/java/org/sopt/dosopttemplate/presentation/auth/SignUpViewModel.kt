@@ -30,6 +30,7 @@ class SignUpViewModel : ViewModel() {
             "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&.])[A-Za-z[0-9]$@$!%*#?&.]{6,12}$"
     }
 
+
     fun checkValid(signUpUser: User) {
         if (signUpUser.userId.isEmpty() || signUpUser.userId.isBlank()) {
             _isValidId.value = true
