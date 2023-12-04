@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import org.sopt.dosopttemplate.R
@@ -129,9 +130,22 @@ class SignUpActivity : AppCompatActivity() {
         binding.telSignupPw.editText?.addTextChangedListener(pwListener)
         binding.telSignupNickname.editText?.addTextChangedListener(nicknameListener)
 
-        val signUpUser = User(signUpUserId, signUpUserPw, signUpUserNickname)
+        binding.btnSignupSignup.setOnClickListener {
+            val signUpUser = User(signUpUserId, signUpUserPw, signUpUserNickname)
+            signUpViewModel.signUpUserApi(signUpUser, this)
 
-        clickSignUpBtn(signUpUser)
+            signUpViewModel.signUpResult.observe(this) { signUpSuccessful ->
+                if (signUpSuccessful) {
+                    showShortToast(getString(R.string.signup_success))
+                    val intent = Intent(this, LoginActivity::class.java)
+                    intent.putExtra("signUpUser", signUpUser)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    startActivity(intent)
+                } else {
+                    showShortSnackBar(binding.root, getString(R.string.signup_fail))
+                }
+            }
+        }
     }
 
     private fun clickSignUpBtn(signUpUser: User) {
