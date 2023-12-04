@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import org.sopt.dosopttemplate.R
@@ -132,6 +131,10 @@ class SignUpActivity : AppCompatActivity() {
         binding.telSignupPw.editText?.addTextChangedListener(pwListener)
         binding.telSignupNickname.editText?.addTextChangedListener(nicknameListener)
 
+        clickSignUpBtn()
+    }
+
+    private fun clickSignUpBtn() {
         binding.btnSignupSignup.setOnClickListener {
             val signUpUser = User(signUpUserId, signUpUserPw, signUpUserNickname)
             signUpViewModel.signUpUserApi(signUpUser, this)
