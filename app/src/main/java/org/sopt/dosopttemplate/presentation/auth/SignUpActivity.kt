@@ -28,28 +28,25 @@ class SignUpActivity : AppCompatActivity() {
     private fun observeValid() {
         signUpViewModel.idFlag.observe(this) { idFlag ->
             if (idFlag) {
-                // signUpUserId = binding.tieEtSignupId.text.toString()
                 binding.telSignupId.error = null
             } else {
-                binding.telSignupId.error = "아이디는 영문, 숫자 포함입니다."
+                binding.telSignupId.error = getString(R.string.id_layout_title)
             }
             btnEnable()
         }
         signUpViewModel.pwFlag.observe(this) { pwFlag ->
             if (pwFlag) {
-                // signUpUserPw = binding.tieEtSignupPw.text.toString()
                 binding.telSignupPw.error = null
             } else {
-                binding.telSignupPw.error = "아이디는 영문, 숫자 포함입니다."
+                binding.telSignupPw.error = getString(R.string.pw_layout_title)
             }
             btnEnable()
         }
         signUpViewModel.nicknameFlag.observe(this) { nicknameFlag ->
             if (nicknameFlag) {
-                // signUpUserNickname = binding.tieEtSignupNickname.text.toString()
                 binding.telSignupNickname.error = null
             } else {
-                binding.telSignupNickname.error = "아이디는 영문, 숫자 포함입니다."
+                binding.telSignupNickname.error = getString(R.string.nickname_layout_title)
             }
             btnEnable()
         }
@@ -62,7 +59,6 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun clickSignUpBtn() {
         binding.btnSignupSignup.setOnClickListener {
-            // val signUpUser = User(signUpUserId, signUpUserPw, signUpUserNickname)
             signUpViewModel.signUpUserApi(this)
 
             signUpViewModel.signUpResult.observe(this) { signUpSuccessful ->
