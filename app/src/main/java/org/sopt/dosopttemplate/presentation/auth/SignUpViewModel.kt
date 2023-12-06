@@ -27,10 +27,6 @@ class SignUpViewModel : ViewModel() {
         inputPw.map { it.isNotEmpty() && Pattern.compile(PW_PATTERN).matcher(it).find() }
     val nicknameFlag = inputNickname.map { it.isNotEmpty() }
 
-//    val idFlag: LiveData<Boolean> get() = _idFlag
-//    val pwFlag: LiveData<Boolean> get() = _pwFlag
-//    val nicknameFlag: LiveData<Boolean> get() = _nicknameFlag
-
     // 버튼 활성화 관찰
     private val _signUpBtnFlag: MutableLiveData<Boolean> = MutableLiveData(false)
     val signUpBtnFlag: LiveData<Boolean> get() = _signUpBtnFlag
