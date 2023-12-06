@@ -1,56 +1,38 @@
 package org.sopt.dosopttemplate.presentation.auth
 
 import android.content.Context
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 import org.sopt.dosopttemplate.data.User
-import org.sopt.dosopttemplate.data.remote.ServicePool.authService
+import org.sopt.dosopttemplate.data.remote.ServicePool
 import org.sopt.dosopttemplate.data.remote.request.RequestLoginDto
 import org.sopt.dosopttemplate.data.remote.response.ResponseLoginDto
 import org.sopt.dosopttemplate.di.UserSharedPreferences
+import org.sopt.dosopttemplate.util.UiState
 import retrofit2.Call
-import retrofit2.Response
 
 class LoginViewModel : ViewModel() {
-    private val _loginResult = MutableLiveData<Boolean>()
-    val loginResult: LiveData<Boolean> get() = _loginResult
+    private val _loginResult = MutableLiveData<UiState<Boolean>>()
+    val loginResult: LiveData<UiState<Boolean>> get() = _loginResult
 
-    fun loginUser(inputId: String, inputPw: String, context: Context) {
-//        _loginResult.value =
-//            signUpUser != null && signUpUser.userId == inputId && signUpUser.userPw == inputPw
+    fun loginUser(inputId: String, inputPw: String) = viewModelScope.launch {
+        _loginResult.value = UiState.Loading
+        lateinit var getUserInfo: Call<ResponseLoginDto>
 
-        authService.login(RequestLoginDto(inputId, inputPw))
-            .enqueue(object : retrofit2.Callback<ResponseLoginDto> {
-                override fun onResponse(
-                    call: Call<ResponseLoginDto>,
-                    response: Response<ResponseLoginDto>,
-                ) {
-                    if (response.isSuccessful) {
-                        val data: ResponseLoginDto =
-                            response.body() ?: ResponseLoginDto(-1, "null", "null")
-                        val userId = data.id
+        runCatching {
+            ServicePool.authService.login(
+                RequestLoginDto(inputId, inputPw),
+            )
+        }.onSuccess {
+            // getUserInfo = it
+        }.onFailure {
+            _loginResult.value = UiState.Failure(it.message.toString())
+        }
 
-                        Toast.makeText(
-                            context,
-                            "로그인이 성공하였고 유저의 ID는 $userId 입니둥",
-                            Toast.LENGTH_SHORT,
-                        ).show()
-                        _loginResult.value = true
-                    }
-                }
-
-                override fun onFailure(call: Call<ResponseLoginDto>, t: Throwable) {
-                    Toast.makeText(
-                        context,
-                        "ㅜ ㅜ 서버 에러 발생 ㅜ ㅜ",
-                        Toast.LENGTH_SHORT,
-                    ).show()
-
-                    _loginResult.value = false
-                }
-            })
+        _loginResult.value = UiState.Success(true)
     }
 
     fun saveUserForAutoLogin(context: Context, signUpUser: User) {

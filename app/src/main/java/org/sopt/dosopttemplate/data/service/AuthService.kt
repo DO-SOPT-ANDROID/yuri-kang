@@ -16,7 +16,7 @@ interface AuthService {
 
     // 로그인
     @POST("api/v1/members/sign-in")
-    fun login(
+    suspend fun login(
         @Body request: RequestLoginDto,
     ): Call<ResponseLoginDto>
 }

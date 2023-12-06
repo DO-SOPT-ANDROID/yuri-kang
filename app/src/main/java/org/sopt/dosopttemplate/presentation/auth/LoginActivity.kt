@@ -8,12 +8,15 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.data.User
 import org.sopt.dosopttemplate.databinding.ActivityLoginBinding
 import org.sopt.dosopttemplate.di.UserSharedPreferences
 import org.sopt.dosopttemplate.presentation.main.BnvActivity
 import org.sopt.dosopttemplate.util.BackPressedUtil
+import org.sopt.dosopttemplate.util.UiState
 import org.sopt.dosopttemplate.util.hideKeyboard
+import org.sopt.dosopttemplate.util.showShortSnackBar
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -48,26 +51,31 @@ class LoginActivity : AppCompatActivity() {
             val inputId = binding.etSignupId.text.toString()
             val inputPw = binding.etSignupPw.text.toString()
 
-            loginViewModel.loginUser(inputId, inputPw, this)
+            loginViewModel.loginUser(inputId, inputPw)
 
             loginViewModel.loginResult.observe(
                 this,
-            ) { loginSuccessful ->
-                if (loginSuccessful) {
-                    // showShortToast("getString(R.string.login_success)")
-
-                    if (binding.cbLoginAutologin.isChecked) {
-                        signUpUser?.let {
-                            loginViewModel.saveUserForAutoLogin(this, it)
+            ) { uiState ->
+                when (uiState) {
+                    is UiState.Success -> {
+                        if (binding.cbLoginAutologin.isChecked) {
+                            signUpUser?.let {
+                                loginViewModel.saveUserForAutoLogin(this, it)
+                            }
                         }
+                        val intent = Intent(this, BnvActivity::class.java)
+                        intent.putExtra("signUpUser", signUpUser)
+                        startActivity(intent)
+                        finish()
                     }
 
-                    val intent = Intent(this, BnvActivity::class.java)
-                    intent.putExtra("signUpUser", signUpUser)
-                    startActivity(intent)
-                    finish()
-                } else {
-                    // showShortSnackBar(binding.root, getString(R.string.login_fail))
+                    is UiState.Failure -> {
+                        //showShortSnackBar(binding.root, "로그인 성공, 유저 아이디 : ${loginViewModel.}")
+                    }
+
+                    is UiState.Loading -> {
+                        showShortSnackBar(binding.root, "로딩중")
+                    }
                 }
             }
         }
