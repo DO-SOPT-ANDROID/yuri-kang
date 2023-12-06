@@ -13,9 +13,12 @@ import org.sopt.dosopttemplate.di.UserSharedPreferences
 import org.sopt.dosopttemplate.util.UiState
 
 class LoginViewModel : ViewModel() {
+
+    // 로그인 성공 여부
     private val _loginResult = MutableLiveData<UiState<Boolean>>()
     val loginResult: LiveData<UiState<Boolean>> get() = _loginResult
 
+    // 로그인 response에서 받아온 유저 정보
     private val _getLoginInfo = MutableLiveData<UiState<User>>()
     val getLoginInfo: LiveData<UiState<User>> get() = _getLoginInfo
 
@@ -27,7 +30,6 @@ class LoginViewModel : ViewModel() {
                 RequestLoginDto(inputId, inputPw),
             )
         }.onSuccess {
-            // getUserInfo = it
             _loginResult.value = UiState.Success(true)
             _getLoginInfo.value = UiState.Success(User(it.id.toString(), it.username, it.nickname))
         }.onFailure {
