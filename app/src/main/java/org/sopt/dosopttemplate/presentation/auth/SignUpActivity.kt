@@ -28,27 +28,16 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun observeValid() {
         signUpViewModel.idFlag.observe(this) { idFlag ->
-            if (idFlag) {
-                binding.telSignupId.error = null
-            } else {
-                binding.telSignupId.error = getString(R.string.id_layout_title)
-            }
+            binding.telSignupId.error = if (idFlag) null else getString(R.string.id_layout_title)
             btnEnable()
         }
         signUpViewModel.pwFlag.observe(this) { pwFlag ->
-            if (pwFlag) {
-                binding.telSignupPw.error = null
-            } else {
-                binding.telSignupPw.error = getString(R.string.pw_layout_title)
-            }
+            binding.telSignupPw.error = if (pwFlag) null else getString(R.string.pw_layout_title)
             btnEnable()
         }
         signUpViewModel.nicknameFlag.observe(this) { nicknameFlag ->
-            if (nicknameFlag) {
-                binding.telSignupNickname.error = null
-            } else {
-                binding.telSignupNickname.error = getString(R.string.nickname_layout_title)
-            }
+            binding.telSignupNickname.error =
+                if (nicknameFlag) null else getString(R.string.nickname_layout_title)
             btnEnable()
         }
     }
