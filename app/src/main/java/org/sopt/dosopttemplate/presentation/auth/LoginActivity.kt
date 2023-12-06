@@ -8,6 +8,7 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.data.User
 import org.sopt.dosopttemplate.databinding.ActivityLoginBinding
 import org.sopt.dosopttemplate.di.UserSharedPreferences
@@ -74,11 +75,11 @@ class LoginActivity : AppCompatActivity() {
                     }
 
                     is UiState.Failure -> {
-                        showShortSnackBar(binding.root, "실패")
+                        showShortSnackBar(binding.root, "로그인 실패 : ${uiState.errorMessage}")
                     }
 
                     is UiState.Loading -> {
-                        showShortSnackBar(binding.root, "로딩중")
+                        showShortSnackBar(binding.root, getString(R.string.uistate_loading))
                     }
                 }
             }

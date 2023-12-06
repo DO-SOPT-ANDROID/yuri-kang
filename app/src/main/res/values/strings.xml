@@ -39,6 +39,7 @@
     <string name="id_layout_title">아이디는 영문, 숫자 포함입니다.</string>
     <string name="pw_layout_title">비밀번호는 영문, 숫자, 특수문자 포함입니다.</string>
     <string name="nickname_layout_title">닉네임은 공백이 불가능합니다.</string>
+    <string name="uistate_loading">로딩 중</string>
 
 
 </resources>

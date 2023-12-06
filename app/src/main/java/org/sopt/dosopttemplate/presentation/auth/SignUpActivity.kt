@@ -75,11 +75,11 @@ class SignUpActivity : AppCompatActivity() {
                     }
 
                     is UiState.Failure -> {
-                        showShortSnackBar(binding.root, getString(R.string.signup_fail))
+                        showShortSnackBar(binding.root, "회원가입 실패 : ${uiState.errorMessage}")
                     }
 
                     is UiState.Loading -> {
-                        showShortSnackBar(binding.root, "로딩중")
+                        showShortSnackBar(binding.root, getString(R.string.uistate_loading))
                     }
                 }
             }
