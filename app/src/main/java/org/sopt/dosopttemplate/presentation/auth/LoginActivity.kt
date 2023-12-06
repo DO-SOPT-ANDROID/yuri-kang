@@ -16,6 +16,7 @@ import org.sopt.dosopttemplate.util.BackPressedUtil
 import org.sopt.dosopttemplate.util.UiState
 import org.sopt.dosopttemplate.util.hideKeyboard
 import org.sopt.dosopttemplate.util.showShortSnackBar
+import org.sopt.dosopttemplate.util.showShortToast
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -52,32 +53,6 @@ class LoginActivity : AppCompatActivity() {
 
             loginViewModel.loginUser(inputId, inputPw)
 
-            loginViewModel.loginResult.observe(
-                this,
-            ) { uiState ->
-                when (uiState) {
-                    is UiState.Success -> {
-                        if (binding.cbLoginAutologin.isChecked) {
-                            signUpUser?.let {
-                                loginViewModel.saveUserForAutoLogin(this, it)
-                            }
-                        }
-                        val intent = Intent(this, BnvActivity::class.java)
-                        intent.putExtra("signUpUser", signUpUser)
-                        startActivity(intent)
-                        finish()
-                    }
-
-                    is UiState.Failure -> {
-                        showShortSnackBar(binding.root, "실패")
-                    }
-
-                    is UiState.Loading -> {
-                        showShortSnackBar(binding.root, "로딩중")
-                    }
-                }
-            }
-
             loginViewModel.getLoginInfo.observe(
                 this,
             ) { uiState ->
@@ -90,7 +65,12 @@ class LoginActivity : AppCompatActivity() {
                         }
 
                         val userId = uiState.data?.userId
-                        showShortSnackBar(binding.root, "로그인 성공, 유저 아이디 : $userId")
+                        showShortToast("로그인 성공, 유저 아이디 : $userId")
+
+                        val intent = Intent(this, BnvActivity::class.java)
+                        intent.putExtra("signUpUser", signUpUser)
+                        startActivity(intent)
+                        finish()
                     }
 
                     is UiState.Failure -> {
