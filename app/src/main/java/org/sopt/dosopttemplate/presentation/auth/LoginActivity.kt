@@ -8,7 +8,6 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.data.User
 import org.sopt.dosopttemplate.databinding.ActivityLoginBinding
 import org.sopt.dosopttemplate.di.UserSharedPreferences
@@ -70,7 +69,32 @@ class LoginActivity : AppCompatActivity() {
                     }
 
                     is UiState.Failure -> {
-                        //showShortSnackBar(binding.root, "로그인 성공, 유저 아이디 : ${loginViewModel.}")
+                        showShortSnackBar(binding.root, "실패")
+                    }
+
+                    is UiState.Loading -> {
+                        showShortSnackBar(binding.root, "로딩중")
+                    }
+                }
+            }
+
+            loginViewModel.getLoginInfo.observe(
+                this,
+            ) { uiState ->
+                when (uiState) {
+                    is UiState.Success -> {
+                        if (binding.cbLoginAutologin.isChecked) {
+                            signUpUser?.let {
+                                loginViewModel.saveUserForAutoLogin(this, it)
+                            }
+                        }
+
+                        val userId = uiState.data?.userId
+                        showShortSnackBar(binding.root, "로그인 성공, 유저 아이디 : $userId")
+                    }
+
+                    is UiState.Failure -> {
+                        showShortSnackBar(binding.root, "실패")
                     }
 
                     is UiState.Loading -> {
