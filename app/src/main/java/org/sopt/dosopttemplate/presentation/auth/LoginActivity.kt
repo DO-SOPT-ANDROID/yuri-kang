@@ -27,6 +27,13 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        autoLogin()
+        userClickSignUpBtn()
+        userCickLoginBtn()
+        backPressed()
+    }
+
+    private fun autoLogin() {
         // 자동 로그인으로 저장된 유저 정보
         val spUser = UserSharedPreferences.getUser(this)
 
@@ -37,14 +44,18 @@ class LoginActivity : AppCompatActivity() {
             // 새로운 Activity를 수행하고 현재 Activity를 스텍에서 제거
             startActivity(intent)
         }
+    }
 
-        // 회원가입 하러 가기
+    // 회원가입 하러 가기
+    private fun userClickSignUpBtn() {
         binding.btnSignupSignup.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }
+    }
 
-        // 로그인 하기
+    // 로그인 하기
+    private fun userCickLoginBtn() {
         binding.btnLoginLogin.setOnClickListener {
             // 자동 로그인이 적용되지 않고, 회원가입에서 넘어온 경우
             val signUpUser = intent.getParcelableExtra<User>("signUpUser")
@@ -84,7 +95,9 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         }
+    }
 
+    private fun backPressed() {
         val backPressedUtil = BackPressedUtil<ActivityLoginBinding>(this)
         backPressedUtil.BackButton()
     }
