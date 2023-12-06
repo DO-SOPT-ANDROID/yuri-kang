@@ -6,6 +6,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.databinding.ActivitySignupBinding
+import org.sopt.dosopttemplate.util.UiState
 import org.sopt.dosopttemplate.util.showShortSnackBar
 import org.sopt.dosopttemplate.util.showShortToast
 
@@ -64,18 +65,26 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun clickSignUpBtn() {
         binding.btnSignupSignup.setOnClickListener {
-            signUpViewModel.signUpUserApi(this)
+            signUpViewModel.signUpResult.observe(this) { uiState ->
+                when (uiState) {
+                    is UiState.Success -> {
+                        showShortToast(getString(R.string.signup_success))
+                        val intent = Intent(this, LoginActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
 
-            signUpViewModel.signUpResult.observe(this) { signUpSuccessful ->
-                if (signUpSuccessful) {
-                    showShortToast(getString(R.string.signup_success))
-                    val intent = Intent(this, LoginActivity::class.java)
-                    // intent.putExtra("signUpUser", signUpUser)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                    startActivity(intent)
-                } else {
-                    showShortSnackBar(binding.root, getString(R.string.signup_fail))
+                    is UiState.Failure -> {
+                        showShortSnackBar(binding.root, getString(R.string.signup_fail))
+                    }
+
+                    is UiState.Loading -> {
+                        showShortSnackBar(binding.root, "로딩중")
+                    }
                 }
+            }
+            binding.btnSignupSignup.setOnClickListener {
+                signUpViewModel.signUpUserApi()
             }
         }
     }

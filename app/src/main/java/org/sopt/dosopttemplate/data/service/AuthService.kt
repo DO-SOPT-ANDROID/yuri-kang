@@ -10,7 +10,7 @@ import retrofit2.http.POST
 interface AuthService {
     // 회원가입
     @POST("api/v1/members")
-    fun signUp(
+    suspend fun signUp(
         @Body request: RequestSignupDto,
     ): Call<Unit>
 

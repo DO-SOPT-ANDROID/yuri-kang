@@ -1,21 +1,19 @@
 package org.sopt.dosopttemplate.presentation.auth
 
-import android.content.Context
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
-import org.sopt.dosopttemplate.data.User
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 import org.sopt.dosopttemplate.data.remote.ServicePool
 import org.sopt.dosopttemplate.data.remote.request.RequestSignupDto
-import retrofit2.Call
-import retrofit2.Response
+import org.sopt.dosopttemplate.util.UiState
 import java.util.regex.Pattern
 
 class SignUpViewModel : ViewModel() {
-    private val _signUpResult = MutableLiveData<Boolean>()
-    val signUpResult: LiveData<Boolean> get() = _signUpResult
+    private val _signUpResult = MutableLiveData<UiState<Boolean>>()
+    val signUpResult: LiveData<UiState<Boolean>> get() = _signUpResult
 
     // 사용자가 입력하는 값들
     val inputId: MutableLiveData<String> = MutableLiveData()
@@ -48,39 +46,23 @@ class SignUpViewModel : ViewModel() {
         dynamicTextSize.value = newTextSize
     }
 
-    fun signUpUserApi(context: Context) {
-        ServicePool.authService.signUp(
-            RequestSignupDto(
-                inputId.value!!,
-                inputPw.value!!,
-                inputNickname.value!!,
-            ),
-        )
-            .enqueue(object : retrofit2.Callback<Unit> {
-                override fun onResponse(
-                    call: Call<Unit>,
-                    response: Response<Unit>,
-                ) {
-                    if (response.isSuccessful) {
-                        _signUpResult.value = true
+    fun signUpUserApi() = viewModelScope.launch {
+        _signUpResult.value = UiState.Loading
 
-                        User(
-                            inputId.value!!,
-                            inputPw.value!!,
-                            inputNickname.value!!,
-                        )
-                    }
-                }
+        runCatching {
+            ServicePool.authService.signUp(
+                RequestSignupDto(
+                    inputId.value ?: "",
+                    inputPw.value ?: "",
+                    inputNickname.value ?: "",
+                ),
+            )
+        }.onSuccess {
+        }.onFailure {
+            _signUpResult.value = UiState.Failure(it.message.toString())
+        }
 
-                override fun onFailure(call: Call<Unit>, t: Throwable) {
-                    Toast.makeText(
-                        context,
-                        "ㅜ ㅜ 서버 에러 발생 ㅜ ㅜ",
-                        Toast.LENGTH_SHORT,
-                    ).show()
-                    _signUpResult.value = false
-                }
-            })
+        _signUpResult.value = UiState.Success(true)
     }
 
     companion object {
