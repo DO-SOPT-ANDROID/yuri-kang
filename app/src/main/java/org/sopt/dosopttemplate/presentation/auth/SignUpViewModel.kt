@@ -42,6 +42,12 @@ class SignUpViewModel : ViewModel() {
             idFlag.value == true && pwFlag.value == true && nicknameFlag.value == true
     }
 
+    val dynamicTextSize: MutableLiveData<Int> = MutableLiveData(10)
+
+    fun onUserTextSizeChanged(newTextSize: Int) {
+        dynamicTextSize.value = newTextSize
+    }
+
     fun signUpUserApi(context: Context) {
         ServicePool.authService.signUp(
             RequestSignupDto(

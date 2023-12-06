@@ -55,6 +55,11 @@ class SignUpActivity : AppCompatActivity() {
     private fun btnEnable() {
         signUpViewModel.signUpBtnFlag()
         binding.btnSignupSignup.isEnabled = signUpViewModel.signUpBtnFlag.value == true
+        if (binding.btnSignupSignup.isEnabled) {
+            signUpViewModel.onUserTextSizeChanged(40)
+        } else {
+            signUpViewModel.onUserTextSizeChanged(10)
+        }
     }
 
     private fun clickSignUpBtn() {

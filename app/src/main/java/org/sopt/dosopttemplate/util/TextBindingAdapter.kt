@@ -4,9 +4,9 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 
 object TextBindingAdapter {
+    @BindingAdapter("dynamicTextSize")
     @JvmStatic
-    @BindingAdapter("text_ending_word")
-    fun setText(view: TextView, text: String) {
-        view.hint = text + "입력하세요."
+    fun setDynamicTextSize(textView: TextView, textSize: Float) {
+        textView.textSize = textSize
     }
 }
