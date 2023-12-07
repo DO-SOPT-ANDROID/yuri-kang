@@ -4,7 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.databinding.ActivitySignupBinding
@@ -32,19 +35,19 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun observeValid() {
-        signUpViewModel.idFlag.observe(this) { idFlag ->
+        signUpViewModel.idFlag.flowWithLifecycle(lifecycle).onEach { idFlag ->
             binding.telSignupId.error = if (idFlag) null else getString(R.string.id_layout_title)
             btnEnable()
-        }
-        signUpViewModel.pwFlag.observe(this) { pwFlag ->
+        }.launchIn(lifecycleScope)
+        signUpViewModel.pwFlag.flowWithLifecycle(lifecycle).onEach { pwFlag ->
             binding.telSignupPw.error = if (pwFlag) null else getString(R.string.pw_layout_title)
             btnEnable()
-        }
-        signUpViewModel.nicknameFlag.observe(this) { nicknameFlag ->
+        }.launchIn(lifecycleScope)
+        signUpViewModel.nicknameFlag.flowWithLifecycle(lifecycle).onEach { nicknameFlag ->
             binding.telSignupNickname.error =
                 if (nicknameFlag) null else getString(R.string.nickname_layout_title)
             btnEnable()
-        }
+        }.launchIn(lifecycleScope)
     }
 
     private fun btnEnable() {

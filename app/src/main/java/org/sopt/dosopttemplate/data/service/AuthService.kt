@@ -12,7 +12,7 @@ interface AuthService {
     @POST("api/v1/members")
     suspend fun signUp(
         @Body request: RequestSignupDto,
-    ): Call<Unit>
+    )
 
     // 로그인
     @POST("api/v1/members/sign-in")
