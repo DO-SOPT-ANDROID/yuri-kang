@@ -23,9 +23,9 @@ class SignUpViewModel : ViewModel() {
 
     // 사용자가 입력하는 값들의 유효성 검사, map으로 liveData 관찰하며 연쇄적으로 값이 바뀌도록 함
     val idFlag =
-        inputId.map { it.isNotEmpty() && Pattern.compile(ID_PATTERN).matcher(it).find() }
+        inputId.map { it.isNotEmpty() && ID_REGEX.matcher(it).find() }
     val pwFlag =
-        inputPw.map { it.isNotEmpty() && Pattern.compile(PW_PATTERN).matcher(it).find() }
+        inputPw.map { it.isNotEmpty() && PW_REGEX.matcher(it).find() }
     val nicknameFlag = inputNickname.map { it.isNotEmpty() }
 
     // 버튼 활성화 관찰
@@ -64,7 +64,9 @@ class SignUpViewModel : ViewModel() {
 
     companion object {
         private const val ID_PATTERN = "^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z[0-9]]{6,10}$"
+        val ID_REGEX: Pattern = Pattern.compile(ID_PATTERN)
         private const val PW_PATTERN =
             "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&.])[A-Za-z[0-9]$@$!%*#?&.]{6,12}$"
+        val PW_REGEX: Pattern = Pattern.compile(PW_PATTERN)
     }
 }
