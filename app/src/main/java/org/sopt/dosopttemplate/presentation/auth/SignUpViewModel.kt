@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.sopt.dosopttemplate.data.remote.ServicePool
 import org.sopt.dosopttemplate.data.remote.request.RequestSignupDto
@@ -13,8 +15,8 @@ import org.sopt.dosopttemplate.util.UiState
 import java.util.regex.Pattern
 
 class SignUpViewModel : ViewModel() {
-    private val _signUpResult = MutableLiveData<UiState<Boolean>>()
-    val signUpResult: LiveData<UiState<Boolean>> get() = _signUpResult
+    private val _signUpResult = MutableStateFlow<UiState<Boolean>>(UiState.Initial)
+    val signUpResult: StateFlow<UiState<Boolean>> get() = _signUpResult.asStateFlow()
 
     // 사용자가 입력하는 값들
     val inputId: MutableLiveData<String> = MutableLiveData()

@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.databinding.ActivitySignupBinding
 import org.sopt.dosopttemplate.util.UiState
@@ -23,7 +25,10 @@ class SignUpActivity : AppCompatActivity() {
         binding.authViewModel = signUpViewModel
 
         observeValid()
-        clickSignUpBtn()
+        binding.btnSignupSignup.setOnClickListener {
+            signUpViewModel.signUpUserApi()
+            observeSignUpResult()
+        }
     }
 
     private fun observeValid() {
@@ -52,15 +57,12 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
-    private fun clickSignUpBtn() {
-        binding.btnSignupSignup.setOnClickListener {
-            signUpViewModel.signUpResult.observe(this) { uiState ->
+    private fun observeSignUpResult() {
+        lifecycleScope.launch {
+            signUpViewModel.signUpResult.collect { uiState ->
                 when (uiState) {
                     is UiState.Success -> {
-                        showShortToast(getString(R.string.signup_success))
-                        val intent = Intent(this, LoginActivity::class.java)
-                        startActivity(intent)
-                        finish()
+                        goLogin()
                     }
 
                     is UiState.Failure -> {
@@ -76,9 +78,13 @@ class SignUpActivity : AppCompatActivity() {
                     }
                 }
             }
-            binding.btnSignupSignup.setOnClickListener {
-                signUpViewModel.signUpUserApi()
-            }
         }
+    }
+
+    private fun goLogin() {
+        showShortToast(getString(R.string.signup_success))
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }
