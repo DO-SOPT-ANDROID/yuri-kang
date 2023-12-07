@@ -6,7 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.databinding.FragmentPeopleListBinding
 import org.sopt.dosopttemplate.presentation.adapter.people.PeopleListAdapter
@@ -43,9 +47,7 @@ class PeopleListFragment : Fragment() {
         binding.rvPeople.layoutManager = LinearLayoutManager(requireContext())
         binding.rvPeople.adapter = peopleListAdapter
 
-        peopleListViewModel.peopleData.observe(
-            viewLifecycleOwner,
-        ) { uiState ->
+        peopleListViewModel.peopleData.flowWithLifecycle(lifecycle).onEach { uiState ->
             when (uiState) {
                 is UiState.Loading -> {
                     showShortSnackBar(binding.root, getString(R.string.uistate_loading))
@@ -62,10 +64,10 @@ class PeopleListFragment : Fragment() {
                 }
 
                 is UiState.Initial -> {
-                    showShortSnackBar(binding.root, getString(R.string.uistate_loading))
+                    showShortSnackBar(binding.root, getString(R.string.uistate_initial))
                 }
             }
-        }
+        }.launchIn(lifecycleScope)
 
         peopleListViewModel.fetchPeopleData()
     }

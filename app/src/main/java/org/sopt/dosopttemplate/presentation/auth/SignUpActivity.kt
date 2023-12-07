@@ -78,7 +78,7 @@ class SignUpActivity : AppCompatActivity() {
                     }
 
                     is UiState.Initial -> {
-                        showShortSnackBar(binding.root, getString(R.string.uistate_loading))
+                        showShortSnackBar(binding.root, getString(R.string.uistate_initial))
                     }
                 }
             }
