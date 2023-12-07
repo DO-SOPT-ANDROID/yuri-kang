@@ -80,11 +80,7 @@ class LoginActivity : AppCompatActivity() {
 
                         val userId = uiState.data?.userId
                         showShortToast("로그인 성공, 유저 아이디 : $userId")
-
-                        val intent = Intent(this, BnvActivity::class.java)
-                        intent.putExtra("signUpUser", signUpUser)
-                        startActivity(intent)
-                        finish()
+                        goHome(signUpUser)
                     }
 
                     is UiState.Failure -> {
@@ -101,6 +97,13 @@ class LoginActivity : AppCompatActivity() {
                 }
             }.launchIn(lifecycleScope)
         }
+    }
+
+    private fun goHome(signUpUser: User?) {
+        val intent = Intent(this, BnvActivity::class.java)
+        intent.putExtra("signUpUser", signUpUser)
+        startActivity(intent)
+        finish()
     }
 
     private fun backPressed() {
