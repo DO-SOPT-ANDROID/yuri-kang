@@ -20,6 +20,7 @@ import org.sopt.dosopttemplate.presentation.main.BnvActivity
 import org.sopt.dosopttemplate.util.BackPressedUtil
 import org.sopt.dosopttemplate.util.UiState
 import org.sopt.dosopttemplate.util.hideKeyboard
+import org.sopt.dosopttemplate.util.setOnSingleClickListener
 import org.sopt.dosopttemplate.util.showShortSnackBar
 import org.sopt.dosopttemplate.util.showShortToast
 
@@ -52,7 +53,7 @@ class LoginActivity : AppCompatActivity() {
 
     // 회원가입 하러 가기
     private fun userClickSignUpBtn() {
-        binding.btnSignupSignup.setOnClickListener {
+        binding.btnSignupSignup.setOnSingleClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }
@@ -60,7 +61,7 @@ class LoginActivity : AppCompatActivity() {
 
     // 로그인 하기
     private fun userCickLoginBtn() {
-        binding.btnLoginLogin.setOnClickListener {
+        binding.btnLoginLogin.setOnSingleClickListener {
             // 자동 로그인이 적용되지 않고, 회원가입에서 넘어온 경우
             val signUpUser = intent.getParcelableExtra<User>("signUpUser")
 

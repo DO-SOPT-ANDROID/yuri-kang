@@ -37,3 +37,17 @@ fun Context.hideKeyboard(view: View) {
     val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
     inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
 }
+
+inline fun View.setOnSingleClickListener(
+    delay: Long = 1000L,
+    crossinline block: (View) -> Unit,
+) {
+    var previousClickedTime = 0L
+    setOnClickListener { view ->
+        val clickedTime = System.currentTimeMillis()
+        if (clickedTime - previousClickedTime >= delay) {
+            block(view)
+            previousClickedTime = clickedTime
+        }
+    }
+}

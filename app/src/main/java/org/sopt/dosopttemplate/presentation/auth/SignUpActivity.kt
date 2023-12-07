@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.databinding.ActivitySignupBinding
 import org.sopt.dosopttemplate.util.UiState
+import org.sopt.dosopttemplate.util.setOnSingleClickListener
 import org.sopt.dosopttemplate.util.showShortSnackBar
 import org.sopt.dosopttemplate.util.showShortToast
 
@@ -28,7 +29,7 @@ class SignUpActivity : AppCompatActivity() {
         binding.authViewModel = signUpViewModel
 
         observeValid()
-        binding.btnSignupSignup.setOnClickListener {
+        binding.btnSignupSignup.setOnSingleClickListener {
             signUpViewModel.signUpUserApi()
             observeSignUpResult()
         }
