@@ -1,6 +1,5 @@
 package org.sopt.dosopttemplate.presentation.auth
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
@@ -31,8 +30,9 @@ class SignUpViewModel : ViewModel() {
     val nicknameFlag = inputNickname.map { it.isNotEmpty() }
 
     // 버튼 활성화 관찰
-    private val _signUpBtnFlag: MutableLiveData<Boolean> = MutableLiveData(false)
-    val signUpBtnFlag: LiveData<Boolean> get() = _signUpBtnFlag
+    // TODO : 여기서 버튼 초기값이 false가 되어야 하는데 그 부분이 적용이 안된다.......
+    private val _signUpBtnFlag: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val signUpBtnFlag: StateFlow<Boolean> get() = _signUpBtnFlag.asStateFlow()
 
     fun signUpBtnFlag() {
         _signUpBtnFlag.value =
