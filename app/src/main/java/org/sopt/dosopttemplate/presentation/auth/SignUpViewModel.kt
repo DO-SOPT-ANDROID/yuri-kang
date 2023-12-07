@@ -62,7 +62,6 @@ class SignUpViewModel : ViewModel() {
                     inputNickname.value,
                 ),
             )
-            // 여기서 result를 어떻게 처리할지 추가 작업이 필요할 것입니다.
         }.onFailure {
             _signUpResult.emit(UiState.Failure(it.message.toString()))
         }
