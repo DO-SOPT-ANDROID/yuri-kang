@@ -8,6 +8,10 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.data.User
 import org.sopt.dosopttemplate.databinding.ActivityLoginBinding
@@ -65,9 +69,7 @@ class LoginActivity : AppCompatActivity() {
 
             loginViewModel.loginUser(inputId, inputPw)
 
-            loginViewModel.getLoginInfo.observe(
-                this,
-            ) { uiState ->
+            loginViewModel.getLoginInfo.flowWithLifecycle(lifecycle).onEach { uiState ->
                 when (uiState) {
                     is UiState.Success -> {
                         if (binding.cbLoginAutologin.isChecked) {
@@ -97,7 +99,7 @@ class LoginActivity : AppCompatActivity() {
                         showShortSnackBar(binding.root, getString(R.string.uistate_loading))
                     }
                 }
-            }
+            }.launchIn(lifecycleScope)
         }
     }
 
