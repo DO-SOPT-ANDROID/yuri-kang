@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import org.sopt.dosopttemplate.data.remote.ServicePool
 import org.sopt.dosopttemplate.data.remote.request.RequestSignupDto
@@ -36,7 +37,7 @@ class SignUpViewModel : ViewModel() {
             idFlag.value == true && pwFlag.value == true && nicknameFlag.value == true
     }
 
-    val dynamicTextSize: MutableLiveData<Int> = MutableLiveData(10)
+    val dynamicTextSize: MutableStateFlow<Int> = MutableStateFlow(10)
 
     fun onUserTextSizeChanged(newTextSize: Int) {
         dynamicTextSize.value = newTextSize
