@@ -1,6 +1,8 @@
 package org.sopt.dosopttemplate.util
 
 sealed interface UiState<out T> {
+    object Initial : UiState<Nothing>
+
     object Loading : UiState<Nothing>
 
     data class Success<out T>(
