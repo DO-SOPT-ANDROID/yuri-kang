@@ -70,6 +70,10 @@ class SignUpActivity : AppCompatActivity() {
                     is UiState.Loading -> {
                         showShortSnackBar(binding.root, getString(R.string.uistate_loading))
                     }
+
+                    is UiState.Initial -> {
+                        showShortSnackBar(binding.root, getString(R.string.uistate_loading))
+                    }
                 }
             }
             binding.btnSignupSignup.setOnClickListener {

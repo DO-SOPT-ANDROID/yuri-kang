@@ -60,6 +60,10 @@ class PeopleListFragment : Fragment() {
                 is UiState.Failure -> {
                     showShortSnackBar(binding.root, "정보 불러오기 실패 : ${uiState.errorMessage}")
                 }
+
+                is UiState.Initial -> {
+                    showShortSnackBar(binding.root, getString(R.string.uistate_loading))
+                }
             }
         }
 
