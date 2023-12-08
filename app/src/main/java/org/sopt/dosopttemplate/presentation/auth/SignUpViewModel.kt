@@ -25,10 +25,10 @@ class SignUpViewModel : ViewModel() {
 
     // 사용자가 입력하는 값들의 유효성 검사, map으로 liveData 관찰하며 연쇄적으로 값이 바뀌도록 함
     val idFlag =
-        inputId.map { it.isNotEmpty() && ID_REGEX.matcher(it).find() }
+        inputId.map { (it.isNotEmpty() && ID_REGEX.matcher(it).find()) || it == "" }
     val pwFlag =
-        inputPw.map { it.isNotEmpty() && PW_REGEX.matcher(it).find() }
-    val nicknameFlag = inputNickname.map { it.isNotEmpty() }
+        inputPw.map { (it.isNotEmpty() && PW_REGEX.matcher(it).find()) || it == "" }
+    val nicknameFlag = inputNickname.map { it.isNotEmpty() || it == "" }
 
     // 버튼 활성화 관찰
     private val _signUpBtnFlag: MutableStateFlow<Boolean> = MutableStateFlow(false)
