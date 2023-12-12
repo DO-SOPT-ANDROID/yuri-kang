@@ -36,7 +36,11 @@
     <string name="top_app_bar_toast_modify">수정하기를 눌렀습니다.</string>
     <string name="top_app_bar_toast_share">공유하기를 눌렀습니다.</string>
     <string name="top_app_bar_toast_favorite">좋아하기를 눌렀습니다.</string>
-
+    <string name="id_layout_title">아이디는 영문, 숫자 포함입니다.</string>
+    <string name="pw_layout_title">비밀번호는 영문, 숫자, 특수문자 포함입니다.</string>
+    <string name="nickname_layout_title">닉네임은 공백이 불가능합니다.</string>
+    <string name="uistate_loading">로딩 중</string>
+    <string name="uistate_find_friends">친구를 찾아보아요</string>
 
 
 </resources>

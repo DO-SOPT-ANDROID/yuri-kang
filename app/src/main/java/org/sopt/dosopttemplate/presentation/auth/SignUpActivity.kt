@@ -5,8 +5,8 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import org.sopt.dosopttemplate.R
-import org.sopt.dosopttemplate.data.User
 import org.sopt.dosopttemplate.databinding.ActivitySignupBinding
+import org.sopt.dosopttemplate.util.UiState
 import org.sopt.dosopttemplate.util.showShortSnackBar
 import org.sopt.dosopttemplate.util.showShortToast
 
@@ -19,28 +19,61 @@ class SignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        binding.lifecycleOwner = this
+        binding.authViewModel = signUpViewModel
+
+        observeValid()
+        clickSignUpBtn()
+    }
+
+    private fun observeValid() {
+        signUpViewModel.idFlag.observe(this) { idFlag ->
+            binding.telSignupId.error = if (idFlag) null else getString(R.string.id_layout_title)
+            btnEnable()
+        }
+        signUpViewModel.pwFlag.observe(this) { pwFlag ->
+            binding.telSignupPw.error = if (pwFlag) null else getString(R.string.pw_layout_title)
+            btnEnable()
+        }
+        signUpViewModel.nicknameFlag.observe(this) { nicknameFlag ->
+            binding.telSignupNickname.error =
+                if (nicknameFlag) null else getString(R.string.nickname_layout_title)
+            btnEnable()
+        }
+    }
+
+    private fun btnEnable() {
+        signUpViewModel.signUpBtnFlag()
+        binding.btnSignupSignup.isEnabled = signUpViewModel.signUpBtnFlag.value == true
+        if (binding.btnSignupSignup.isEnabled) {
+            signUpViewModel.onUserTextSizeChanged(40)
+        } else {
+            signUpViewModel.onUserTextSizeChanged(10)
+        }
+    }
+
+    private fun clickSignUpBtn() {
         binding.btnSignupSignup.setOnClickListener {
-            val signUpUserId = binding.etSignupId.text.toString()
-            val signUpUserPw = binding.etSignupPw.text.toString()
-            val signUpUserNickname = binding.etSignupNickname.text.toString()
-            // val signUpUserAge = binding.etSignupAge.text.toString()
+            signUpViewModel.signUpResult.observe(this) { uiState ->
+                when (uiState) {
+                    is UiState.Success -> {
+                        showShortToast(getString(R.string.signup_success))
+                        val intent = Intent(this, LoginActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
 
-            val signUpUser = User(signUpUserId, signUpUserPw, signUpUserNickname)
+                    is UiState.Failure -> {
+                        showShortSnackBar(binding.root, "회원가입 실패 : ${uiState.errorMessage}")
+                    }
 
-            signUpViewModel.signUpUser(signUpUser, this)
-
-            signUpViewModel.signUpResult.observe(this) { signUpSuccessful ->
-                if (signUpSuccessful) {
-                    // 화면 전환
-                    showShortToast(getString(R.string.signup_success))
-
-                    val intent = Intent(this, LoginActivity::class.java)
-                    intent.putExtra("signUpUser", signUpUser)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                    startActivity(intent)
-                } else {
-                    showShortSnackBar(binding.root, getString(R.string.signup_fail))
+                    is UiState.Loading -> {
+                        showShortSnackBar(binding.root, getString(R.string.uistate_loading))
+                    }
                 }
+            }
+            binding.btnSignupSignup.setOnClickListener {
+                signUpViewModel.signUpUserApi()
             }
         }
     }
