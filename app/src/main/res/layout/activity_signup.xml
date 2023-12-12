@@ -23,6 +23,8 @@
             android:gravity="center"
             android:text="@string/tv_signup_title"
             android:textSize="28sp"
+            dynamicTextSize="@{authViewModel.dynamicTextSize}"
+
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -1,44 +1,30 @@
 package org.sopt.dosopttemplate.presentation.main.peoplelist
 
-import android.content.Context
-import android.widget.Toast
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 import org.sopt.dosopttemplate.data.remote.ServicePool.apiService
 import org.sopt.dosopttemplate.data.remote.response.ResponsePeopleListDto
-import retrofit2.Call
-import retrofit2.Response
+import org.sopt.dosopttemplate.util.UiState
 
 class PeopleListViewModel : ViewModel() {
-    private val _peopleData = MutableLiveData<List<ResponsePeopleListDto>>()
-    val peopleData: LiveData<List<ResponsePeopleListDto>> get() = _peopleData
+    private val _peopleData =
+        MutableStateFlow<UiState<List<ResponsePeopleListDto>>>(UiState.Initial)
+    val peopleData: StateFlow<UiState<List<ResponsePeopleListDto>>> get() = _peopleData
 
-    fun fetchPeopleData(context: Context) {
-        apiService.PeopleListGet(2, 6)
-            .enqueue(object : retrofit2.Callback<ResponsePeopleListDto> {
-                override fun onResponse(
-                    call: Call<ResponsePeopleListDto>,
-                    response: Response<ResponsePeopleListDto>,
-                ) {
-                    if (response.isSuccessful) {
-                        _peopleData.value = listOf(response.body() ?: return)
+    fun fetchPeopleData() = viewModelScope.launch {
+        _peopleData.value = UiState.Loading
+        lateinit var peopleList: List<ResponsePeopleListDto>
 
-                        Toast.makeText(
-                            context,
-                            "친구를 찾아봅시다",
-                            Toast.LENGTH_SHORT,
-                        ).show()
-                    }
-                }
-
-                override fun onFailure(call: Call<ResponsePeopleListDto>, t: Throwable) {
-                    Toast.makeText(
-                        context,
-                        "ㅜ ㅜ 서버 에러 발생 ㅜ ㅜ",
-                        Toast.LENGTH_SHORT,
-                    ).show()
-                }
-            })
+        runCatching {
+            apiService.PeopleListGet(2, 6)
+        }.onSuccess {
+            peopleList = listOf<ResponsePeopleListDto>(it)
+            _peopleData.value = UiState.Success(peopleList)
+        }.onFailure {
+            _peopleData.value = UiState.Failure(it.message.toString())
+        }
     }
 }
