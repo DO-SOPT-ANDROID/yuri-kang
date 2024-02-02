@@ -4,8 +4,15 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.databinding.ActivitySignupBinding
+import org.sopt.dosopttemplate.util.UiState
+import org.sopt.dosopttemplate.util.setOnSingleClickListener
 import org.sopt.dosopttemplate.util.showShortSnackBar
 import org.sopt.dosopttemplate.util.showShortToast
 
@@ -22,56 +29,66 @@ class SignUpActivity : AppCompatActivity() {
         binding.authViewModel = signUpViewModel
 
         observeValid()
-        clickSignUpBtn()
+        binding.btnSignupSignup.setOnSingleClickListener {
+            signUpViewModel.signUpUserApi()
+            observeSignUpResult()
+        }
     }
 
     private fun observeValid() {
-        signUpViewModel.idFlag.observe(this) { idFlag ->
-            if (idFlag) {
-                binding.telSignupId.error = null
-            } else {
-                binding.telSignupId.error = getString(R.string.id_layout_title)
-            }
+        signUpViewModel.idFlag.flowWithLifecycle(lifecycle).onEach { idFlag ->
+            binding.telSignupId.error = if (idFlag) null else getString(R.string.id_layout_title)
             btnEnable()
-        }
-        signUpViewModel.pwFlag.observe(this) { pwFlag ->
-            if (pwFlag) {
-                binding.telSignupPw.error = null
-            } else {
-                binding.telSignupPw.error = getString(R.string.pw_layout_title)
-            }
+        }.launchIn(lifecycleScope)
+        signUpViewModel.pwFlag.flowWithLifecycle(lifecycle).onEach { pwFlag ->
+            binding.telSignupPw.error = if (pwFlag) null else getString(R.string.pw_layout_title)
             btnEnable()
-        }
-        signUpViewModel.nicknameFlag.observe(this) { nicknameFlag ->
-            if (nicknameFlag) {
-                binding.telSignupNickname.error = null
-            } else {
-                binding.telSignupNickname.error = getString(R.string.nickname_layout_title)
-            }
+        }.launchIn(lifecycleScope)
+        signUpViewModel.nicknameFlag.flowWithLifecycle(lifecycle).onEach { nicknameFlag ->
+            binding.telSignupNickname.error =
+                if (nicknameFlag) null else getString(R.string.nickname_layout_title)
             btnEnable()
-        }
+        }.launchIn(lifecycleScope)
     }
 
     private fun btnEnable() {
         signUpViewModel.signUpBtnFlag()
         binding.btnSignupSignup.isEnabled = signUpViewModel.signUpBtnFlag.value == true
+        if (binding.btnSignupSignup.isEnabled) {
+            signUpViewModel.onUserTextSizeChanged(40)
+        } else {
+            signUpViewModel.onUserTextSizeChanged(10)
+        }
     }
 
-    private fun clickSignUpBtn() {
-        binding.btnSignupSignup.setOnClickListener {
-            signUpViewModel.signUpUserApi(this)
+    private fun observeSignUpResult() {
+        lifecycleScope.launch {
+            signUpViewModel.signUpResult.collect { uiState ->
+                when (uiState) {
+                    is UiState.Success -> {
+                        goLogin()
+                    }
 
-            signUpViewModel.signUpResult.observe(this) { signUpSuccessful ->
-                if (signUpSuccessful) {
-                    showShortToast(getString(R.string.signup_success))
-                    val intent = Intent(this, LoginActivity::class.java)
-                    // intent.putExtra("signUpUser", signUpUser)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                    startActivity(intent)
-                } else {
-                    showShortSnackBar(binding.root, getString(R.string.signup_fail))
+                    is UiState.Failure -> {
+                        showShortSnackBar(binding.root, "회원가입 실패 : ${uiState.errorMessage}")
+                    }
+
+                    is UiState.Loading -> {
+                        showShortSnackBar(binding.root, getString(R.string.uistate_loading))
+                    }
+
+                    is UiState.Initial -> {
+                        showShortSnackBar(binding.root, getString(R.string.uistate_initial))
+                    }
                 }
             }
         }
+    }
+
+    private fun goLogin() {
+        showShortToast(getString(R.string.signup_success))
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }

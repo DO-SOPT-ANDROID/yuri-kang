@@ -6,10 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.databinding.FragmentPeopleListBinding
 import org.sopt.dosopttemplate.presentation.adapter.people.PeopleListAdapter
+import org.sopt.dosopttemplate.util.UiState
+import org.sopt.dosopttemplate.util.showShortSnackBar
 
 class PeopleListFragment : Fragment() {
     private val peopleListViewModel by viewModels<PeopleListViewModel>()
@@ -41,15 +47,29 @@ class PeopleListFragment : Fragment() {
         binding.rvPeople.layoutManager = LinearLayoutManager(requireContext())
         binding.rvPeople.adapter = peopleListAdapter
 
-        peopleListViewModel.peopleData.observe(
-            viewLifecycleOwner,
-            Observer { peopleList ->
-                // Log.d("PeopleList 리스트 .. 왜 1개만 보일까융", "list size: ${peopleList.size}")
-                peopleListAdapter.setUsers(ArrayList(peopleList))
-            },
-        )
+        peopleListViewModel.peopleData.flowWithLifecycle(lifecycle).onEach { uiState ->
+            when (uiState) {
+                is UiState.Loading -> {
+                    showShortSnackBar(binding.root, getString(R.string.uistate_loading))
+                }
 
-        peopleListViewModel.fetchPeopleData(requireContext())
+                is UiState.Success -> {
+                    showShortSnackBar(binding.root, getString(R.string.uistate_find_friends))
+                    val peopleList = uiState.data
+                    peopleListAdapter.setUsers(ArrayList(peopleList))
+                }
+
+                is UiState.Failure -> {
+                    showShortSnackBar(binding.root, "정보 불러오기 실패 : ${uiState.errorMessage}")
+                }
+
+                is UiState.Initial -> {
+                    showShortSnackBar(binding.root, getString(R.string.uistate_initial))
+                }
+            }
+        }.launchIn(lifecycleScope)
+
+        peopleListViewModel.fetchPeopleData()
     }
 
     override fun onDestroyView() {

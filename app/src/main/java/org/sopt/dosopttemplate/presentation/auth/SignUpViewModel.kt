@@ -1,85 +1,80 @@
 package org.sopt.dosopttemplate.presentation.auth
 
-import android.content.Context
-import android.widget.Toast
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.map
-import org.sopt.dosopttemplate.data.User
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import org.sopt.dosopttemplate.data.remote.ServicePool
 import org.sopt.dosopttemplate.data.remote.request.RequestSignupDto
-import retrofit2.Call
-import retrofit2.Response
+import org.sopt.dosopttemplate.util.UiState
 import java.util.regex.Pattern
 
 class SignUpViewModel : ViewModel() {
-    private val _signUpResult = MutableLiveData<Boolean>()
-    val signUpResult: LiveData<Boolean> get() = _signUpResult
+    private val _signUpResult = MutableStateFlow<UiState<Boolean>>(UiState.Initial)
+    val signUpResult: StateFlow<UiState<Boolean>> get() = _signUpResult.asStateFlow()
 
     // 사용자가 입력하는 값들
-    val inputId: MutableLiveData<String> = MutableLiveData()
-    val inputPw: MutableLiveData<String> = MutableLiveData()
-    val inputNickname: MutableLiveData<String> = MutableLiveData()
+    val inputId: MutableStateFlow<String> = MutableStateFlow("")
+    val inputPw: MutableStateFlow<String> = MutableStateFlow("")
+    val inputNickname: MutableStateFlow<String> = MutableStateFlow("")
 
     // 사용자가 입력하는 값들의 유효성 검사, map으로 liveData 관찰하며 연쇄적으로 값이 바뀌도록 함
     val idFlag =
-        inputId.map { it.isNotEmpty() && Pattern.compile(ID_PATTERN).matcher(it).find() }
+        inputId.map { (it.isNotEmpty() && ID_REGEX.matcher(it).find()) || it == "" }
     val pwFlag =
-        inputPw.map { it.isNotEmpty() && Pattern.compile(PW_PATTERN).matcher(it).find() }
-    val nicknameFlag = inputNickname.map { it.isNotEmpty() }
-
-//    val idFlag: LiveData<Boolean> get() = _idFlag
-//    val pwFlag: LiveData<Boolean> get() = _pwFlag
-//    val nicknameFlag: LiveData<Boolean> get() = _nicknameFlag
+        inputPw.map { (it.isNotEmpty() && PW_REGEX.matcher(it).find()) || it == "" }
+    val nicknameFlag = inputNickname.map { it.isNotEmpty() || it == "" }
 
     // 버튼 활성화 관찰
-    private val _signUpBtnFlag: MutableLiveData<Boolean> = MutableLiveData(false)
-    val signUpBtnFlag: LiveData<Boolean> get() = _signUpBtnFlag
+    private val _signUpBtnFlag: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val signUpBtnFlag: StateFlow<Boolean> get() = _signUpBtnFlag.asStateFlow()
 
     fun signUpBtnFlag() {
-        _signUpBtnFlag.value =
-            idFlag.value == true && pwFlag.value == true && nicknameFlag.value == true
+        viewModelScope.launch {
+            combine(idFlag, pwFlag, nicknameFlag) { id, pw, nickname ->
+                id && pw && nickname
+            }.collect { result ->
+                _signUpBtnFlag.value = result
+            }
+        }
     }
 
-    fun signUpUserApi(context: Context) {
-        ServicePool.authService.signUp(
-            RequestSignupDto(
-                inputId.value!!,
-                inputPw.value!!,
-                inputNickname.value!!,
-            ),
-        )
-            .enqueue(object : retrofit2.Callback<Unit> {
-                override fun onResponse(
-                    call: Call<Unit>,
-                    response: Response<Unit>,
-                ) {
-                    if (response.isSuccessful) {
-                        _signUpResult.value = true
+    val dynamicTextSize: MutableStateFlow<Int> = MutableStateFlow(10)
 
-                        User(
-                            inputId.value!!,
-                            inputPw.value!!,
-                            inputNickname.value!!,
-                        )
-                    }
-                }
+    fun onUserTextSizeChanged(newTextSize: Int) {
+        dynamicTextSize.value = newTextSize
+    }
 
-                override fun onFailure(call: Call<Unit>, t: Throwable) {
-                    Toast.makeText(
-                        context,
-                        "ㅜ ㅜ 서버 에러 발생 ㅜ ㅜ",
-                        Toast.LENGTH_SHORT,
-                    ).show()
-                    _signUpResult.value = false
-                }
-            })
+    fun signUpUserApi() = viewModelScope.launch {
+        _signUpResult.emit(UiState.Loading) // emit: 결과를 플로우에 방출
+        delay(refreshMs) // 네트워크 요청이 완료될 때까지 중단
+
+        runCatching {
+            ServicePool.authService.signUp(
+                RequestSignupDto(
+                    inputId.value,
+                    inputPw.value,
+                    inputNickname.value,
+                ),
+            )
+        }.onFailure {
+            _signUpResult.emit(UiState.Failure(it.message.toString()))
+        }
+
+        _signUpResult.emit(UiState.Success(true))
     }
 
     companion object {
         private const val ID_PATTERN = "^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z[0-9]]{6,10}$"
+        val ID_REGEX: Pattern = Pattern.compile(ID_PATTERN)
         private const val PW_PATTERN =
             "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&.])[A-Za-z[0-9]$@$!%*#?&.]{6,12}$"
+        val PW_REGEX: Pattern = Pattern.compile(PW_PATTERN)
+        val refreshMs = 2000L
     }
 }
